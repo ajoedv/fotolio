@@ -201,18 +201,18 @@ Below are the wireframes for the main pages of the **Fotolio** project.
 
 ### Colour Scheme
 
-| Color | Hex Code | Color Name | Usage |
-|---|---:|---|---|
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;display:inline-block"></div> | `#FFFFFF` | White | Page background, product cards, high-contrast surfaces. |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#F8F9FA;display:inline-block"></div> | `#F8F9FA` | Light Gray | Section backgrounds, subtle separators. |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#1C1C1C;display:inline-block"></div> | `#1C1C1C` | Charcoal | **Header** and **Footer** (hybrid theme dark areas). |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#111111;display:inline-block"></div> | `#111111` | Ink | Primary text color on light backgrounds. |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#5f6368;display:inline-block"></div> | `#5F6368` | Muted Gray | Secondary text, helper labels. |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#28E98C;display:inline-block"></div> | `#28E98C` | Neon Green | **Primary accent/CTA** (Shop Now, Add to Cart), key links. |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#031E11;display:inline-block"></div> | `#031E11` | Accent Ink | Text color on neon-green buttons (ensures contrast). |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#198754;display:inline-block"></div> | `#198754` | Bootstrap Green | Success alerts (e.g., “Order confirmed”). |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#DC3545;display:inline-block"></div> | `#DC3545` | Bootstrap Red | Error/Destructive actions (e.g., “Removed from cart”). |
-| <div style="width:28px;height:28px;border-radius:6px;border:1px solid #e5e7eb;background:#0D6EFD;display:inline-block"></div> | `#0D6EFD` | Bootstrap Blue *(optional)* | Links or secondary CTAs if needed; keep usage minimal with neon green primary. |
+| Swatch | Hex | Name | Usage |
+|---|---|---|---|
+| ![FFFFFF](documentation/colors/%23FFFFFF.png) | `#FFFFFF` | White | Page background, product cards, high-contrast surfaces. |
+| ![F8F9FA](documentation/colors/%23F8F9FA.png) | `#F8F9FA` | Light Gray | Section backgrounds, subtle separators. |
+| ![1C1C1C](documentation/colors/%231C1C1C.png) | `#1C1C1C` | Charcoal | **Header** and **Footer** (hybrid theme dark areas). |
+| ![111111](documentation/colors/%23111111.png) | `#111111` | Ink | Primary text on light backgrounds. |
+| ![5F6368](documentation/colors/%235F6368.png) | `#5F6368` | Muted Gray | Secondary text, helper labels. |
+| ![28E98C](documentation/colors/%2328E98C.png) | `#28E98C` | Neon Green | **Primary accent/CTA** (Shop Now, Add to Cart). |
+| ![031E11](documentation/colors/%23031E11.png) | `#031E11` | Accent Ink | Text on neon-green buttons (contrast). |
+| ![198754](documentation/colors/%23198754.png) | `#198754` | Bootstrap Green | Success alerts (e.g., “Order confirmed”). |
+| ![DC3545](documentation/colors/%23DC3545.png) | `#DC3545` | Bootstrap Red | Errors / destructive actions. |
+| ![0D6EFD](documentation/colors/%230D6EFD.png) | `#0D6EFD` | Bootstrap Blue *(optional)* | Links / secondary CTAs (use sparingly). |
 
 > **Theme principle:** Light content area for photo clarity + dark header/footer for premium contrast + bold neon-green accent for actions.
 
