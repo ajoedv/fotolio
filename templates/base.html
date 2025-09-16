@@ -16,6 +16,7 @@
     {% block corecss %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     {% endblock %}
 
     {% block extra_css %}
@@ -34,7 +35,78 @@
     <title>Fotolio {% block extra_title%}{% endblock %}</title>
 </head>
 <body> 
-    <header class="container-fluid fixed-top"></header>
+        <header id="site-header" class="container-fluid fixed-top bg-white shadow-sm py-2">
+    <div class="container">
+        <div class="row align-items-center">
+
+        <!-- Logo -->
+        <div class="col-12 col-lg-3 text-center text-lg-left">
+            <a href="{% url 'home' %}" class="navbar-brand font-weight-bold m-0">FOTOLIO</a>
+        </div>
+
+        <!-- Search -->
+        <div class="col-12 col-lg-6 my-2 my-lg-0">
+            <form method="get" action="{% url 'home' %}" class="w-100">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search our site">
+                <div class="input-group-append">
+                <button class="btn btn-dark" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+                </div>
+            </div>
+            </form>
+        </div>
+
+        <!-- Account + Cart -->
+        <div class="col-12 col-lg-3 text-center text-lg-right">
+            <ul class="list-inline m-0">
+            <li class="list-inline-item mr-3">
+                <a href="{% url 'account_login' %}" class="text-dark">
+                <i class="fas fa-user"></i> My Account
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="text-dark">
+                <i class="fas fa-shopping-bag"></i> Cart (0)
+                </a>
+            </li>
+            </ul>
+        </div>
+
+        </div>
+    </div>
+    </header>
+    <!-- Main Navbar -->
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-light bg-white border-top">
+    <div class="container">
+
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Gallery</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+            </li>
+        </ul>
+        </div>
+
+    </div>
+    </nav>
 
     {% if messages %}
         <div class="message-container"></div>

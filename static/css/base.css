@@ -1,3 +1,89 @@
+/* ===== Base / Layout ===== */
+:root {
+    --accent: #28e98c;
+    --ink: #111;
+    --line: #eaeaea;
+}
+
+/* Give room for fixed header + navbar (mobile first) */
 body {
-    background-color: #111111; /* رمادي فاتح */
+  padding-top: 136px;           /* mobile/tablet */
+}
+
+/* Desktop: header+nav are shorter, reduce padding */
+@media (min-width: 992px) {
+    body { padding-top: 60px; }
+}
+
+/* ===== Header (top bar) ===== */
+#site-header {
+    background-color: #fff;
+    z-index: 1030;
+    padding: 0.75rem 0;
+    border-bottom: 0;             /* no visible rule on header */
+    box-shadow: 0 1px 0 var(--line); /* thin hairline under header */
+}
+
+#site-header .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+#site-header .form-control {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#site-header .btn-dark {
+    background-color: var(--ink);
+    border: none;
+    border-radius: 0;
+    transition: background-color 0.2s ease-in-out;
+}
+#site-header .btn-dark:hover {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+#site-header a {
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+#site-header a:hover {
+    color: var(--accent) !important;
+}
+#site-header .btn-dark i { color: #fff; }
+
+/* ===== Main Navbar ===== */
+#main-nav {
+    background-color: #fff;
+    font-weight: 500;
+    border-top: 0;                 /* remove top line */
+    border-bottom: 1px solid var(--line); /* single divider under nav */
+    margin-top: 0;                 /* avoid gaps under header */
+}
+
+#main-nav .navbar-nav { margin: 0 auto; }
+
+#main-nav .nav-link {
+    color: var(--ink);
+    padding: 0.85rem 1.25rem;      /* desktop spacing */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+}
+#main-nav .nav-link:hover {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Tighter spacing on very wide screens (optional) */
+@media (min-width: 1400px) {
+    #main-nav .nav-link { padding: 0.8rem 1rem; }
 }

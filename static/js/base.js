@@ -1,1 +1,3 @@
-console.log("✅ main.js is loaded and working!");
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Fotolio JS initialized ✅");
+});
