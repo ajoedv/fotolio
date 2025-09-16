@@ -2,5 +2,31 @@
 {% load static %}
 
 {% block content %}
+<section id="hero" class="container my-4">
+  <div class="row">
+    <!-- Left: copy + CTAs -->
+    <div class="col-12 col-lg-7 mb-4 mb-lg-0">
+      <div class="hero-card p-4 p-md-5">
+        <h2 class="hero-title mb-3">
+          Printed Photography,<br>Curated.
+        </h2>
+        <p class="text-muted mb-4">
+          Discover limited-run prints in museum-grade papers. Choose sizes and finishes, then checkout securely.
+        </p>
+        <div>
+          <a href="#gallery" class="btn btn-hero-primary mr-2 mb-2">Shop the Gallery</a>
+          <a href="#learn" class="btn btn-hero-outline mb-2">Learn More</a>
+        </div>
+      </div>
+    </div>
 
+    <!-- Right: image tile -->
+    <div class="col-12 col-lg-5">
+      <div class="hero-image-card">
+        <div class="hero-image"
+              style="background-image:url('{% static "img/hero/Hero.webp" %}');">
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
