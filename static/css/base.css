@@ -227,7 +227,6 @@ body{ background: var(--hero-bg); }
     color:#000;
 }
 
-/* على الشاشات الصغيرة: نخليها في الوسط ونخفي النص الطويل */
 @media (max-width: 991.98px){
 #site-header .header-actions{
     justify-content:center;
@@ -235,7 +234,22 @@ body{ background: var(--hero-bg); }
 }
 }
 
-/* على الموبايل الصغير جداً: نخفي اللابل ونبقي الأيقونات فقط */
 @media (max-width: 420px){
 #site-header .header-actions .label{ display:none; }
+}
+
+/* Smaller hero button for profile/actions */
+.btn-hero-sm {
+    background: var(--hero-accent);
+    color: #fff;
+    font-weight: 600;
+    border: 0;
+    border-radius: 9999px;
+    padding: .70rem 1rem;
+    font-size: 0.9rem;
+    transition: background-color .2s ease, transform .1s ease;
+}
+.btn-hero-sm:hover {
+    background: var(--hero-accent-hover);
+    color: #fff;
 }
