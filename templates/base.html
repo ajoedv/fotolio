@@ -62,15 +62,18 @@
         <div class="col-12 col-lg-3">
         <div class="header-actions">
             {% if user.is_authenticated %}
-            <a href="#" class="ha-link" title="Account">
-                <i class="fas fa-user"></i><span class="label">{{ user.username }}</span>
+            <a href="{% url 'profiles:profile' %}" class="text-dark">
+                <i class="fas fa-user"></i>
+                <span class="label">Hi, {{ user.username }}</span>
             </a>
-            <a href="{% url 'account_logout' %}" class="ha-link" title="Sign out">
-                <i class="fas fa-sign-out-alt"></i><span class="label">Sign out</span>
+            <a href="{% url 'account_logout' %}" class="text-dark ml-3">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="label">Sign out</span>
             </a>
             {% else %}
-            <a href="{% url 'account_login' %}" class="ha-link" title="Sign in">
-                <i class="fas fa-user"></i><span class="label">Sign in</span>
+            <a href="{% url 'account_login' %}" class="text-dark">
+                <i class="fas fa-user"></i>
+                <span class="label">Sign in</span>
             </a>
             {% endif %}
 
