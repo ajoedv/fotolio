@@ -4,10 +4,13 @@ cffi==2.0.0
 charset-normalizer==3.4.3
 cryptography==45.0.7
 defusedxml==0.7.1
+dj-database-url==3.0.1
 Django==4.2.24
 django-allauth==65.11.2
+gunicorn==23.0.0
 idna==3.10
 oauthlib==3.3.1
+packaging==25.0
 pillow==10.3.0
 pycparser==2.23
 PyJWT==2.10.1
@@ -20,3 +23,4 @@ setuptools==80.9.0
 sqlparse==0.5.3
 urllib3==2.5.0
 wheel==0.45.1
+whitenoise==6.7.0
