@@ -172,3 +172,33 @@ body{ background: var(--hero-bg); }
         font-size: 1.75rem;
     }
 }
+
+/* === Product Detail === */
+.product-detail .breadcrumb {
+    background: transparent;
+}
+
+.pd-image img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    border-radius: .5rem;
+}
+
+.pd-meta .price-tag {
+    line-height: 1;
+}
+
+.pd-meta .size-note {
+    font-size: .95rem;
+}
+
+.btn-add {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (max-width: 575.98px) {
+    .product-detail .h3 { font-size: 1.35rem; }
+    .pd-meta .size-note { display: block; margin-left: 0; margin-top: .25rem; }
+}

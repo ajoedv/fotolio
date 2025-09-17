@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-4 product-detail">
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb bg-white px-0 mb-0 small">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'products:list' %}">Gallery</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-12 col-lg-6 mb-3">
+        <div class="pd-image card shadow-sm">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+            <div class="p-5 text-center text-muted">No image</div>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+        <div class="pd-meta card border-0">
+            <div class="card-body p-0">
+            <h1 class="h3 mb-1">{{ product.name }}</h1>
+            <div class="text-muted mb-2">{{ product.category.friendly_name }}</div>
+
+            <div class="d-flex align-items-center mb-3">
+                <span class="price-tag h4 mb-0">${{ product.price }}</span>
+                <span class="size-note text-muted ml-2">includes print size: {{ base_size }}</span>
+            </div>
+
+            {% if product.description %}
+                <p class="lead mb-4">{{ product.description }}</p>
+            {% endif %}
+
+            <div class="d-flex flex-wrap align-items-center gap-2">
+            <a href="#" class="btn btn-hero-primary mr-2 mb-2">
+                <i class="fas fa-shopping-bag mr-1"></i> Add to Cart
+            </a>
+            <a href="{% url 'products:list' %}" class="btn btn-hero-outline mb-2">
+                Back to Gallery
+            </a>
+            </div>
+            </div>
+        </div>
+
+        <div class="alert alert-light border mt-3 small mb-0">
+            Museum-grade paper • Archival inks • Ships in secure tube
+        </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
