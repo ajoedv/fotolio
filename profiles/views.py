@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import ProfileForm
+from django.contrib.auth import logout
 
 @login_required
 def profile_view(request):
@@ -20,3 +21,13 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, "profiles/edit.html", {"form": form, "profile": profile})
+
+@login_required
+def delete_profile(request):
+    if request.method == "POST":
+        user = request.user
+        logout(request)
+        user.delete() 
+        messages.success(request, "Your account has been deleted successfully.")
+        return redirect("home")
+    return render(request, "profiles/delete_confirm.html")
