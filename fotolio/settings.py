@@ -32,6 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
 
 # Application definition
 
