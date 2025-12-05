@@ -1,0 +1,322 @@
+/* auth.css - Auth pages (login, signup, etc.) */
+
+/* Wrapper for auth pages */
+.auth-page {
+    padding: 4rem 0;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+}
+
+/* Make sure container doesn't stick to top on small screens */
+@media (max-width: 767.98px) {
+    .auth-page {
+        padding: 3.5rem 0 3rem;
+    }
+}
+
+/* Center column */
+.auth-page .auth-col {
+    margin: 0 auto;
+}
+
+/* Auth card */
+.auth-card {
+    background-color: var(--surface);
+    border-radius: 20px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    padding: 2.25rem 2.1rem;
+    color: var(--text-primary);
+}
+
+@media (max-width: 575.98px) {
+    .auth-card {
+        padding: 2rem 1.6rem;
+    }
+}
+
+/* Header */
+.auth-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.auth-card-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Form fields */
+.auth-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.auth-form .form-group label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+/* Dark inputs – even if they do not have .form-control class */
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="number"],
+.auth-form input[type="tel"],
+.auth-form select,
+.auth-form textarea,
+.auth-form .form-control {
+    background-color: #111117;
+    border-radius: 9999px;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    width: 100%;
+}
+
+.auth-form input[type="text"]::placeholder,
+.auth-form input[type="email"]::placeholder,
+.auth-form input[type="password"]::placeholder,
+.auth-form input[type="number"]::placeholder,
+.auth-form input[type="tel"]::placeholder {
+    color: #6e6e7a;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus,
+.auth-form input[type="number"]:focus,
+.auth-form input[type="tel"]:focus,
+.auth-form select:focus,
+.auth-form textarea:focus,
+.auth-form .form-control:focus {
+    background-color: #15151d;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.1rem rgba(229, 9, 20, 0.35);
+    color: var(--text-primary);
+    outline: none;
+}
+
+/* Help text + errors */
+.auth-form .helptext {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
+.auth-form .helptext a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.auth-form .helptext a:hover {
+    color: var(--accent-hover);
+    text-decoration: none;
+}
+
+.auth-form .errorlist {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+}
+
+.auth-form .errorlist li {
+    font-size: 0.8rem;
+    color: var(--accent);
+}
+
+/* Non-field errors at top of form */
+.auth-non-field-errors {
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+}
+
+/* Remember / links row */
+.auth-options-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+}
+
+.auth-options-row .form-check {
+    margin-bottom: 0;
+}
+
+.auth-options-row .form-check-label {
+    color: var(--text-secondary);
+}
+
+/* Submit button */
+.auth-submit-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Secondary text at bottom */
+.auth-bottom-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.auth-bottom-text a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.auth-bottom-text a:hover {
+    color: var(--accent-hover);
+    text-decoration: none;
+}
+
+/* Social auth block */
+.auth-social {
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.auth-social-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+}
+
+/* Provider list from allauth (kept for compatibility if used elsewhere) */
+.auth-social .socialaccount_providers {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.auth-social .socialaccount_providers li {
+    margin-bottom: 0.5rem;
+}
+
+.auth-social .socialaccount_providers a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    border-radius: 9999px;
+    border: 1px solid var(--border-subtle);
+    background-color: #ffffff;
+    color: #111111;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.auth-social .socialaccount_providers a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+    border-color: var(--accent);
+}
+
+/* Google-specific tweak (class from allauth: .socialaccount_provider.google) */
+.auth-social .socialaccount_providers .socialaccount_provider.google {
+    justify-content: center;
+}
+
+/* Divider between form and social */
+.auth-divider {
+    position: relative;
+    text-align: center;
+    margin: 1.5rem 0 0.9rem;
+}
+
+.auth-divider::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #333337, transparent);
+}
+
+.auth-divider span {
+    position: relative;
+    display: inline-block;
+    padding: 0 0.75rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    background-color: var(--surface);
+    border-radius: 999px;
+}
+
+/* --- Social auth block --- */
+.auth-social {
+    margin-top: 1.5rem;
+    margin-bottom: 0.2rem;
+    text-align: center;
+}
+
+.auth-social-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+    text-align: center;
+}
+
+.auth-social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.auth-social-icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 9999px;
+    border: 1px solid var(--border-subtle);
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.auth-social-icon-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+    border-color: var(--accent);
+    transform: scale(1.12);
+}
+
+.auth-google-img {
+    width: 35px;
+    height: 35px;
+    display: block;
+    transition: transform 0.15s ease;
+}

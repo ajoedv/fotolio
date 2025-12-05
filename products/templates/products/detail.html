@@ -1,61 +1,106 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_title %}| {{ product.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="container my-4 product-detail">
-    <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb bg-white px-0 mb-0 small">
-        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'products:list' %}">Gallery</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
-        </ol>
-    </nav>
+<section class="section-block product-detail-page">
+    <div class="container">
 
-    <div class="row">
-        <div class="col-12 col-lg-6 mb-3">
-        <div class="pd-image card shadow-sm">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-            {% else %}
-            <div class="p-5 text-center text-muted">No image</div>
-            {% endif %}
+        <div class="product-breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'products:list' %}">Gallery</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ product.name }}
+                    </li>
+                </ol>
+            </nav>
         </div>
-        </div>
 
-        <div class="col-12 col-lg-6">
-        <div class="pd-meta card border-0">
-            <div class="card-body p-0">
-            <h1 class="h3 mb-1">{{ product.name }}</h1>
-            <div class="text-muted mb-2">{{ product.category.friendly_name }}</div>
+        <div class="product-card-detail mb-4">
+            <div class="row product-detail-layout">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="product-detail-image-wrapper product-thumb-wrapper">
+                        {% if product.image %}
+                            <div class="product-thumb">
+                                <img src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                    class="product-detail-image">
+                            </div>
+                        {% else %}
+                            <div class="product-thumb product-thumb-placeholder">
+                                <span>No image available</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
 
-            <div class="d-flex align-items-center mb-3">
-                <span class="price-tag h4 mb-0">${{ product.price }}</span>
-                <span class="size-note text-muted ml-2">includes print size: {{ base_size }}</span>
+                <div class="col-md-6">
+                    <div class="product-detail-info product-info">
+                        <div class="product-detail-category product-meta">
+                            {{ product.category.friendly_name|default:product.category.name }}
+                        </div>
+                        <h1 class="product-detail-title product-title">
+                            {{ product.name }}
+                        </h1>
+                        <p class="product-detail-meta product-meta">
+                            Printed photography on a curated base size: {{ base_size }}.
+                        </p>
+
+                        <div class="product-detail-price-row">
+                            <span class="product-detail-price product-price">
+                                ${{ product.price }}
+                            </span>
+                        </div>
+
+                        <form method="post"
+                                action="{% url 'cart:add' product.id %}"
+                                class="product-detail-cart-form form-inline">
+                            {% csrf_token %}
+                            <label for="id_quantity" class="sr-only">Quantity</label>
+                            <input id="id_quantity"
+                                    name="quantity"
+                                    type="number"
+                                    min="1"
+                                    value="1"
+                                    class="form-control mr-2 product-qty-input">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Add to cart
+                            </button>
+                        </form>
+
+                        <div class="product-detail-description">
+                            {% if product.description %}
+                                {{ product.description }}
+                            {% else %}
+                                This piece is part of a curated collection designed
+                                for cinematic, dark gallery walls.
+                            {% endif %}
+                        </div>
+
+                        <div class="mt-3">
+                            <span class="product-detail-notes">
+                                Printed on premium paper stock with a unified base size
+                                for easier gallery wall planning.
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            {% if product.description %}
-                <p class="lead mb-4">{{ product.description }}</p>
-            {% endif %}
-
-            <div class="d-flex flex-wrap align-items-center gap-2">
-                <form action="{% url 'cart:add' product.id %}" method="post" class="d-flex align-items-center mr-2 mb-2">
-                    {% csrf_token %}
-                    <input type="number" name="quantity" value="1" min="1" class="form-control w-auto mr-2" style="max-width:80px;">
-                    <button type="submit" class="btn btn-hero-primary">
-                        <i class="fas fa-shopping-bag mr-1"></i> Add to Cart
-                    </button>
-                </form>
-                <a href="{% url 'products:list' %}" class="btn btn-hero-outline mb-2">
-                    Back to Gallery
-                </a>
-            </div>
-            </div>
         </div>
 
-        <div class="alert alert-light border mt-3 small mb-0">
-            Museum-grade paper • Archival inks • Ships in secure tube
-        </div>
-        </div>
+        {% include "includes/product_teaser_strip.html" %}
     </div>
-    </div>
+</section>
 {% endblock %}

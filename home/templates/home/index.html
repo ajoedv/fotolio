@@ -1,32 +1,150 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}
-<section id="hero" class="container my-4">
-  <div class="row">
-    <!-- Left: copy + CTAs -->
-    <div class="col-12 col-lg-7 mb-4 mb-lg-0">
-      <div class="hero-card p-4 p-md-5">
-        <h2 class="hero-title mb-3">
-          Printed Photography,<br>Curated.
-        </h2>
-        <p class="text-muted mb-4">
-          Discover limited-run prints in museum-grade papers. Choose sizes and finishes, then checkout securely.
-        </p>
-        <div>
-          <a href="{% url 'products:list' %}" class="btn btn-hero-primary mr-2 mb-2">Shop the Gallery</a>
-          <a href="#learn" class="btn btn-hero-outline mb-2">Learn More</a>
-        </div>
-      </div>
-    </div>
+{% block extra_title %}| Home{% endblock %}
 
-    <!-- Right: image tile -->
-    <div class="col-12 col-lg-5">
-      <div class="hero-image-card">
-        <div class="hero-image"
-              style="background-image:url('{% static "img/hero/hero.webp" %}');">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-section home-page">
+    <div class="hero-bg"
+        id="heroBg"
+        data-hero-images='[
+            "{% static "img/hero/hero-1.webp" %}",
+            "{% static "img/hero/hero-2.webp" %}",
+            "{% static "img/hero/hero-3.webp" %}"
+        ]'>
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <h1 class="hero-title">
+                        Shop Original Cinematic Photography Prints for Your Space.
+                    </h1>
+                    <p class="hero-subtitle">
+                        Discover premium prints from our own cinematic photography<br>
+                        printed, packed, and ready to hang in your home or studio.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="{% url 'products:list' %}" class="btn btn-primary mr-2">
+                            Shop Prints
+                        </a>
+                        <a href="#" class="btn btn-outline-light">
+                            Learn about Fotolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-slider-indicators" aria-label="Hero slider navigation">
+                <button type="button" class="hero-dot active" data-hero-index="0" aria-label="Hero slide 1"></button>
+                <button type="button" class="hero-dot" data-hero-index="1" aria-label="Hero slide 2"></button>
+                <button type="button" class="hero-dot" data-hero-index="2" aria-label="Hero slide 3"></button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</section>
+
+<section class="section-block home-highlights">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Why Fotolio?</h2>
+            <p class="section-subtitle mb-0">
+                A carefully curated collection of cinematic photo prints, focused on quality and visual impact.
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="highlight-card h-100">
+                    <h3 class="highlight-title">Curated visual stories</h3>
+                    <p class="highlight-text mb-0">
+                        A consistent cinematic mood built around rich contrast, controlled light,
+                        and compositions designed to work together as a full wall set.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="highlight-card h-100">
+                    <h3 class="highlight-title">Premium print & finishing</h3>
+                    <p class="highlight-text mb-0">
+                        Museum-grade paper, archival pigment inks, and a calibrated print workflow for rich tones,
+                        fine detail, and long-lasting prints that feel physical, not disposable.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="highlight-card h-100">
+                    <h3 class="highlight-title">Cinematic visual aesthetic</h3>
+                    <p class="highlight-text mb-0">
+                        A consistent cinematic mood built around rich contrast, controlled light,
+                        and compositions designed to work together as a full wall set.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-block home-categories">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Explore moods</h2>
+            <p class="section-subtitle mb-0">
+                Build a wall around a feeling – landscapes, black & white, or cold winter light.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'products:list' %}" class="category-card category-card--landscape">
+                    <div class="mb-3">
+                        <span class="category-badge">Landscape</span>
+                    </div>
+                    <h3 class="category-title">Wide, cinematic views</h3>
+                    <p class="category-text mb-0">
+                        Horizon lines, vanishing roads, and atmospheric distance for
+                        bold, breathing wall pieces.
+                    </p>
+                </a>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'products:list' %}" class="category-card category-card--blackwhite">
+                    <div class="mb-3">
+                        <span class="category-badge">Black &amp; White</span>
+                    </div>
+                    <h3 class="category-title">Pure contrast stories</h3>
+                    <p class="category-text mb-0">
+                        Grain, texture, and light with no distraction of color – just
+                        graphic, timeless frames.
+                    </p>
+                </a>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'products:list' %}" class="category-card category-card--winter">
+                    <div class="mb-3">
+                        <span class="category-badge">Snow &amp; Ice</span>
+                    </div>
+                    <h3 class="category-title">Cold, quiet atmospheres</h3>
+                    <p class="category-text mb-0">
+                        Frost, fog, and frozen streets – subtle highlights against dark
+                        tones for a clean winter mood.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block footer_cta %}
+    {% include "includes/product_teaser_strip.html" %}
+    {{ block.super }}
 {% endblock %}

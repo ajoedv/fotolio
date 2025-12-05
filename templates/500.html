@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| Server error{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
+
+{% block footer_cta %}{% endblock %}
+
+{% block content %}
+<section class="section-block error-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-10 col-md-8 col-lg-6">
+                <div class="error-card text-center">
+                    <div class="error-code">500</div>
+                    <h1 class="error-title">Something went wrong</h1>
+                    <p class="error-message">
+                        The server ran into an unexpected error while processing your request.  
+                        Please try again in a moment, or return to the homepage.
+                    </p>
+
+                    <div class="error-actions">
+                        <a href="{% url 'home' %}" class="btn btn-primary">
+                            Back to home
+                        </a>
+                        <a href="{% url 'products:list' %}" class="btn btn-outline-light">
+                            Open the gallery
+                        </a>
+                    </div>
+
+                    <p class="error-hint mb-0">
+                        If this keeps happening, you can contact us and mention what you were trying to do.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

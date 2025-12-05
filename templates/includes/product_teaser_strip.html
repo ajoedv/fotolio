@@ -1,0 +1,65 @@
+<section class="section-block product-related">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-2 product-related-header">
+            <h2 class="section-title mb-0" style="font-size: 1.3rem;">
+                You may also like
+            </h2>
+        </div>
+
+        <div class="product-related-slider">
+            <button
+                class="product-related-arrow product-related-arrow-left"
+                type="button"
+                aria-label="Previous items">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="product-related-track">
+                {% for product in teaser_products %}
+                    <article class="product-card product-related-card">
+                        <a href="{% url 'products:detail' pk=product.id %}"
+                            class="product-thumb-wrapper">
+                            {% if product.image %}
+                                <div class="product-thumb">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </div>
+                            {% else %}
+                                <div class="product-thumb product-thumb-placeholder">
+                                    <span>No image</span>
+                                </div>
+                            {% endif %}
+                        </a>
+                        <div class="product-info">
+                            <h2 class="product-title">
+                                <a href="{% url 'products:detail' pk=product.id %}">
+                                    {{ product.name }}
+                                </a>
+                            </h2>
+                            <p class="product-meta">
+                                {{ product.category.friendly_name|default:product.category.name }}
+                            </p>
+                            <div class="product-bottom">
+                                <span class="product-price">${{ product.price }}</span>
+                                <a href="{% url 'products:detail' pk=product.id %}"
+                                    class="btn btn-primary btn-sm">
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p class="text-muted mb-0">
+                        More pieces will be added to the gallery soon.
+                    </p>
+                {% endfor %}
+            </div>
+
+            <button
+                class="product-related-arrow product-related-arrow-right"
+                type="button"
+                aria-label="Next items">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>

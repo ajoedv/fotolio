@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_title %}| Authentication error{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="section-block auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-10 col-md-7 col-lg-5 auth-col">
+                <div class="auth-card text-center">
+                    <h1 class="auth-card-title">
+                        {% trans "Authentication error" %}
+                    </h1>
+
+                    <p class="auth-card-subtitle mb-4">
+                        {% blocktrans %}
+                            Something went wrong while trying to sign you in.  
+                            Please try again, or use your email and password instead.
+                        {% endblocktrans %}
+                    </p>
+
+                    <div class="auth-social-icons mb-3">
+                        <span class="auth-social-icon-btn auth-social-google" aria-hidden="true">
+                            <img src="{% static 'img/icons/google-logo.svg' %}"
+                                alt="Google logo"
+                                class="auth-google-img">
+                        </span>
+                    </div>
+
+                    <a href="{% url 'account_login' %}" class="btn btn-primary auth-submit-btn mb-2">
+                        {% trans "Back to sign in" %}
+                    </a>
+
+                    <p class="auth-bottom-text mb-0">
+                        <a href="{% url 'home' %}">
+                            {% trans "Go to homepage" %}
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

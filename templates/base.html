@@ -14,150 +14,240 @@
     {% endblock %}
 
     {% block corecss %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+            crossorigin="anonymous">
+
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     {% endblock %}
 
     {% block extra_css %}
     {% endblock %}
 
-    {% block corejs%}
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    {% block corejs %}
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
+                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+                crossorigin="anonymous"></script>
         <script src="{% static 'js/base.js' %}"></script>
-
     {% endblock %}
 
     {% block extra_js %}
     {% endblock %}
 
-    <title>Fotolio {% block extra_title%}{% endblock %}</title>
+    <title>Fotolio {% block extra_title %}{% endblock %}</title>
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon.png' %}">
 </head>
-<body> 
-        <header id="site-header" class="container-fluid fixed-top bg-white shadow-sm py-2">
-    <div class="container">
-        <div class="row align-items-center">
+<body class="site-body {% block body_class %}{% endblock %}">
 
-        <!-- Logo -->
-        <div class="col-12 col-lg-3 text-center text-lg-left">
-            <a href="{% url 'home' %}" class="navbar-brand font-weight-bold m-0">FOTOLIO</a>
-        </div>
+    <header class="site-header fixed-top">
+        {% url 'home' as home_url %}
+        {% url 'products:list' as gallery_url %}
+        {% url 'about' as about_url %}
+        {% url 'contact' as contact_url %}
+        <nav class="navbar navbar-expand-lg navbar-dark fotolio-navbar">
+            <div class="container">
 
-        <!-- Search -->
-        <div class="col-12 col-lg-6 my-2 my-lg-0">
-            <form method="get" action="{% url 'home' %}" class="w-100">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search our site">
-                <div class="input-group-append">
-                <button class="btn btn-dark" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
+                <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
+                    <img src="{% static 'img/logo/fotolio-logo.svg' %}" alt="Fotolio logo" class="navbar-logo">
+                </a>
+
+                <div class="d-flex align-items-center order-lg-3">
+
+                    <button class="icon-button d-none d-lg-inline-flex mr-3" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                    <a href="{% url 'cart:detail' %}" class="icon-button position-relative mr-3">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge">{{ cart_count|default:0 }}</span>
+                    </a>
+
+                    {% if user.is_authenticated %}
+                        <div class="dropdown d-none d-lg-block">
+                            <button class="account-button dropdown-toggle" type="button"
+                                    id="accountDropdown" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                Account
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                                <span class="dropdown-header small">Hi, {{ user.username }}</span>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'profiles:profile' %}">Profile</a>
+                                <a class="dropdown-item" href="#">Orders</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">Sign out</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="dropdown d-none d-lg-block">
+                            <button class="account-button dropdown-toggle" type="button"
+                                    id="accountDropdown" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                Account
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                                <a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a>
+                                <a class="dropdown-item" href="{% url 'account_signup' %}">Sign up</a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <button class="navbar-toggler ml-2" type="button"
+                            data-toggle="collapse" data-target="#mainNavbarContent"
+                            aria-controls="mainNavbarContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <span></span>
+                        </span>
+                    </button>
                 </div>
+
+                <div class="collapse navbar-collapse order-lg-2" id="mainNavbarContent">
+
+                    <ul class="navbar-nav mx-auto main-links">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{% url 'home' %}">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == gallery_url %}active{% endif %}" href="{% url 'products:list' %}">Gallery</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == about_url %}active{% endif %}" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="#">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="mobile-auth d-lg-none mt-3 pt-3 border-top">
+                        {% if user.is_authenticated %}
+                            <span class="mobile-auth-label">Account</span>
+                            <a href="{% url 'profiles:profile' %}" class="mobile-auth-link">
+                                <i class="fas fa-user mr-2"></i> Profile
+                            </a>
+                            <a href="#" class="mobile-auth-link">
+                                <i class="fas fa-receipt mr-2"></i> Orders
+                            </a>
+                            <a href="{% url 'account_logout' %}" class="mobile-auth-link text-danger">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sign out
+                            </a>
+                        {% else %}
+                            <span class="mobile-auth-label">Account</span>
+                            <a href="{% url 'account_login' %}" class="mobile-auth-link">
+                                <i class="fas fa-sign-in-alt mr-2"></i> Sign in
+                            </a>
+                            <a href="{% url 'account_signup' %}" class="mobile-auth-link">
+                                <i class="fas fa-user-plus mr-2"></i> Sign up
+                            </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+
             </div>
-            </form>
-        </div>
-
-        <!-- Account + Cart -->
-        <div class="col-12 col-lg-3">
-        <div class="header-actions">
-            {% if user.is_authenticated %}
-            <a href="{% url 'profiles:profile' %}" class="text-dark">
-                <i class="fas fa-user"></i>
-                <span class="label">Hi, {{ user.username }}</span>
-            </a>
-            <a href="{% url 'account_logout' %}" class="text-dark ml-3">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="label">Sign out</span>
-            </a>
-            {% else %}
-            <a href="{% url 'account_login' %}" class="text-dark">
-                <i class="fas fa-user"></i>
-                <span class="label">Sign in</span>
-            </a>
-            {% endif %}
-
-            <a href="{% url 'cart:detail' %}" class="ha-link" title="Cart">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="label">Cart ({{ cart_count|default:0 }})</span>
-            </a>
-        </div>
-        </div>
-
-        </div>
-    </div>
+        </nav>
     </header>
-    <!-- Main Navbar -->
-    <nav id="main-nav" class="navbar navbar-expand-lg navbar-light bg-white border-top">
-    <div class="container">
 
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
-        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navigation Links -->
-        <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Home</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'products:list' %}">Gallery</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-            </li>
-        </ul>
-        </div>
-
-    </div>
-    </nav>
-    
     {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="container alerts-container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show auto-dismiss-alert"
+                    role="alert">
+                    {{ message }}
+                    <button type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     {% endif %}
 
-    {% block page_header %}
-    {% endblock %}
+    <main class="site-main">
+        {% block page_header %}{% endblock %}
+        {% block content %}{% endblock %}
 
-    {% block content %}
-    {% endblock %}
+        {% block footer_cta %}
+        <section class="section-block cta-section">
+            <div class="container">
+                <div class="cta-section-inner">
+                    <div class="cta-section-copy">
+                        <h2 class="section-title mb-2">Ready to build your wall?</h2>
+                        <p class="section-subtitle mb-0">
+                            Start with a single hero piece, or plan a full gallery wall set.
+                            Every item in Fotolio is designed to work alone and together.
+                        </p>
+                    </div>
+                    <div class="cta-section-actions d-flex flex-wrap">
+                        <a href="{% url 'products:list' %}" class="btn btn-primary mr-2 mb-2">
+                            Open the gallery
+                        </a>
+                        <a href="#" class="btn btn-outline-light mb-2">
+                            Contact for custom work
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-main">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-brand">
+                        <span class="footer-logo-text">FOTOLIO</span>
+                        <p class="footer-text">
+                            Original photographic prints and laser engraved artwork for modern spaces.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h3 class="footer-heading">Explore</h3>
+                    <ul class="footer-nav list-unstyled">
+                        <li><a href="{% url 'home' %}" class="footer-link">Home</a></li>
+                        <li><a href="{% url 'products:list' %}" class="footer-link">Gallery</a></li>
+                        <li><a href="#" class="footer-link">About</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="footer-heading">Stay in touch</h3>
+                    <p class="footer-text">
+                        Based in Sweden, sharing selected work across Europe.
+                    </p>
+                    <ul class="footer-contact list-unstyled">
+                        <li><a href="mailto:info@fotolio.se" class="footer-link">info@fotolio.se</a></li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-link" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <small class="footer-copy">&copy; 2025 Fotolio. All rights reserved.</small>
+                <small class="footer-copy">Crafted by JOEDEV.</small>
+            </div>
+        </div>
+    </footer>
 
     {% block postloadjs %}
     {% endblock %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const alerts = document.querySelectorAll(".alert");
-            alerts.forEach(function (alert) {
-            setTimeout(() => {
-                alert.classList.add("fade-out");
-                setTimeout(() => alert.remove(), 1000);
-            }, 3500);
-            });
-        });
-        </script>
-
-        <style>
-        .fade-out {
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        </style>
 
 </body>
 </html>

@@ -1,46 +1,113 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
+{% load static %}
 {% load i18n %}
-{% load account socialaccount %}
+{% load socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block extra_title %}| Sign in{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
 
 {% block content %}
+<section class="section-block auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-10 col-md-7 col-lg-5 auth-col">
+                <div class="auth-card">
+                    <h1 class="auth-card-title">Sign in</h1>
+                    <p class="auth-card-subtitle mb-0">
+                        Access your Fotolio account to manage your orders and gallery wall.
+                    </p>
 
-<h1>{% trans "Sign In" %}</h1>
+                    {% get_providers as socialaccount_providers %}
 
-{% get_providers as socialaccount_providers %}
+                    <form method="post" action="{% url 'account_login' %}" class="auth-form mt-4">
+                        {% csrf_token %}
 
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+                        {% if form.non_field_errors %}
+                            <div class="auth-non-field-errors">
+                                {% for error in form.non_field_errors %}
+                                    <div>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
-<div class="socialaccount_ballot">
+                        {% for field in form %}
+                            {% if field.name != "remember" %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}">
+                                        {{ field.label }}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small class="helptext">{{ field.help_text|safe }}</small>
+                                    {% endif %}
+                                    {% if field.errors %}
+                                        <ul class="errorlist">
+                                            {% for error in field.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+                        {% if form.remember %}
+                            <div class="auth-options-row">
+                                <div class="form-check">
+                                    {{ form.remember }}
+                                    <label class="form-check-label" for="{{ form.remember.id_for_label }}">
+                                        {{ form.remember.label }}
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
 
-  <div class="login-or">{% trans 'or' %}</div>
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                        {% endif %}
 
-</div>
+                        <button type="submit" class="btn btn-primary auth-submit-btn">
+                            Sign in
+                        </button>
 
-{% include "socialaccount/snippets/login_extra.html" %}
+                        <p class="auth-bottom-text mb-0">
+                            Don’t have an account yet?
+                            <a href="{% url 'account_signup' %}">
+                                Create one
+                            </a>
+                        </p>
+                    </form>
 
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-</form>
-
+                    {# Social login #}
+                    {% if socialaccount_providers %}
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+                        <div class="auth-social">
+                            <div class="auth-social-title">
+                                Social sign in
+                            </div>
+                            <div class="auth-social-icons">
+                                {% for provider in socialaccount_providers %}
+                                    {% if provider.id == "google" %}
+                                        <a href="{% provider_login_url provider.id process='login' %}"
+                                        class="auth-social-icon-btn auth-social-google"
+                                        aria-label="Sign in with Google">
+                                            <img src="{% static 'img/icons/google-logo.svg' %}"
+                                                alt="Google logo"
+                                                class="auth-google-img">
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

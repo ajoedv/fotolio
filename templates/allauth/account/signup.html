@@ -1,21 +1,100 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
+{% load static %}
 {% load i18n %}
+{% load socialaccount %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block extra_title %}| Sign up{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+<section class="section-block auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-10 col-md-7 col-lg-5 auth-col">
+                <div class="auth-card">
+                    <h1 class="auth-card-title">Create your account</h1>
+                    <p class="auth-card-subtitle mb-0">
+                        Save your favourites, manage your orders, and build your own gallery wall.
+                    </p>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+                    {# --- prepare social providers list --- #}
+                    {% get_providers as socialaccount_providers %}
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+                    <form method="post" action="{% url 'account_signup' %}" class="auth-form mt-4">
+                        {% csrf_token %}
 
+                        {% if form.non_field_errors %}
+                            <div class="auth-non-field-errors">
+                                {% for error in form.non_field_errors %}
+                                    <div>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+                                </label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <small class="helptext">{{ field.help_text|safe }}</small>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                        {% endif %}
+
+                        <button type="submit" class="btn btn-primary auth-submit-btn">
+                            Sign up
+                        </button>
+
+                        <p class="auth-bottom-text mb-0">
+                            Already have an account?
+                            <a href="{% url 'account_login' %}">
+                                Sign in instead
+                            </a>
+                        </p>
+                    </form>
+
+                    {% if socialaccount_providers %}
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+                        <div class="auth-social">
+                            <div class="auth-social-title">
+                                Social sign up
+                            </div>
+                            <div class="auth-social-icons">
+                                {% for provider in socialaccount_providers %}
+                                    {% if provider.id == "google" %}
+                                        <a href="{% provider_login_url provider.id process='login' %}"
+                                            class="auth-social-icon-btn auth-social-google"
+                                            aria-label="Sign in with Google">
+                                            <img src="{% static 'img/icons/google-logo.svg' %}"
+                                                alt="Google logo"
+                                                class="auth-google-img">
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
