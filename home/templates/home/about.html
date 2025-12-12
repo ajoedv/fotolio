@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| About{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="section-block about-page">
+    <div class="container">
+
+        <!-- HERO IMAGE ON TOP -->
+        <div class="about-hero-image mb-4">
+            <img src="{% static 'img/hero/hero-2.webp' %}"
+                 alt="Framed cinematic photography prints on a dark wall">
+        </div>
+
+        <!-- TEXT BLOCK UNDER HERO -->
+        <div class="about-text-block">
+            <p class="subpage-kicker">About Fotolio</p>
+
+            <h1 class="subpage-title">
+                Original cinematic photography prints, ready for your space.
+            </h1>
+
+            <p class="subpage-lead">
+                Fotolio is a small, focused collection of original photography
+                designed to live on real walls – not just on screens.
+            </p>
+
+            <div class="about-body-text">
+                <p>
+                    Every image is captured, edited, and curated by the same creator,
+                    so the gallery feels consistent in mood, contrast, and storytelling.
+                    You won’t scroll through thousands of random styles – just a tight
+                    selection that works together.
+                </p>
+                <p>
+                    The idea is simple: make it easy to choose prints that feel cinematic,
+                    modern, and considered – whether you are building a full gallery wall
+                    or just looking for one strong hero piece.
+                </p>
+            </div>
+
+            <!-- FOCUS CARD UNDER TEXT -->
+            <div class="about-focus-card">
+                <h2 class="about-focus-title">What we focus on</h2>
+
+                <p class="about-focus-line">Original photography only – no stock, no AI.</p>
+                <p class="about-focus-line">Small, curated selection instead of endless scrolling.</p>
+                <p class="about-focus-line">Cinematic mood with rich contrast and controlled light.</p>
+                <p class="about-focus-line">Print sizes chosen to work well as wall sets.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% if teaser_products %}
+    {% include "includes/product_teaser_strip.html" with products=teaser_products section_title="From the gallery" %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| Contact{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="section-block contact-page">
+    <div class="container">
+
+        <!-- Hero image on top -->
+        <div class="contact-hero-image mb-4">
+            <img src="{% static 'img/hero/hero-3.webp' %}"
+                    alt="Cinematic photograph in a modern interior space">
+        </div>
+
+        <!-- Text block under hero -->
+        <div class="contact-text-block">
+            <p class="subpage-kicker">Contact</p>
+
+            <h1 class="subpage-title">
+                Get in touch with Fotolio.
+            </h1>
+
+            <p class="subpage-lead">
+                Have a question about prints, framing, sizing, or a custom wall setup?
+                Reach out using the details below or send a message through the form.
+            </p>
+        </div>
+
+        <!-- Contact layout: info + form -->
+        <div class="contact-layout">
+            <div class="row">
+                <!-- Info card -->
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="contact-card contact-info-card">
+                        <h2 class="contact-card-title">Studio details</h2>
+                        <p class="contact-card-text">
+                            Fotolio is based in Sweden and ships to selected locations across Europe.
+                            For anything related to orders, gallery walls, or collaborations, use the
+                            details below.
+                        </p>
+
+                        <ul class="contact-list">
+                            <li>
+                                <span class="label">Email</span>
+                                <a href="mailto:info@fotolio.se">info@fotolio.se</a>
+                            </li>
+                            <li>
+                                <span class="label">Phone</span>
+                                <a href="tel:+46123456789">+46 (0)12 345 67 89</a>
+                            </li>
+                            <li>
+                                <span class="label">Instagram</span>
+                                <a href="#" target="_blank" rel="noopener">@fotolio.gallery</a>
+                            </li>
+                            <li>
+                                <span class="label">Facebook</span>
+                                <a href="#" target="_blank" rel="noopener">Fotolio Studio</a>
+                            </li>
+                        </ul>
+
+                        <p class="contact-card-note mb-0">
+                            Social links and phone are placeholders for the project,
+                            but presented as a real studio setup.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Form card -->
+                <div class="col-lg-7">
+                    <div class="contact-card contact-form-card">
+                        <h2 class="contact-card-title">Send a message</h2>
+                        <p class="contact-card-text">
+                            Share a few details about what you need – prints, sizes, wall ideas,
+                            or collaboration – and you’ll get a reply as soon as possible.
+                        </p>
+
+                        <form method="post" class="contact-form">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="id_name">Name</label>
+                                    <input type="text" id="id_name" name="name"
+                                            class="form-control"
+                                            placeholder="Your name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="id_email">Email</label>
+                                    <input type="email" id="id_email" name="email"
+                                            class="form-control"
+                                            placeholder="you@example.com">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_subject">Subject</label>
+                                <input type="text" id="id_subject" name="subject"
+                                        class="form-control"
+                                        placeholder="Prints, sizing, wall planning...">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_message">Message</label>
+                                <textarea id="id_message" name="message"
+                                            rows="4"
+                                            class="form-control"
+                                            placeholder="Tell a bit about what you’re looking for."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Send message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% if teaser_products %}
+    {% include "includes/product_teaser_strip.html" with products=teaser_products section_title="From the gallery" %}
+{% endif %}
+
+{% endblock %}
