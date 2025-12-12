@@ -1,59 +1,144 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="container my-4">
-    <h2 class="h5 mb-3">Your Cart</h2>
+{% load static %}
 
-    <div class="card">
-        <table class="table">
+{% block extra_title %}| Cart{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="cart-page section-block">
+    <div class="container">
+
+        <!-- Cart header -->
+        <div class="cart-header text-left mb-3">
+            <p class="subpage-kicker mb-1">Your selection</p>
+            <h1 class="subpage-title mb-1">Your cart</h1>
+            <p class="subpage-lead mb-0">
+                Review your artwork before heading to checkout.
+            </p>
+        </div>
+
+        <!-- Cart card -->
+        <div class="cart-card">
+            <table class="table mb-0">
                 <thead>
                     <tr>
-                    <th>Product</th>
-                    <th class="text-center">Qty</th>
-                    <th class="text-right">Line total</th>
-                    <th></th>
+                        <th>Product</th>
+                        <th class="text-center">Qty &amp; total</th>
+                        <th class="text-right"></th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for item in items %}
                     <tr>
-                    <td>{{ item.product.name }}</td>
+                        <td>
+                            <div class="cart-product-cell d-flex align-items-center">
+                                {% if item.product.image %}
+                                    <div class="cart-product-thumb mr-3">
+                                        <img src="{{ item.product.image.url }}"
+                                             alt="{{ item.product.name }}">
+                                    </div>
+                                {% endif %}
+                                <div class="cart-product-info">
+                                    <div class="cart-product-name">
+                                        {{ item.product.name }}
+                                    </div>
+                                    <div class="cart-product-meta text-muted small">
+                                        Base size: {{ base_size|default:"12 x 18 in (unframed)" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
 
-                    <td class="text-center">
-                        <form action="{% url 'cart:update' item.id %}" method="post" class="form-inline justify-content-center">
-                        {% csrf_token %}
-                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
-                                class="form-control form-control-sm mr-2" style="width:80px;">
-                        <button class="btn btn-success btn-sm" type="submit">Update</button>
-                        </form>
-                    </td>
+                        <td class="align-middle">
+                            <div class="cart-qty-total">
+                                <div class="cart-qty-form">
+                                    <form action="{% url 'cart:update' item.id %}"
+                                          method="post"
+                                          class="form-inline justify-content-center justify-content-md-end">
+                                        {% csrf_token %}
+                                        <input type="number"
+                                               name="quantity"
+                                               value="{{ item.quantity }}"
+                                               min="1"
+                                               class="form-control form-control-sm mr-2"
+                                               style="width:80px;">
+                                        <button class="btn btn-hero-primary btn-sm" type="submit">
+                                            Update
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="cart-line-total">
+                                    {{ item.line_total|floatformat:2 }} kr
+                                </div>
+                            </div>
+                        </td>
 
-                    <td class="text-right">{{ item.line_total }}</td>
-
-                    <td class="text-right">
-                        <form action="{% url 'cart:remove' item.id %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-danger btn-sm" type="submit">Remove</button>
-                        </form>
-                    </td>
+                        <td class="text-right align-middle">
+                            <form action="{% url 'cart:remove' item.id %}"
+                                  method="post"
+                                  class="d-inline">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-danger btn-sm" type="submit">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 {% empty %}
-                    <tr><td colspan="4" class="text-center text-muted">Your cart is empty.</td></tr>
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">
+                            Your cart is empty.
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
+
                 <tfoot>
                     <tr>
-                    <th colspan="2" class="text-right">Subtotal:</th>
-                    <th class="text-right">{{ subtotal }}</th>
-                    <th></th>
+                        <th colspan="2" class="text-right">
+                            Subtotal (excl. VAT):
+                        </th>
+                        <th class="text-right">
+                            {{ cart_subtotal|floatformat:2 }} kr
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="text-right">
+                            VAT (25%):
+                        </th>
+                        <th class="text-right">
+                            {{ cart_tax|floatformat:2 }} kr
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="text-right">
+                            Total (incl. VAT):
+                        </th>
+                        <th class="text-right">
+                            {{ cart_total|floatformat:2 }} kr
+                            <small class="d-block text-muted">
+                                Incl. 25% VAT
+                            </small>
+                        </th>
                     </tr>
                 </tfoot>
             </table>
-    </div>
+        </div>
 
-    <div class="d-flex justify-content-center mt-3">
-        <a href="#" class="btn btn-hero-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">
-            <i class="fas fa-credit-card mr-1"></i> Checkout (coming soon)
-        </a>
+        <!-- Checkout placeholder -->
+        <div class="d-flex justify-content-center mt-4">
+            <a href="#"
+               class="btn btn-hero-primary btn-lg disabled"
+               tabindex="-1"
+               role="button"
+               aria-disabled="true">
+                <i class="fas fa-credit-card mr-1"></i>
+                Checkout (coming soon)
+            </a>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

@@ -15,6 +15,7 @@ from pathlib import Path
 
 import dj_database_url
 from dotenv import load_dotenv
+from decimal import Decimal
 
 # ==========================
 # Base paths & environment
@@ -249,3 +250,11 @@ DEFAULT_FROM_EMAIL = "noreply@fotolio.com"
 # ==========================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# -------------------------
+# Fotolio commerce settings
+# -------------------------
+
+VAT_RATE = Decimal("0.25")  # 25% moms
+CURRENCY = "kr"             # Swedish krona
+CURRENCY_DISPLAY = "kr"

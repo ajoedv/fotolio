@@ -1,5 +1,6 @@
 from .models import CartItem
 
+
 def cart_summary(request):
     count = 0
     total = 0

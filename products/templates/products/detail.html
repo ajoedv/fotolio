@@ -59,8 +59,11 @@
 
                         <div class="product-detail-price-row">
                             <span class="product-detail-price product-price">
-                                ${{ product.price }}
+                                {{ product.price|floatformat:2 }} kr
                             </span>
+                            <small class="product-detail-vat-note d-block">
+                                Incl. 25% VAT
+                            </small>
                         </div>
 
                         <form method="post"
