@@ -1,10 +1,11 @@
-# profiles/urls.py
 from django.urls import path
-from .views import profile_view, edit_profile
+
+from . import views
 
 app_name = "profiles"
 
 urlpatterns = [
-    path("", profile_view, name="profile"),
-    path("edit/", edit_profile, name="edit"),
+    path("profile/", views.profile_view, name="profile"),
+    path("profile/edit/", views.edit_profile, name="edit"),
+    path("profile/delete/", views.delete_profile, name="deletee"),
 ]
