@@ -111,6 +111,33 @@ def payment(request):
 
 
 @login_required
+def success(request):
+    shipping = request.session.get("checkout_shipping")
+
+    if not shipping:
+        messages.error(request, "No order to confirm.")
+        return redirect("cart:detail")
+
+    CartItem.objects.filter(
+        user=request.user
+    ).delete()
+
+    request.session.pop(
+        "checkout_shipping",
+        None,
+    )
+
+    messages.success(
+        request,
+        "Your order has been placed successfully.",
+    )
+    return render(
+        request,
+        "cart/success.html",
+    )
+
+
+@login_required
 @require_POST
 def update_item(request, item_id):
     item = get_object_or_404(CartItem, id=item_id, user=request.user)

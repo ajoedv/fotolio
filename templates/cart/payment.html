@@ -127,10 +127,10 @@
                     Back to checkout
                 </a>
 
-                <button type="button" class="btn btn-hero-primary btn-lg px-5 py-3" disabled>
+                <a href="{% url 'cart:success' %}" class="btn btn-hero-primary btn-lg px-5 py-3">
                     <i class="fas fa-lock mr-2"></i>
-                    Pay {{ cart_total|floatformat:2 }} kr (coming soon)
-                </button>
+                    Confirm &amp; place order
+                </a>
             </div>
         </div>
 
