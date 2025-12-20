@@ -4,6 +4,21 @@
     padding-bottom: 4rem;
 }
 
+/* Buttons on cart page (ensures checkout button is styled too) */
+.cart-page .btn-hero-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    border-radius: 9999px;
+}
+
+.cart-page .btn-hero-primary:hover,
+.cart-page .btn-hero-primary:focus {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #fff;
+}
+
 /* Cart main card */
 .cart-card {
     background-color: var(--surface);
@@ -94,22 +109,11 @@
     width: 80px;
 }
 
-/* Update button style */
+/* Update button size inside the cart card */
 .cart-card .btn-hero-primary {
-    background-color: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
     padding: 0.35rem 0.9rem;
     font-size: 0.8rem;
     line-height: 1.2;
-    border-radius: 9999px;
-}
-
-.cart-card .btn-hero-primary:hover,
-.cart-card .btn-hero-primary:focus {
-    background-color: var(--accent-hover);
-    border-color: var(--accent-hover);
-    color: #fff;
 }
 
 /* Line total text */

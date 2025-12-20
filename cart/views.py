@@ -43,6 +43,74 @@ def detail(request):
 
 
 @login_required
+def checkout(request):
+    items = get_cart_items_for_user(request.user)
+
+    if not items:
+        messages.info(request, "Your cart is empty.")
+        return redirect("cart:detail")
+
+    if request.method == "POST":
+        if not request.POST.get("confirm_details"):
+            messages.error(
+                request,
+                "Please confirm your order and shipping details.",
+            )
+            return redirect("cart:checkout")
+
+        request.session["checkout_shipping"] = {
+            "full_name": request.POST.get("full_name", "").strip(),
+            "email": request.POST.get("email", "").strip(),
+            "phone": request.POST.get("phone", "").strip(),
+            "address1": request.POST.get("address1", "").strip(),
+            "address2": request.POST.get("address2", "").strip(),
+            "city": request.POST.get("city", "").strip(),
+            "postcode": request.POST.get("postcode", "").strip(),
+            "country": request.POST.get("country", "").strip(),
+        }
+        request.session.modified = True
+
+        return redirect("cart:payment")
+
+    totals = calculate_cart_totals(items)
+
+    context = {
+        "items": items,
+        "cart_subtotal": totals["subtotal"],
+        "cart_tax": totals["tax"],
+        "cart_total": totals["total"],
+        "base_size": BASE_SIZE_LABEL,
+    }
+    return render(request, "cart/checkout.html", context)
+
+
+@login_required
+def payment(request):
+    shipping = request.session.get("checkout_shipping")
+
+    if not shipping:
+        messages.error(request, "Please complete checkout before payment.")
+        return redirect("cart:checkout")
+
+    items = get_cart_items_for_user(request.user)
+    if not items:
+        messages.info(request, "Your cart is empty.")
+        return redirect("cart:detail")
+
+    totals = calculate_cart_totals(items)
+
+    context = {
+        "items": items,
+        "shipping": shipping,
+        "cart_subtotal": totals["subtotal"],
+        "cart_tax": totals["tax"],
+        "cart_total": totals["total"],
+        "base_size": BASE_SIZE_LABEL,
+    }
+    return render(request, "cart/payment.html", context)
+
+
+@login_required
 @require_POST
 def update_item(request, item_id):
     item = get_object_or_404(CartItem, id=item_id, user=request.user)

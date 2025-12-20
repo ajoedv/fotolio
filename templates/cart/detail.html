@@ -38,7 +38,7 @@
                                 {% if item.product.image %}
                                     <div class="cart-product-thumb mr-3">
                                         <img src="{{ item.product.image.url }}"
-                                             alt="{{ item.product.name }}">
+                                                alt="{{ item.product.name }}">
                                     </div>
                                 {% endif %}
                                 <div class="cart-product-info">
@@ -56,15 +56,15 @@
                             <div class="cart-qty-total">
                                 <div class="cart-qty-form">
                                     <form action="{% url 'cart:update' item.id %}"
-                                          method="post"
-                                          class="form-inline justify-content-center justify-content-md-end">
+                                            method="post"
+                                            class="form-inline justify-content-center justify-content-md-end">
                                         {% csrf_token %}
                                         <input type="number"
-                                               name="quantity"
-                                               value="{{ item.quantity }}"
-                                               min="1"
-                                               class="form-control form-control-sm mr-2"
-                                               style="width:80px;">
+                                                name="quantity"
+                                                value="{{ item.quantity }}"
+                                                min="1"
+                                                class="form-control form-control-sm mr-2"
+                                                style="width:80px;">
                                         <button class="btn btn-hero-primary btn-sm" type="submit">
                                             Update
                                         </button>
@@ -78,8 +78,8 @@
 
                         <td class="text-right align-middle">
                             <form action="{% url 'cart:remove' item.id %}"
-                                  method="post"
-                                  class="d-inline">
+                                    method="post"
+                                    class="d-inline">
                                 {% csrf_token %}
                                 <button class="btn btn-outline-danger btn-sm" type="submit">
                                     Remove
@@ -128,16 +128,22 @@
             </table>
         </div>
 
-        <!-- Checkout placeholder -->
-        <div class="d-flex justify-content-center mt-4">
-            <a href="#"
-               class="btn btn-hero-primary btn-lg disabled"
-               tabindex="-1"
-               role="button"
-               aria-disabled="true">
-                <i class="fas fa-credit-card mr-1"></i>
-                Checkout (coming soon)
-            </a>
+        <!-- Checkout -->
+        <div class="d-flex justify-content-center mt-5">
+            {% if items %}
+                <a href="{% url 'cart:checkout' %}"
+                class="btn btn-hero-primary btn-lg px-5 py-3 cart-checkout-btn">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    Proceed to checkout
+                </a>
+            {% else %}
+                <button class="btn btn-hero-primary btn-lg px-5 py-3 disabled"
+                        tabindex="-1"
+                        aria-disabled="true">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    Proceed to checkout
+                </button>
+            {% endif %}
         </div>
     </div>
 </section>

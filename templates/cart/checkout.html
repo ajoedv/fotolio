@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| Checkout{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="cart-page section-block">
+    <div class="container">
+
+        <div class="cart-header text-left mb-3">
+            <p class="subpage-kicker mb-1">Checkout</p>
+            <h1 class="subpage-title mb-1">Review &amp; shipping details</h1>
+            <p class="subpage-lead mb-0">
+                Confirm your order and shipping details before payment.
+            </p>
+        </div>
+
+        <div class="cart-card mb-4">
+            <h2 class="h5 mb-3">Order summary</h2>
+
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="text-center">Qty</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>
+                            <div class="cart-product-cell d-flex align-items-center">
+                                {% if item.product.image %}
+                                    <div class="cart-product-thumb mr-3">
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                    </div>
+                                {% endif %}
+                                <div class="cart-product-info">
+                                    <div class="cart-product-name">{{ item.product.name }}</div>
+                                    <div class="cart-product-meta text-muted small">
+                                        Base size: {{ base_size|default:"12 x 18 in (unframed)" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="text-center align-middle">
+                            {{ item.quantity }}
+                        </td>
+
+                        <td class="text-right align-middle">
+                            {{ item.line_total|floatformat:2 }} kr
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">
+                            Your cart is empty.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-right">Subtotal (excl. VAT):</th>
+                        <th class="text-right">{{ cart_subtotal|floatformat:2 }} kr</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="text-right">VAT (25%):</th>
+                        <th class="text-right">{{ cart_tax|floatformat:2 }} kr</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="text-right">Total (incl. VAT):</th>
+                        <th class="text-right">
+                            {{ cart_total|floatformat:2 }} kr
+                            <small class="d-block text-muted">Incl. 25% VAT</small>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="cart-card">
+            <h2 class="h5 mb-3">Shipping &amp; contact</h2>
+
+            <form method="post" action="{% url 'cart:checkout' %}">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="full_name">Full name</label>
+                        <input type="text" id="full_name" name="full_name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone</label>
+                        <input type="text" id="phone" name="phone" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="address1">Address line 1</label>
+                        <input type="text" id="address1" name="address1" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="address2">Address line 2 (optional)</label>
+                        <input type="text" id="address2" name="address2" class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="postcode">Postcode</label>
+                        <input type="text" id="postcode" name="postcode" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="alert alert-secondary mt-3 mb-3" role="alert">
+                    Please double-check your order and shipping details before proceeding to payment.
+                </div>
+
+                <div class="form-group form-check mb-4">
+                    <input type="checkbox"
+                            class="form-check-input"
+                            id="confirm_details"
+                            name="confirm_details"
+                            required>
+                    <label class="form-check-label" for="confirm_details">
+                        I confirm that my order and shipping details are correct.
+                    </label>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-hero-primary btn-lg px-5 py-3">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Proceed to payment
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
