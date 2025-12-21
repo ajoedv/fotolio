@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.conf import settings
 
@@ -15,14 +15,23 @@ def calculate_cart_totals(items):
     gross_total = sum(
         (item.line_total for item in items),
         Decimal("0.00"),
+    ).quantize(
+        Decimal("0.01"),
+        rounding=ROUND_HALF_UP,
     )
 
     vat_rate = getattr(settings, "VAT_RATE", Decimal("0.00"))
 
     if vat_rate > Decimal("0.00"):
         divisor = Decimal("1.00") + vat_rate
-        net_total = (gross_total / divisor).quantize(Decimal("0.01"))
-        tax_amount = (gross_total - net_total).quantize(Decimal("0.01"))
+        net_total = (gross_total / divisor).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+        tax_amount = (gross_total - net_total).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
     else:
         net_total = gross_total
         tax_amount = Decimal("0.00")

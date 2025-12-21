@@ -258,3 +258,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 VAT_RATE = Decimal("0.25")  # 25% moms
 CURRENCY = "kr"             # Swedish krona
 CURRENCY_DISPLAY = "kr"
+
+# -------------------------
+# Stripe settings
+# -------------------------
+
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+STRIPE_CURRENCY = os.environ.get("STRIPE_CURRENCY", "sek")
+STRIPE_PAYMENT_METHOD_TYPES = ["card"]

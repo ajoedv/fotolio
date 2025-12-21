@@ -15,7 +15,7 @@
             <p class="subpage-kicker mb-1">Payment</p>
             <h1 class="subpage-title mb-1">Secure payment</h1>
             <p class="subpage-lead mb-0">
-                Review your order and confirm payment details.
+                Review your order and enter your payment details to complete payment.
             </p>
         </div>
 
@@ -117,23 +117,125 @@
         <div class="cart-card">
             <h2 class="h5 mb-3">Pay</h2>
 
-            <div class="alert alert-secondary mb-3" role="alert">
-                This is a placeholder payment page. Stripe integration will be added next.
+            <div id="payment-alert" class="alert alert-secondary mb-3" role="alert">
+                Secure payment powered by Stripe.
             </div>
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <a href="{% url 'cart:checkout' %}" class="btn btn-outline-light mb-3 mb-md-0">
-                    <i class="fas fa-arrow-left mr-2"></i>
-                    Back to checkout
-                </a>
+            <form id="payment-form" class="mb-2">
+                <div class="form-group">
+                    <label class="text-muted small mb-2">Payment details</label>
 
-                <a href="{% url 'cart:success' %}" class="btn btn-hero-primary btn-lg px-5 py-3">
-                    <i class="fas fa-lock mr-2"></i>
-                    Confirm &amp; place order
-                </a>
+                    <div
+                        id="payment-element"
+                        class="form-control"
+                        style="height:auto; padding: 0.85rem; border-radius: 14px;">
+                    </div>
+
+                    <div id="payment-errors" class="text-danger small mt-2" role="alert"></div>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                    <a href="{% url 'cart:checkout' %}" class="btn btn-outline-light mb-3 mb-md-0">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Back to checkout
+                    </a>
+
+                    <button id="submit-payment" type="submit" class="btn btn-hero-primary btn-lg px-5 py-3">
+                        <i class="fas fa-lock mr-2"></i>
+                        Pay {{ cart_total|floatformat:2 }} kr
+                    </button>
+                </div>
+            </form>
+
+            <div id="payment-loading" class="text-muted small" style="display:none;">
+                Processing payment...
             </div>
         </div>
 
     </div>
 </section>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+(function () {
+    const publicKey = "{{ stripe_public_key|default:'' }}";
+    const clientSecret = "{{ client_secret|default:'' }}";
+    const successUrl = "{{ success_url|default:'' }}";
+
+    const errorsEl = document.getElementById("payment-errors");
+    const payBtn = document.getElementById("submit-payment");
+    const loadingEl = document.getElementById("payment-loading");
+    const form = document.getElementById("payment-form");
+
+    if (!publicKey || !clientSecret || !successUrl) {
+        errorsEl.textContent =
+            "Stripe keys are missing. Please check settings and reload.";
+        payBtn.disabled = true;
+        return;
+    }
+
+    const stripe = Stripe(publicKey);
+
+    const appearance = {
+        theme: "night",
+        variables: {
+            colorPrimary: "#E50914",
+            colorBackground: "#141414",
+            colorText: "#FFFFFF",
+            colorTextSecondary: "#B3B3B3",
+            colorDanger: "#E50914",
+            fontFamily:
+                "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+            borderRadius: "14px",
+        },
+    };
+
+    const elements = stripe.elements({
+        clientSecret: clientSecret,
+        appearance: appearance,
+    });
+
+    const paymentElement = elements.create("payment");
+    paymentElement.mount("#payment-element");
+
+    function setLoading(isLoading) {
+        if (isLoading) {
+            payBtn.disabled = true;
+            loadingEl.style.display = "block";
+        } else {
+            payBtn.disabled = false;
+            loadingEl.style.display = "none";
+        }
+    }
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        setLoading(true);
+        errorsEl.textContent = "";
+
+        const result = await stripe.confirmPayment({
+            elements: elements,
+            confirmParams: {
+                return_url: successUrl,
+            },
+            redirect: "if_required",
+        });
+
+        if (result.error) {
+            errorsEl.textContent = result.error.message;
+            setLoading(false);
+            return;
+        }
+
+        if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
+            const intentId = encodeURIComponent(result.paymentIntent.id);
+            window.location.href = successUrl + "?payment_intent=" + intentId;
+            return;
+        }
+
+        errorsEl.textContent = "Payment was not completed. Please try again.";
+        setLoading(false);
+    });
+})();
+</script>
 {% endblock %}
