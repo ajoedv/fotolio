@@ -33,9 +33,11 @@
                     <div class="product-detail-image-wrapper product-thumb-wrapper">
                         {% if product.image %}
                             <div class="product-thumb">
-                                <img src="{{ product.image.url }}"
+                                <img
+                                    src="{{ product.image.url }}"
                                     alt="{{ product.name }}"
-                                    class="product-detail-image">
+                                    class="product-detail-image"
+                                >
                             </div>
                         {% else %}
                             <div class="product-thumb product-thumb-placeholder">
@@ -50,9 +52,11 @@
                         <div class="product-detail-category product-meta">
                             {{ product.category.friendly_name|default:product.category.name }}
                         </div>
+
                         <h1 class="product-detail-title product-title">
                             {{ product.name }}
                         </h1>
+
                         <p class="product-detail-meta product-meta">
                             Printed photography on a curated base size: {{ base_size }}.
                         </p>
@@ -66,19 +70,27 @@
                             </small>
                         </div>
 
-                        <form method="post"
-                                action="{% url 'cart:add' product.id %}"
-                                class="product-detail-cart-form form-inline">
+                        <form
+                            method="post"
+                            action="{% url 'cart:add' product.id %}"
+                            class="product-detail-cart-form form-inline"
+                        >
                             {% csrf_token %}
-                            <label for="id_quantity" class="sr-only">Quantity</label>
-                            <input id="id_quantity"
-                                    name="quantity"
-                                    type="number"
-                                    min="1"
-                                    value="1"
-                                    class="form-control mr-2 product-qty-input">
-                            <button type="submit"
-                                    class="btn btn-primary">
+
+                            <label for="id_quantity" class="sr-only">
+                                Quantity
+                            </label>
+
+                            <input
+                                id="id_quantity"
+                                name="quantity"
+                                type="number"
+                                min="1"
+                                value="1"
+                                class="form-control mr-2 product-qty-input"
+                            >
+
+                            <button type="submit" class="btn btn-primary">
                                 Add to cart
                             </button>
                         </form>
@@ -103,7 +115,84 @@
             </div>
         </div>
 
+        <hr class="my-5">
+
+        <div class="product-card-detail p-4 mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <h3 class="h5 mb-0">Reviews</h3>
+
+                {% if user.is_authenticated %}
+                    {% if user_review %}
+                        <div class="d-flex gap-2">
+                            <a
+                                href="{% url 'products:review_edit' review_id=user_review.id %}"
+                                class="btn btn-outline-light btn-sm"
+                            >
+                                Edit your review
+                            </a>
+
+                            <form
+                                method="post"
+                                action="{% url 'products:review_delete' review_id=user_review.id %}"
+                            >
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <a
+                            href="{% url 'products:review_add' product_id=product.id %}"
+                            class="btn btn-primary btn-sm"
+                        >
+                            Add review
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a
+                        href="{% url 'account_login' %}"
+                        class="btn btn-outline-light btn-sm"
+                    >
+                        Sign in to write a review
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if reviews %}
+                <div class="d-flex flex-column gap-3">
+                    {% for r in reviews %}
+                        <div class="p-3 review-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>{{ r.user.username }}</strong>
+                                <span class="review-stars">
+                                    {% if r.rating == 5 %}★★★★★{% endif %}
+                                    {% if r.rating == 4 %}★★★★☆{% endif %}
+                                    {% if r.rating == 3 %}★★★☆☆{% endif %}
+                                    {% if r.rating == 2 %}★★☆☆☆{% endif %}
+                                    {% if r.rating == 1 %}★☆☆☆☆{% endif %}
+                                </span>
+                            </div>
+
+                            <p class="text-secondary mb-0 mt-2">
+                                {{ r.comment }}
+                            </p>
+
+                            <small class="text-secondary d-block mt-2">
+                                {{ r.created_at|date:"Y-m-d" }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-secondary mb-0">
+                    No reviews yet. Be the first to review this product.
+                </p>
+            {% endif %}
+        </div>
+
         {% include "includes/product_teaser_strip.html" %}
+
     </div>
 </section>
 {% endblock %}

@@ -356,7 +356,9 @@ def success(request):
     request.session.modified = True
 
     messages.success(request, "Your order has been placed successfully.")
-    return redirect("orders:detail", order_number=order.order_number)
+    return redirect(
+        f"{reverse('orders:detail', kwargs={'order_number': order.order_number})}?paid=1"
+    )
 
 
 @login_required

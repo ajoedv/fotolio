@@ -161,3 +161,49 @@
         margin-top: 1.25rem;
     }
 }
+
+/* Reviews UI */
+.review-card {
+    background: #141414;
+    border: 1px solid #1F1F23;
+    border-radius: 16px;
+}
+
+.review-stars {
+    color: #B3B3B3;
+    letter-spacing: 1px;
+}
+
+.review-form-card {
+    background: #141414;
+    border: 1px solid #1F1F23;
+    border-radius: 20px;
+}
+
+/* Stars input (JS) */
+.star-rating {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.star-rating .star {
+    background: transparent;
+    border: 1px solid #1F1F23;
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 22px;
+    line-height: 1;
+    color: #B3B3B3;
+    cursor: pointer;
+}
+
+.star-rating .star.is-active {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+.star-rating .star:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+}

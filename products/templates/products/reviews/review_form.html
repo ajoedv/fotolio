@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="section-block product-detail-page">
+    <div class="container">
+
+        <div class="mb-3">
+            <a
+                href="{% url 'products:detail' pk=product.id %}"
+                class="btn btn-outline-light btn-sm"
+            >
+                ← Back to product
+            </a>
+        </div>
+
+        <div class="card p-4 review-form-card">
+            <h2 class="h4 mb-3">
+                {% if mode == "edit" %}Edit review{% else %}Add review{% endif %}
+            </h2>
+
+            <form method="post" id="review-form">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label d-block mb-2">
+                        Rating
+                    </label>
+
+                    <div class="star-rating" aria-label="Rating stars">
+                        <button type="button" class="star" data-value="1">★</button>
+                        <button type="button" class="star" data-value="2">★</button>
+                        <button type="button" class="star" data-value="3">★</button>
+                        <button type="button" class="star" data-value="4">★</button>
+                        <button type="button" class="star" data-value="5">★</button>
+                    </div>
+
+                    <div class="review-rating-field mt-2">
+                        {{ form.rating }}
+                    </div>
+
+                    <small class="text-secondary d-block mt-2">
+                        Click a star to set your rating.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Comment
+                    </label>
+                    {{ form.comment }}
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        {% if mode == "edit" %}Save changes{% else %}Submit review{% endif %}
+                    </button>
+
+                    <a
+                        href="{% url 'products:detail' pk=product.id %}"
+                        class="btn btn-outline-light"
+                    >
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<script>
+(function () {
+    const stars = document.querySelectorAll(".star-rating .star");
+    const ratingFieldWrap = document.querySelector(".review-rating-field");
+    if (!stars.length || !ratingFieldWrap) {
+        return;
+    }
+
+    const ratingInput = ratingFieldWrap.querySelector("input, select");
+    if (!ratingInput) {
+        return;
+    }
+
+    ratingFieldWrap.style.display = "none";
+
+    function setActive(value) {
+        stars.forEach((btn) => {
+            const v = parseInt(btn.dataset.value, 10);
+            btn.classList.toggle("is-active", v <= value);
+        });
+    }
+
+    function setRating(value) {
+        ratingInput.value = String(value);
+        setActive(value);
+    }
+
+    let initial = parseInt(ratingInput.value, 10);
+    if (!initial || initial < 1) {
+        initial = 0;
+    }
+    setActive(initial);
+
+    stars.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const value = parseInt(btn.dataset.value, 10);
+            setRating(value);
+        });
+    });
+
+    const form = document.getElementById("review-form");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            const v = parseInt(ratingInput.value, 10);
+            if (!v || v < 1 || v > 5) {
+                e.preventDefault();
+                alert("Please select a rating (1 to 5).");
+            }
+        });
+    }
+})();
+</script>
+{% endblock %}
