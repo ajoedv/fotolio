@@ -79,7 +79,7 @@
                                 <span class="dropdown-header small">Hi, {{ user.username }}</span>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'profiles:profile' %}">Profile</a>
-                                <a class="dropdown-item" href="#">Orders</a>
+                                <a class="dropdown-item" href="{% url 'orders:list' %}">Orders</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'account_logout' %}">Sign out</a>
                             </div>
@@ -133,7 +133,7 @@
                             <a href="{% url 'profiles:profile' %}" class="mobile-auth-link">
                                 <i class="fas fa-user mr-2"></i> Profile
                             </a>
-                            <a href="#" class="mobile-auth-link">
+                            <a href="{% url 'orders:list' %}" class="mobile-auth-link">
                                 <i class="fas fa-receipt mr-2"></i> Orders
                             </a>
                             <a href="{% url 'account_logout' %}" class="mobile-auth-link text-danger">

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| Order{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="cart-page section-block">
+    <div class="container">
+
+        <div class="cart-header text-start mb-3">
+            <p class="subpage-kicker mb-1">Order</p>
+            <h1 class="subpage-title mb-1">Thank you for your order</h1>
+            <p class="subpage-lead mb-0">
+                Order number: <strong>{{ order.order_number }}</strong>
+            </p>
+
+            <div class="alert alert-success mt-3 mb-0">
+                <strong>Payment confirmed</strong>
+                <span class="ms-2">
+                    Your payment was successfully processed and your order is now marked as paid.
+                </span>
+            </div>
+        </div>
+
+        <div class="cart-card mb-4">
+            <h2 class="h5 mb-3">Shipping</h2>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <div class="text-muted small">Full name</div>
+                    <div>{{ order.full_name }}</div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="text-muted small">Email</div>
+                    <div>{{ order.email }}</div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="text-muted small">Phone</div>
+                    <div>{{ order.phone }}</div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="text-muted small">Country</div>
+                    <div>{{ order.country }}</div>
+                </div>
+                <div class="col-12 mb-2">
+                    <div class="text-muted small">Address</div>
+                    <div>
+                        {{ order.address1 }}
+                        {% if order.address2 %}
+                            <br>{{ order.address2 }}
+                        {% endif %}
+                        <br>{{ order.postcode }} {{ order.city }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-card mb-4">
+            <h2 class="h5 mb-3">Items</h2>
+
+            <div class="table-responsive">
+                <table class="table mb-0 align-middle">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in order.lineitems.all %}
+                            <tr>
+                                <td>{{ item.product_name }}</td>
+                                <td class="text-center">{{ item.quantity }}</td>
+                                <td class="text-end">{{ item.line_total|floatformat:2 }} kr</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" class="text-end">Subtotal (excl. VAT):</th>
+                            <th class="text-end">{{ order.subtotal|floatformat:2 }} kr</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-end">VAT:</th>
+                            <th class="text-end">{{ order.tax|floatformat:2 }} kr</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-end">Total (incl. VAT):</th>
+                            <th class="text-end">{{ order.total|floatformat:2 }} kr</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'orders:list' %}" class="btn btn-outline-light px-4 py-3">
+                View all orders
+            </a>
+
+            <a href="{% url 'products:list' %}" class="btn btn-hero-primary px-4 py-3">
+                Continue shopping
+            </a>
+        </div>     
+
+    </div>
+</section>
+{% endblock %}

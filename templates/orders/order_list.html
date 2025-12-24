@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| Orders{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="cart-page section-block">
+    <div class="container">
+
+        <div class="cart-header text-left mb-3">
+        <p class="subpage-kicker mb-1">Orders</p>
+        <h1 class="subpage-title mb-1">My orders</h1>
+        <p class="subpage-lead mb-0">Your paid orders.</p>
+        </div>
+
+        {% if orders %}
+        <div class="cart-card">
+            <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead>
+                <tr>
+                    <th>Order number</th>
+                    <th class="d-none d-md-table-cell">Date</th>
+                    <th class="text-right d-none d-md-table-cell">Total</th>
+                    <th class="text-right d-none d-md-table-cell"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                    <td>
+                        <strong class="text-nowrap d-block">{{ order.order_number }}</strong>
+
+                        <div class="d-md-none mt-3">
+                            <div class="small text-muted mb-1">
+                                {{ order.created_at|date:"Y-m-d H:i" }}
+                            </div>
+                            <div class="small text-muted mb-2">
+                                {{ order.total|floatformat:2 }} kr
+                            </div>
+                            <a href="{% url 'orders:detail' order.order_number %}"
+                                class="btn btn-hero-primary">
+                                View
+                            </a>
+                        </div>
+                    </td>
+
+                    <td class="d-none d-md-table-cell text-nowrap">
+                        {{ order.created_at|date:"Y-m-d H:i" }}
+                    </td>
+
+                    <td class="text-right d-none d-md-table-cell text-nowrap">
+                        {{ order.total|floatformat:2 }} kr
+                    </td>
+
+                    <td class="text-right d-none d-md-table-cell">
+                        <a href="{% url 'orders:detail' order.order_number %}"
+                            class="btn btn-hero-primary">
+                            View
+                        </a>
+                    </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="cart-card text-center">
+            <p class="mb-0">No paid orders yet.</p>
+            <div class="mt-4">
+            <a href="{% url 'products:list' %}"
+                class="btn btn-hero-primary">
+                Open the gallery
+            </a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

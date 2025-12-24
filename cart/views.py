@@ -13,6 +13,7 @@ from products.models import Product
 
 from .models import CartItem
 from .utils import calculate_cart_totals, get_cart_items_for_user
+from orders.models import Order, OrderLineItem
 
 
 @login_required
@@ -94,15 +95,15 @@ def checkout(request):
 
 @login_required
 def payment(request):
-    shipping = request.session.get("checkout_shipping")
-    if not shipping:
-        messages.error(request, "Please complete checkout before payment.")
-        return redirect("cart:checkout")
-
     items = get_cart_items_for_user(request.user)
     if not items:
         messages.info(request, "Your cart is empty.")
         return redirect("cart:detail")
+
+    shipping = request.session.get("checkout_shipping")
+    if not shipping:
+        messages.error(request, "Please complete checkout before payment.")
+        return redirect("cart:checkout")
 
     totals = calculate_cart_totals(items)
 
@@ -128,6 +129,53 @@ def payment(request):
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
+    order = None
+    pending_order_id = request.session.get("pending_order_id")
+
+    if pending_order_id:
+        try:
+            order = Order.objects.get(
+                id=pending_order_id,
+                user=request.user,
+                is_paid=False,
+            )
+        except Order.DoesNotExist:
+            order = None
+
+    if order is None:
+        order = Order.objects.create(
+            user=request.user,
+            full_name=shipping.get("full_name", ""),
+            email=shipping.get("email", ""),
+            phone=shipping.get("phone", ""),
+            address1=shipping.get("address1", ""),
+            address2=shipping.get("address2", ""),
+            city=shipping.get("city", ""),
+            postcode=shipping.get("postcode", ""),
+            country=shipping.get("country", ""),
+            subtotal=totals["subtotal"],
+            tax=totals["tax"],
+            total=totals["total"],
+            stripe_currency=str(settings.STRIPE_CURRENCY).lower(),
+            stripe_amount=amount_ore,
+        )
+
+        OrderLineItem.objects.bulk_create(
+            [
+                OrderLineItem(
+                    order=order,
+                    product=item.product,
+                    product_name=item.product.name,
+                    quantity=item.quantity,
+                    line_total=item.line_total,
+                )
+                for item in items
+            ]
+        )
+
+        request.session["pending_order_id"] = order.id
+        request.session.modified = True
+
     try:
         intent = stripe.PaymentIntent.create(
             amount=amount_ore,
@@ -136,6 +184,7 @@ def payment(request):
             metadata={
                 "user_id": str(request.user.id),
                 "email": shipping.get("email", ""),
+                "order_number": str(order.order_number),
             },
         )
     except Exception:
@@ -144,6 +193,18 @@ def payment(request):
             "Stripe error. Please try again.",
         )
         return redirect("cart:checkout")
+
+    order.stripe_payment_intent_id = intent.id
+    order.stripe_currency = str(settings.STRIPE_CURRENCY).lower()
+    order.stripe_amount = amount_ore
+    order.save(
+        update_fields=[
+            "stripe_payment_intent_id",
+            "stripe_currency",
+            "stripe_amount",
+            "updated_at",
+        ]
+    )
 
     # Store expected intent + amount/currency in session
     # for server-side verification
@@ -172,74 +233,130 @@ def payment(request):
 
 @login_required
 def success(request):
-    shipping = request.session.get("checkout_shipping")
-    if not shipping:
-        messages.error(request, "No order to confirm.")
-        return redirect("cart:detail")
+    returned_intent_id = request.GET.get("payment_intent")
 
     expected_intent_id = request.session.get("expected_payment_intent_id")
     expected_amount = request.session.get("expected_payment_amount")
     expected_currency = request.session.get("expected_payment_currency")
 
-    returned_intent_id = request.GET.get("payment_intent")
+    shipping = request.session.get("checkout_shipping")
+    pending_order_id = request.session.get("pending_order_id")
 
-    # Block manual access
-    if not expected_intent_id or not returned_intent_id:
-        messages.error(request, "Payment not verified.")
-        return redirect("cart:payment")
+    def go_payment_or_orders():
+        if pending_order_id or shipping:
+            return redirect("cart:payment")
+        return redirect("orders:list")
 
-    if returned_intent_id != expected_intent_id:
-        messages.error(request, "Payment verification failed.")
-        return redirect("cart:payment")
+    if not returned_intent_id:
+        messages.info(
+            request,
+            "Nothing to confirm here. Please check your orders.",
+        )
+        return redirect("orders:list")
 
-    # Ensure we have verification data
+    order = None
+    if pending_order_id:
+        order = Order.objects.filter(
+            id=pending_order_id,
+            user=request.user,
+        ).first()
+
+    if order is None:
+        order = Order.objects.filter(
+            user=request.user,
+            stripe_payment_intent_id=returned_intent_id,
+        ).order_by("-created_at").first()
+
+    if order and order.is_paid:
+        request.session.pop("checkout_shipping", None)
+        request.session.pop("expected_payment_intent_id", None)
+        request.session.pop("expected_payment_amount", None)
+        request.session.pop("expected_payment_currency", None)
+        request.session.pop("pending_order_id", None)
+        request.session.modified = True
+
+        messages.info(request, "This order was already confirmed.")
+        return redirect("orders:detail", order_number=order.order_number)
+
+    if expected_intent_id and returned_intent_id != expected_intent_id:
+        messages.warning(
+            request,
+            "Payment verification failed. Please try again.",
+        )
+        return go_payment_or_orders()
+
+    if not order:
+        messages.info(
+            request,
+            "We couldn't find an order for this payment. "
+            "Please check your orders.",
+        )
+        return redirect("orders:list")
+
+    if expected_amount is None:
+        expected_amount = order.stripe_amount
+    if expected_currency is None:
+        expected_currency = order.stripe_currency
+
     if expected_amount is None or expected_currency is None:
-        messages.error(request, "Payment verification data missing.")
-        return redirect("cart:payment")
+        messages.info(
+            request,
+            "Payment session expired. Please check your orders.",
+        )
+        return redirect("orders:list")
+
+    if not settings.STRIPE_SECRET_KEY:
+        messages.info(
+            request,
+            "Payment already processed. Please check your orders.",
+        )
+        return redirect("orders:list")
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
     try:
         intent = stripe.PaymentIntent.retrieve(returned_intent_id)
     except Exception:
-        messages.error(
+        messages.warning(
             request,
-            "Could not verify payment. Please try again.",
+            "Could not verify payment right now. Please try again.",
         )
-        return redirect("cart:payment")
+        return go_payment_or_orders()
 
     if intent.status != "succeeded":
-        messages.error(request, "Payment not completed.")
-        return redirect("cart:payment")
+        messages.warning(request, "Payment not completed.")
+        return go_payment_or_orders()
 
-    # Verify currency (case-insensitive)
     if str(intent.currency).lower() != str(expected_currency).lower():
-        messages.error(request, "Payment currency mismatch.")
-        return redirect("cart:payment")
+        messages.warning(request, "Payment currency mismatch.")
+        return go_payment_or_orders()
 
-    # Verify amount
     received = getattr(intent, "amount_received", None) or intent.amount
     if int(received) != int(expected_amount):
-        messages.error(request, "Payment amount mismatch.")
-        return redirect("cart:payment")
+        messages.warning(request, "Payment amount mismatch.")
+        return go_payment_or_orders()
 
-    # Verify this payment belongs to the current user
     if str(intent.metadata.get("user_id", "")) != str(request.user.id):
-        messages.error(request, "Payment user mismatch.")
-        return redirect("cart:payment")
+        messages.warning(request, "Payment user mismatch.")
+        return redirect("orders:list")
 
-    # Payment verified
+    order.is_paid = True
+    order.stripe_payment_intent_id = returned_intent_id
+    order.stripe_currency = str(intent.currency).lower()
+    order.stripe_amount = int(received)
+    order.save()
+
     CartItem.objects.filter(user=request.user).delete()
 
-    # Clear checkout session data
     request.session.pop("checkout_shipping", None)
     request.session.pop("expected_payment_intent_id", None)
     request.session.pop("expected_payment_amount", None)
     request.session.pop("expected_payment_currency", None)
+    request.session.pop("pending_order_id", None)
     request.session.modified = True
 
     messages.success(request, "Your order has been placed successfully.")
-    return render(request, "cart/success.html")
+    return redirect("orders:detail", order_number=order.order_number)
 
 
 @login_required
