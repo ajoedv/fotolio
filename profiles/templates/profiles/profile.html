@@ -17,28 +17,46 @@
                 Manage your account details and default shipping information.
             </p>
         </div>
-        
-        <div class="profile-card">
-            <div class="profile-card-inner row no-gutters">
-                <div class="col-md-3 col-12 profile-avatar-col">
-                    <div class="profile-avatar-wrapper">
+
+        <div class="row">
+            <!-- Avatar card (SAME GRID AS EDIT PAGE) -->
+            <div class="col-lg-5 col-md-5 col-12 order-1 order-md-1 mb-4 mb-md-0">
+                <div class="profile-avatar-preview-card">
+                    <div class="profile-avatar-preview-inner">
                         {% if profile.avatar %}
-                            <img src="{{ profile.avatar.url }}" alt="{{ request.user.username }}" class="profile-avatar-img">
+                            <img
+                                src="{{ profile.avatar.url }}"
+                                alt="{{ request.user.username }}"
+                                class="profile-avatar-preview-img"
+                            >
                         {% else %}
-                            <div class="profile-avatar-placeholder">
+                            <div class="profile-avatar-preview-placeholder">
                                 <span>{{ request.user.username|first|upper }}</span>
                             </div>
                         {% endif %}
                     </div>
+                    <p class="profile-avatar-preview-caption mb-0">
+                        Current avatar
+                    </p>
                 </div>
+            </div>
 
-                <div class="col-md-9 col-12 profile-info-col">
-                    <div class="profile-info-block">
+            <!-- Info card (SAME GRID AS EDIT PAGE) -->
+            <div class="col-lg-7 col-md-7 col-12 order-2 order-md-2">
+                <div class="profile-card">
+                    <!-- IMPORTANT: remove old left padding that was for the old layout -->
+                    <div class="profile-info-block" style="padding-left: 0;">
                         <h2 class="profile-name mb-2">
                             {{ profile.display_name|default:request.user.username }}
                         </h2>
 
                         <dl class="profile-fields mb-0">
+
+                            <div class="profile-field-row">
+                                <dt>Full name</dt>
+                                <dd>{{ profile.shipping_full_name|default:"—" }}</dd>
+                            </div>
+
                             <div class="profile-field-row">
                                 <dt>Email</dt>
                                 <dd>{{ request.user.email|default:"—" }}</dd>
@@ -51,23 +69,35 @@
 
                             <div class="profile-field-row">
                                 <dt>Default shipping</dt>
-                                <dd class="profile-field-address">{{ profile.default_shipping_address|default:"—" }}</dd>
-                                
+                                <dd class="profile-field-address">
+                                    {% if profile.address_line1 and profile.city and profile.postcode and profile.country %}
+                                        <div>{{ profile.address_line1 }}</div>
+                                        {% if profile.address_line2 %}
+                                            <div>{{ profile.address_line2 }}</div>
+                                        {% endif %}
+                                        <div>{{ profile.postcode }} {{ profile.city }}</div>
+                                        <div>{{ profile.country.name }}</div>
+                                    {% else %}
+                                        No default shipping saved yet. Please add your shipping address.
+                                    {% endif %}
+                                </dd>
                             </div>
-                        </dl>
-                    </div>
 
-                    <div class="profile-actions mt-3">
-                        <a href="{% url 'profiles:edit' %}" class="btn btn-primary mr-2">
-                            Edit Profile
-                        </a>
-                        <a href="{% url 'account_logout' %}" class="btn btn-outline-light">
-                            Sign out
-                        </a>
+                        </dl>
+
+                        <div class="profile-actions mt-3" style="padding-left: 0;">
+                            <a href="{% url 'profiles:edit' %}" class="btn btn-primary mr-2">
+                                Edit Profile
+                            </a>
+                            <a href="{% url 'account_logout' %}" class="btn btn-outline-light">
+                                Sign out
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 {% endblock %}

@@ -20,7 +20,7 @@
     color: var(--text-secondary);
 }
 
-/* Profile card */
+/* Profile card (used for info card on profile page) */
 .profile-card {
     background-color: var(--surface);
     border-radius: 20px;
@@ -29,62 +29,9 @@
     padding: 2.1rem 2.4rem;
 }
 
-/* Inner wrapper centered inside card */
-.profile-card-inner {
-    max-width: 780px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-}
-
-/* Avatar column */
-.profile-avatar-col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Avatar block */
-.profile-avatar-wrapper {
-    width: 200px;
-    height: 200px;
-    border-radius: 26px;
-    overflow: hidden;
-    border: 1px solid var(--border-subtle);
-    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.9);
-    background-color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.profile-avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.profile-avatar-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.4rem;
-    font-weight: 600;
-    background: radial-gradient(circle at 30% 20%, #444, #111);
-}
-
-/* Info column */
-.profile-info-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+/* Info block inside profile info card */
 .profile-info-block {
-    padding-left: 4rem;
+    padding-left: 0;
 }
 
 /* Name */
@@ -105,7 +52,6 @@
 }
 
 .profile-field-row dt {
-    width: 160px;
     font-size: 0.9rem;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -119,7 +65,7 @@
 }
 
 .profile-field-address {
-    white-space: pre-line;
+    white-space: normal;
 }
 
 /* Actions */
@@ -127,7 +73,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.9rem;
-    padding-left: 4rem;
+    padding-left: 0;
 }
 
 /* Edit page card */
@@ -170,7 +116,7 @@
     gap: 0.9rem;
 }
 
-/* Avatar preview on edit page */
+/* Avatar preview card (used in edit + now also used in profile page) */
 .profile-avatar-preview-card {
     background-color: var(--surface);
     border-radius: 20px;
@@ -218,12 +164,8 @@
 
 /* Responsive */
 @media (max-width: 991.98px) {
-    .profile-card-inner {
-        max-width: 100%;
-    }
-
-    .profile-info-block {
-        padding-left: 1.5rem;
+    .profile-card {
+        padding: 1.8rem 1.8rem;
     }
 }
 
@@ -234,23 +176,11 @@
         padding-bottom: 3rem;
     }
 
-    .profile-card-inner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .profile-avatar-col {
-        margin-bottom: 1.4rem;
-    }
-
-    .profile-info-block {
-        padding-left: 0;
-    }
-
     .profile-field-row {
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        margin-bottom: 0.9rem;
     }
 
     .profile-field-row dt,
@@ -259,14 +189,14 @@
         text-align: center;
     }
 
-    .profile-edit-card {
-        margin-bottom: 1.5rem;
-    }
-
     .profile-actions,
     .profile-edit-actions {
         justify-content: center;
         margin: 0;
         padding-left: 0;
+    }
+
+    .profile-edit-card {
+        margin-bottom: 1.5rem;
     }
 }

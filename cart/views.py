@@ -7,9 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_POST
+from django_countries import countries
 
 from products.constants import BASE_SIZE_LABEL
 from products.models import Product
+from profiles.models import Profile
 
 from .models import CartItem
 from .utils import calculate_cart_totals, get_cart_items_for_user
@@ -59,27 +61,103 @@ def checkout(request):
         messages.info(request, "Your cart is empty.")
         return redirect("cart:detail")
 
-    if request.method == "POST":
-        if not request.POST.get("confirm_details"):
-            messages.error(
-                request,
-                "Please confirm your order and shipping details.",
-            )
-            return redirect("cart:checkout")
+    profile, _ = Profile.objects.get_or_create(user=request.user)
 
-        request.session["checkout_shipping"] = {
+    session_shipping = request.session.get("checkout_shipping") or {}
+
+    initial_data = {
+        "full_name": session_shipping.get("full_name")
+        or (profile.shipping_full_name or "").strip(),
+        "email": (request.user.email or "").strip(),
+        "phone": session_shipping.get("phone")
+        or (profile.phone or "").strip(),
+        "address1": session_shipping.get("address1")
+        or (profile.address_line1 or "").strip(),
+        "address2": session_shipping.get("address2")
+        or (profile.address_line2 or "").strip(),
+        "city": session_shipping.get("city")
+        or (profile.city or "").strip(),
+        "postcode": session_shipping.get("postcode")
+        or (profile.postcode or "").strip(),
+        "country": session_shipping.get("country")
+        or (str(profile.country) if profile.country else "").strip(),
+        "confirm_details": False,
+        "save_to_profile": False,
+    }
+
+    errors = {}
+
+    if request.method == "POST":
+        posted = {
             "full_name": request.POST.get("full_name", "").strip(),
-            "email": request.POST.get("email", "").strip(),
+            "email": (request.user.email or "").strip(),
             "phone": request.POST.get("phone", "").strip(),
             "address1": request.POST.get("address1", "").strip(),
             "address2": request.POST.get("address2", "").strip(),
             "city": request.POST.get("city", "").strip(),
             "postcode": request.POST.get("postcode", "").strip(),
             "country": request.POST.get("country", "").strip(),
+            "confirm_details": bool(request.POST.get("confirm_details")),
+            "save_to_profile": bool(request.POST.get("save_to_profile")),
         }
-        request.session.modified = True
 
-        return redirect("cart:payment")
+        required_fields = [
+            "full_name",
+            "email",
+            "phone",
+            "address1",
+            "city",
+            "postcode",
+            "country",
+        ]
+
+        for name in required_fields:
+            if not posted.get(name):
+                errors[name] = "This field is required."
+
+        if not posted["confirm_details"]:
+            errors["confirm_details"] = (
+                "Please confirm your order and shipping details."
+            )
+
+        if not errors:
+            # Save to profile only if user asked for it
+            if posted["save_to_profile"]:
+                profile.phone = posted["phone"]
+                profile.shipping_full_name = posted["full_name"]
+                profile.address_line1 = posted["address1"]
+                profile.address_line2 = posted["address2"]
+                profile.city = posted["city"]
+                profile.postcode = posted["postcode"]
+                profile.country = posted["country"]  # Country code like "SE"
+                profile.save(
+                    update_fields=[
+                        "phone",
+                        "shipping_full_name",
+                        "address_line1",
+                        "address_line2",
+                        "city",
+                        "postcode",
+                        "country",
+                        "updated_at",
+                    ]
+                )
+
+            # Keep shipping in session for payment step
+            request.session["checkout_shipping"] = {
+                "full_name": posted["full_name"],
+                "email": posted["email"],
+                "phone": posted["phone"],
+                "address1": posted["address1"],
+                "address2": posted["address2"],
+                "city": posted["city"],
+                "postcode": posted["postcode"],
+                "country": posted["country"],
+            }
+            request.session.modified = True
+            return redirect("cart:payment")
+
+        initial_data = posted
 
     totals = calculate_cart_totals(items)
 
@@ -89,6 +167,10 @@ def checkout(request):
         "cart_tax": totals["tax"],
         "cart_total": totals["total"],
         "base_size": BASE_SIZE_LABEL,
+        "form_data": initial_data,
+        "errors": errors,
+        "country_choices": list(countries),
+        "show_shipping_alert": bool(errors),
     }
     return render(request, "cart/checkout.html", context)
 
@@ -105,9 +187,11 @@ def payment(request):
         messages.error(request, "Please complete checkout before payment.")
         return redirect("cart:checkout")
 
+    country_code = (shipping.get("country") or "").strip()
+    country_name = dict(countries).get(country_code, country_code)
+
     totals = calculate_cart_totals(items)
 
-    # Ensure total is exactly 2 decimals before converting to öre
     total_kr = Decimal(str(totals["total"])).quantize(
         Decimal("0.01"),
         rounding=ROUND_HALF_UP,
@@ -206,8 +290,6 @@ def payment(request):
         ]
     )
 
-    # Store expected intent + amount/currency in session
-    # for server-side verification
     request.session["expected_payment_intent_id"] = intent.id
     request.session["expected_payment_amount"] = amount_ore
     request.session["expected_payment_currency"] = str(
@@ -220,6 +302,7 @@ def payment(request):
     context = {
         "items": items,
         "shipping": shipping,
+        "shipping_country_name": country_name,
         "cart_subtotal": totals["subtotal"],
         "cart_tax": totals["tax"],
         "cart_total": totals["total"],
@@ -357,7 +440,10 @@ def success(request):
 
     messages.success(request, "Your order has been placed successfully.")
     return redirect(
-        f"{reverse('orders:detail', kwargs={'order_number': order.order_number})}?paid=1"
+        f"{reverse(
+            'orders:detail',
+            kwargs={'order_number': order.order_number},
+        )}?paid=1"
     )
 
 

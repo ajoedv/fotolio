@@ -90,48 +90,134 @@
         <div class="cart-card">
             <h2 class="h5 mb-3">Shipping &amp; contact</h2>
 
+            <p class="text-muted mb-3">
+                Pre-filled from your profile. You can edit before payment if you want to ship to different address.
+            </p>
+
             <form method="post" action="{% url 'cart:checkout' %}">
                 {% csrf_token %}
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="full_name">Full name</label>
-                        <input type="text" id="full_name" name="full_name" class="form-control" required>
+                        <input
+                            type="text"
+                            id="full_name"
+                            name="full_name"
+                            class="form-control{% if errors.full_name %} is-invalid{% endif %}"
+                            value="{{ form_data.full_name|default:'' }}"
+                            required>
+                        {% if errors.full_name %}
+                            <div class="invalid-feedback d-block">
+                                {{ errors.full_name }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            value="{{ form_data.email|default:'' }}"
+                            readonly>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="phone">Phone</label>
-                        <input type="text" id="phone" name="phone" class="form-control" required>
+                        <input
+                            type="text"
+                            id="phone"
+                            name="phone"
+                            class="form-control{% if errors.phone %} is-invalid{% endif %}"
+                            value="{{ form_data.phone|default:'' }}"
+                            required>
+                        {% if errors.phone %}
+                            <div class="invalid-feedback d-block">
+                                {{ errors.phone }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="address1">Address line 1</label>
-                        <input type="text" id="address1" name="address1" class="form-control" required>
+                        <input
+                            type="text"
+                            id="address1"
+                            name="address1"
+                            class="form-control{% if errors.address1 %} is-invalid{% endif %}"
+                            value="{{ form_data.address1|default:'' }}"
+                            required>
+                        {% if errors.address1 %}
+                            <div class="invalid-feedback d-block">
+                                {{ errors.address1 }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="address2">Address line 2 (optional)</label>
-                        <input type="text" id="address2" name="address2" class="form-control">
+                        <input
+                            type="text"
+                            id="address2"
+                            name="address2"
+                            class="form-control"
+                            value="{{ form_data.address2|default:'' }}">
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="city">City</label>
-                        <input type="text" id="city" name="city" class="form-control" required>
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            class="form-control{% if errors.city %} is-invalid{% endif %}"
+                            value="{{ form_data.city|default:'' }}"
+                            required>
+                        {% if errors.city %}
+                            <div class="invalid-feedback d-block">
+                                {{ errors.city }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="postcode">Postcode</label>
-                        <input type="text" id="postcode" name="postcode" class="form-control" required>
+                        <input
+                            type="text"
+                            id="postcode"
+                            name="postcode"
+                            class="form-control{% if errors.postcode %} is-invalid{% endif %}"
+                            value="{{ form_data.postcode|default:'' }}"
+                            required>
+                        {% if errors.postcode %}
+                            <div class="invalid-feedback d-block">
+                                {{ errors.postcode }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="country">Country</label>
-                        <input type="text" id="country" name="country" class="form-control" required>
+                        <select
+                            id="country"
+                            name="country"
+                            class="form-control{% if errors.country %} is-invalid{% endif %}"
+                            required>
+                            <option value="">Select country</option>
+                            {% for code, name in country_choices %}
+                                <option value="{{ code }}" {% if form_data.country == code %}selected{% endif %}>
+                                    {{ name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.country %}
+                            <div class="invalid-feedback d-block">
+                                {{ errors.country }}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -140,15 +226,42 @@
                 </div>
 
                 <div class="form-group form-check mb-4">
-                    <input type="checkbox"
-                            class="form-check-input"
-                            id="confirm_details"
-                            name="confirm_details"
-                            required>
+                    <input
+                        type="checkbox"
+                        class="form-check-input{% if errors.confirm_details %} is-invalid{% endif %}"
+                        id="confirm_details"
+                        name="confirm_details"
+                        {% if form_data.confirm_details %}checked{% endif %}
+                        required>
                     <label class="form-check-label" for="confirm_details">
                         I confirm that my order and shipping details are correct.
                     </label>
+                    {% if errors.confirm_details %}
+                        <div class="invalid-feedback d-block">
+                            {{ errors.confirm_details }}
+                        </div>
+                    {% endif %}
                 </div>
+
+                <!-- Save to profile (only appears if user changed something) -->
+                <div id="save-to-profile-wrap" class="form-group form-check mb-4 d-none">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="save_to_profile"
+                        name="save_to_profile"
+                        {% if form_data.save_to_profile %}checked{% endif %}
+                    >
+                    <label class="form-check-label" for="save_to_profile">
+                        Save this address to my profile for next time
+                    </label>
+                </div>
+
+                {% if show_shipping_alert %}
+                    <div class="alert alert-danger mt-3 mb-3" role="alert">
+                        Almost there — please complete your shipping details to proceed to payment.
+                    </div>
+                {% endif %}
 
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-hero-primary btn-lg px-5 py-3">
@@ -161,4 +274,51 @@
 
     </div>
 </section>
+
+<script>
+(function () {
+    const wrap = document.getElementById("save-to-profile-wrap");
+    if (!wrap) return;
+
+    const fields = [
+        ["full_name", "{{ form_data.full_name|default:''|escapejs }}"],
+        ["phone", "{{ form_data.phone|default:''|escapejs }}"],
+        ["address1", "{{ form_data.address1|default:''|escapejs }}"],
+        ["address2", "{{ form_data.address2|default:''|escapejs }}"],
+        ["city", "{{ form_data.city|default:''|escapejs }}"],
+        ["postcode", "{{ form_data.postcode|default:''|escapejs }}"],
+        ["country", "{{ form_data.country|default:''|escapejs }}"],
+    ];
+
+    function isDirty() {
+        for (const [id, original] of fields) {
+            const el = document.getElementById(id);
+            if (!el) continue;
+            const current = (el.value || "").trim();
+            const base = (original || "").trim();
+            if (current !== base) return true;
+        }
+        return false;
+    }
+
+    function updateUI() {
+        if (isDirty()) {
+            wrap.classList.remove("d-none");
+        } else {
+            wrap.classList.add("d-none");
+            const cb = document.getElementById("save_to_profile");
+            if (cb) cb.checked = false;
+        }
+    }
+
+    fields.forEach(([id]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener("input", updateUI);
+        el.addEventListener("change", updateUI);
+    });
+
+    updateUI();
+})();
+</script>
 {% endblock %}

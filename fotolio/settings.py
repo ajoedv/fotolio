@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "orders",
+    "django_countries",
 
 
     # Third-party apps

@@ -19,10 +19,42 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-7 col-md-7 col-12">
+            <div class="col-lg-5 col-md-5 col-12 order-1 order-md-1">
+                <div class="profile-avatar-preview-card">
+                    <div class="profile-avatar-preview-inner">
+                        {% if profile.avatar %}
+                            <img
+                                src="{{ profile.avatar.url }}"
+                                alt="{{ request.user.username }}"
+                                class="profile-avatar-preview-img"
+                            >
+                        {% else %}
+                            <div class="profile-avatar-preview-placeholder">
+                                <span>{{ request.user.username|first|upper }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="profile-avatar-preview-caption mb-0">
+                        Current avatar
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-md-7 col-12 order-2 order-md-2">
                 <div class="profile-edit-card">
                     <form method="post" enctype="multipart/form-data" class="profile-edit-form">
                         {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="id_email">Email</label>
+                            <input
+                                type="email"
+                                id="id_email"
+                                class="form-control"
+                                value="{{ request.user.email|default:'' }}"
+                                readonly
+                            >
+                        </div>
 
                         <div class="form-group">
                             {{ form.display_name.label_tag }}
@@ -44,17 +76,66 @@
                             {% endif %}
                         </div>
 
+                        <hr class="my-4">
+
                         <div class="form-group">
-                            {{ form.default_shipping_address.label_tag }}
-                            {{ form.default_shipping_address }}
-                            {% if form.default_shipping_address.errors %}
+                            {{ form.shipping_full_name.label_tag }}
+                            {{ form.shipping_full_name }}
+                            {% if form.shipping_full_name.errors %}
                                 <div class="invalid-feedback d-block">
-                                    {{ form.default_shipping_address.errors|striptags }}
+                                    {{ form.shipping_full_name.errors|striptags }}
                                 </div>
                             {% endif %}
-                            <small class="form-text text-muted">
-                                This address may be used as your default shipping / billing address.
-                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.address_line1.label_tag }}
+                            {{ form.address_line1 }}
+                            {% if form.address_line1.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.address_line1.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.address_line2.label_tag }}
+                            {{ form.address_line2 }}
+                            {% if form.address_line2.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.address_line2.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.city.label_tag }}
+                            {{ form.city }}
+                            {% if form.city.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.city.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.postcode.label_tag }}
+                            {{ form.postcode }}
+                            {% if form.postcode.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.postcode.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.country.label_tag }}
+                            {{ form.country }}
+                            {% if form.country.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.country.errors|striptags }}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div class="form-group mb-4">
@@ -79,23 +160,6 @@
                             </a>
                         </div>
                     </form>
-                </div>
-            </div>
-
-            <div class="col-lg-5 col-md-5 col-12">
-                <div class="profile-avatar-preview-card">
-                    <div class="profile-avatar-preview-inner">
-                        {% if profile.avatar %}
-                            <img src="{{ profile.avatar.url }}" alt="{{ request.user.username }}" class="profile-avatar-preview-img">
-                        {% else %}
-                            <div class="profile-avatar-preview-placeholder">
-                                <span>{{ request.user.username|first|upper }}</span>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <p class="profile-avatar-preview-caption mb-0">
-                        Current avatar
-                    </p>
                 </div>
             </div>
         </div>

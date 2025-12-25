@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-6 mb-2">
                     <div class="text-muted small">Country</div>
-                    <div>{{ shipping.country }}</div>
+                    <div>{{ shipping_country_name|default:shipping.country }}</div>
                 </div>
                 <div class="col-12 mb-2">
                     <div class="text-muted small">Address</div>
@@ -185,7 +185,8 @@
             colorTextSecondary: "#B3B3B3",
             colorDanger: "#E50914",
             fontFamily:
-                "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+                "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, " +
+                "sans-serif",
             borderRadius: "14px",
         },
     };
@@ -229,7 +230,8 @@
 
         if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
             const intentId = encodeURIComponent(result.paymentIntent.id);
-            window.location.href = successUrl + "?payment_intent=" + intentId;
+            window.location.href =
+                successUrl + "?payment_intent=" + intentId;
             return;
         }
 

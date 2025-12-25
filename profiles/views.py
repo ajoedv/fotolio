@@ -30,6 +30,10 @@ def edit_profile(request):
         )
         if form.is_valid():
             form.save()
+
+            request.session.pop("checkout_shipping", None)
+            request.session.modified = True
+
             messages.success(request, "Profile updated successfully.")
             return redirect("profiles:profile")
     else:
