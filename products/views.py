@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
-from .models import Product
+from .models import Product, Category
 from .constants import BASE_SIZE_LABEL
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.db.models import Q
 
 from .models import ProductReview
 from .forms import ProductReviewForm
@@ -24,9 +25,43 @@ def products_list(request):
     )
     teaser_products = Product.objects.order_by("?")[:10]
 
+    categories = Category.objects.order_by("friendly_name", "name")
+
+    category = request.GET.get("category", "").strip()
+    q = request.GET.get("q", "").strip()
+    focus = request.GET.get("focus", "").strip()
+
+    active_category = None
+    if category:
+        category_exists = Category.objects.filter(name=category).exists()
+        if category_exists:
+            active_category = category
+            products = products.filter(category__name=category)
+        else:
+            products = products.none()
+
+    if q:
+        products = products.filter(
+            Q(name__icontains=q)
+            | Q(description__icontains=q)
+            | Q(category__name__icontains=q)
+            | Q(category__friendly_name__icontains=q)
+        )
+
+    has_filters = bool(category) or bool(q)
+    no_results = has_filters and not products.exists()
+
+    show_search = bool(q) or (focus == "1")
+
     context = {
         "products": products,
         "teaser_products": teaser_products,
+        "categories": categories,
+        "active_category": active_category,
+        "no_results": no_results,
+        "show_search": show_search,
+        "search_query": q,
+        "autofocus_search": (focus == "1"),
     }
     return render(request, "products/list.html", context)
 

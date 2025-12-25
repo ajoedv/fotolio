@@ -11,7 +11,10 @@
 <section class="section-block gallery-page">
     <div class="container">
 
-        <div class="section-header d-flex flex-column flex-md-row justify-content-between align-items-md-end">
+        <div
+            class="section-header d-flex flex-column flex-md-row
+            justify-content-between align-items-md-end"
+        >
             <div>
                 <h1 class="section-title mb-1">Gallery</h1>
                 <p class="section-subtitle mb-0">
@@ -20,16 +23,97 @@
             </div>
         </div>
 
+        {% if request.GET.focus == '1' or request.GET.q %}
+            <div class="mb-4">
+                <form
+                    method="get"
+                    action="{% url 'products:list' %}"
+                >
+                    {% if active_category %}
+                        <input
+                            type="hidden"
+                            name="category"
+                            value="{{ active_category }}"
+                        >
+                    {% endif %}
+
+                    <div class="input-group">
+                        <input
+                            type="search"
+                            name="q"
+                            id="gallerySearch"
+                            class="form-control"
+                            placeholder="Search (snow, forest, mountain...)"
+                            aria-label="Search"
+                            value="{{ request.GET.q|default:'' }}"
+                            {% if request.GET.focus == '1' %}autofocus{% endif %}
+                        >
+                        <div class="input-group-append">
+                            <button
+                                class="btn btn-primary"
+                                type="submit"
+                            >
+                                Search
+                            </button>
+                            <a
+                                href="{% url 'products:list' %}{% if active_category %}?category={{ active_category }}{% endif %}"
+                                class="btn btn-outline-light"
+                            >
+                                Close
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if no_results %}
+            <div class="mb-4">
+                <div class="p-4 rounded-4 border">
+                    <h2 class="h5 mb-2">No products found</h2>
+                    <p class="text-muted mb-3">
+                        Try another category or view all products.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="mb-4 d-flex flex-wrap gap-2 gallery-chips">
+            <a
+                href="{% url 'products:list' %}"
+                class="btn btn-sm
+                {% if not active_category %}btn-primary{% else %}btn-outline-light{% endif %}"
+            >
+                All
+            </a>
+
+            {% for cat in categories %}
+                <a
+                    href="{% url 'products:list' %}?category={{ cat.name }}"
+                    class="btn btn-sm
+                    {% if active_category == cat.name %}btn-primary{% else %}btn-outline-light{% endif %}"
+                >
+                    {{ cat.friendly_name|default:cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+
         {% if products %}
             <div class="row">
                 {% for p in products %}
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
                         <article class="product-card h-100">
 
-                            <a href="{% url 'products:detail' pk=p.id %}" class="product-thumb-wrapper">
+                            <a
+                                href="{% url 'products:detail' pk=p.id %}"
+                                class="product-thumb-wrapper"
+                            >
                                 {% if p.image %}
                                     <div class="product-thumb">
-                                        <img src="{{ p.image.url }}" alt="{{ p.name }}">
+                                        <img
+                                            src="{{ p.image.url }}"
+                                            alt="{{ p.name }}"
+                                        >
                                     </div>
                                 {% else %}
                                     <div class="product-thumb product-thumb-placeholder">
@@ -51,8 +135,10 @@
 
                                 <div class="product-bottom">
                                     <span class="product-price">${{ p.price }}</span>
-                                    <a href="{% url 'products:detail' pk=p.id %}"
-                                        class="btn btn-primary btn-sm">
+                                    <a
+                                        href="{% url 'products:detail' pk=p.id %}"
+                                        class="btn btn-primary btn-sm"
+                                    >
                                         View details
                                     </a>
                                 </div>
@@ -63,7 +149,9 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p class="text-muted">No products available yet.</p>
+            {% if not no_results %}
+                <p class="text-muted">No products available yet.</p>
+            {% endif %}
         {% endif %}
 
     </div>
