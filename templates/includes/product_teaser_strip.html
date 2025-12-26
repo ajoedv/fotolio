@@ -39,7 +39,7 @@
                                 {{ product.category.friendly_name|default:product.category.name }}
                             </p>
                             <div class="product-bottom">
-                                <span class="product-price">${{ product.price }}</span>
+                                <span class="product-price">{{ product.price }} KR</span>
                                 <a href="{% url 'products:detail' pk=product.id %}"
                                     class="btn btn-primary mr-2 btn-sm">
                                     View
