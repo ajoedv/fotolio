@@ -1,302 +1,302 @@
 [
-    {
+  {
     "model": "products.product",
     "pk": 1,
     "fields": {
-        "category": 1,
-        "sku": "A1",
-        "name": "Golden Field at Sunset",
-        "description": "Warm sunset over a rural barn and green meadow framed by a tree.",
-        "price": "89.00",
-        "image": "products/A1.webp"
+      "category": 1,
+      "sku": "A1",
+      "name": "Golden Field at Sunset",
+      "description": "Warm sunset over a rural barn and green meadow framed by a tree.",
+      "price": "89.00",
+      "image": "products/A1.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 2,
     "fields": {
-        "category": 1,
-        "sku": "A2",
-        "name": "Countryside Hedge at Sunset",
-        "description": "A quiet rural house with a Swedish flag, framed by hedges and trees as the sun sets in the background.",
-        "price": "89.00",
-        "image": "products/A2.webp"
+      "category": 1,
+      "sku": "A2",
+      "name": "Countryside Hedge at Sunset",
+      "description": "A quiet rural house with a Swedish flag, framed by hedges and trees as the sun sets in the background.",
+      "price": "89.00",
+      "image": "products/A2.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 3,
     "fields": {
-        "category": 1,
-        "sku": "A3",
-        "name": "Sunset Road Perspective",
-        "description": "A long straight road leading into the horizon with the sunset glowing in the distance.",
-        "price": "89.00",
-        "image": "products/A3.webp"
+      "category": 1,
+      "sku": "A3",
+      "name": "Sunset Road Perspective",
+      "description": "A long straight road leading into the horizon with the sunset glowing in the distance.",
+      "price": "89.00",
+      "image": "products/A3.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 4,
     "fields": {
-        "category": 1,
-        "sku": "A4",
-        "name": "Golden Pathway",
-        "description": "A countryside dirt road lined with trees, glowing under a golden sunset sky.",
-        "price": "89.00",
-        "image": "products/A4.webp"
+      "category": 1,
+      "sku": "A4",
+      "name": "Golden Pathway",
+      "description": "A countryside dirt road lined with trees, glowing under a golden sunset sky.",
+      "price": "89.00",
+      "image": "products/A4.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 5,
     "fields": {
-        "category": 1,
-        "sku": "A5",
-        "name": "Sunset Path",
-        "description": "A dirt path stretching into the distance, framed by fields and glowing with the colors of sunset.",
-        "price": "89.00",
-        "image": "products/A5.webp"
+      "category": 1,
+      "sku": "A5",
+      "name": "Sunset Path",
+      "description": "A dirt path stretching into the distance, framed by fields and glowing with the colors of sunset.",
+      "price": "89.00",
+      "image": "products/A5.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 6,
     "fields": {
-        "category": 1,
-        "sku": "A6",
-        "name": "Rainbow Over Fields",
-        "description": "A faint rainbow appears in the evening sky over open fields, with a church tower in the distance.",
-        "price": "89.00",
-        "image": "products/A6.webp"
+      "category": 1,
+      "sku": "A6",
+      "name": "Rainbow Over Fields",
+      "description": "A faint rainbow appears in the evening sky over open fields, with a church tower in the distance.",
+      "price": "89.00",
+      "image": "products/A6.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 7,
     "fields": {
-        "category": 3,
-        "sku": "A7",
-        "name": "Snowy Forest Path",
-        "description": "A black and white winter scene of a forest path covered in snow, surrounded by tall pine trees.",
-        "price": "89.00",
-        "image": "products/A7.webp"
+      "category": 3,
+      "sku": "A7",
+      "name": "Snowy Forest Path",
+      "description": "A black and white winter scene of a forest path covered in snow, surrounded by tall pine trees.",
+      "price": "89.00",
+      "image": "products/A7.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 8,
     "fields": {
-        "category": 3,
-        "sku": "A8",
-        "name": "Snowy Harbor View",
-        "description": "Peaceful snowy harbor with boats, wooden houses, and a lighthouse in the background.",
-        "price": "89.00",
-        "image": "products/A8.webp"
+      "category": 3,
+      "sku": "A8",
+      "name": "Snowy Harbor View",
+      "description": "Peaceful snowy harbor with boats, wooden houses, and a lighthouse in the background.",
+      "price": "89.00",
+      "image": "products/A8.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 9,
     "fields": {
-        "category": 3,
-        "sku": "A9",
-        "name": "Snowy Lighthouse",
-        "description": "A lighthouse standing tall on a snowy hilltop with benches and winter scenery.",
-        "price": "89.00",
-        "image": "products/A9.webp"
+      "category": 3,
+      "sku": "A9",
+      "name": "Snowy Lighthouse",
+      "description": "A lighthouse standing tall on a snowy hilltop with benches and winter scenery.",
+      "price": "89.00",
+      "image": "products/A9.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 10,
     "fields": {
-        "category": 1,
-        "sku": "A10",
-        "name": "Rocky Shore at Sunset",
-        "description": "Smooth water flowing around large rocks at the shore, under a purple and pink sunset sky.",
-        "price": "89.00",
-        "image": "products/A10.webp"
+      "category": 1,
+      "sku": "A10",
+      "name": "Rocky Shore at Sunset",
+      "description": "Smooth water flowing around large rocks at the shore, under a purple and pink sunset sky.",
+      "price": "89.00",
+      "image": "products/A10.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 11,
     "fields": {
-        "category": 1,
-        "sku": "A11",
-        "name": "Pier at Purple Sunset",
-        "description": "A wooden pier stretching into calm waters, with a dramatic purple and pink sunset sky above.",
-        "price": "89.00",
-        "image": "products/A11.webp"
+      "category": 1,
+      "sku": "A11",
+      "name": "Pier at Purple Sunset",
+      "description": "A wooden pier stretching into calm waters, with a dramatic purple and pink sunset sky above.",
+      "price": "89.00",
+      "image": "products/A11.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 12,
     "fields": {
-        "category": 1,
-        "sku": "A12",
-        "name": "Pier in Blue Twilight",
-        "description": "A tranquil pier leading into calm blue waters under a soft twilight sky.",
-        "price": "89.00",
-        "image": "products/A12.webp"
+      "category": 1,
+      "sku": "A12",
+      "name": "Pier in Blue Twilight",
+      "description": "A tranquil pier leading into calm blue waters under a soft twilight sky.",
+      "price": "89.00",
+      "image": "products/A12.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 13,
     "fields": {
-        "category": 2,
-        "sku": "A13",
-        "name": "Monochrome Shoreline",
-        "description": "A dramatic black and white seascape with rocks and a calm reflective surface under a moody sky.",
-        "price": "89.00",
-        "image": "products/A13.webp"
+      "category": 2,
+      "sku": "A13",
+      "name": "Monochrome Shoreline",
+      "description": "A dramatic black and white seascape with rocks and a calm reflective surface under a moody sky.",
+      "price": "89.00",
+      "image": "products/A13.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 14,
     "fields": {
-        "category": 1,
-        "sku": "A14",
-        "name": "Twilight Rocks",
-        "description": "A serene twilight scene with glowing purple skies above a rocky shoreline, softly reflecting on the calm water.",
-        "price": "89.00",
-        "image": "products/A14.webp"
+      "category": 1,
+      "sku": "A14",
+      "name": "Twilight Rocks",
+      "description": "A serene twilight scene with glowing purple skies above a rocky shoreline, softly reflecting on the calm water.",
+      "price": "89.00",
+      "image": "products/A14.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 15,
     "fields": {
-        "category": 2,
-        "sku": "A15",
-        "name": "Silent Shore in Black & White",
-        "description": "A minimalistic black and white capture of a calm shore, with rocks and smooth water under a cloudy sky.",
-        "price": "89.00",
-        "image": "products/A15.webp"
+      "category": 2,
+      "sku": "A15",
+      "name": "Silent Shore in Black & White",
+      "description": "A minimalistic black and white capture of a calm shore, with rocks and smooth water under a cloudy sky.",
+      "price": "89.00",
+      "image": "products/A15.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 16,
     "fields": {
-        "category": 1,
-        "sku": "A16",
-        "name": "Twilight by the Shore",
-        "description": "Soft twilight colors over a rocky shore and calm waters with a sandy foreground.",
-        "price": "89.00",
-        "image": "products/A16.webp"
+      "category": 1,
+      "sku": "A16",
+      "name": "Twilight by the Shore",
+      "description": "Soft twilight colors over a rocky shore and calm waters with a sandy foreground.",
+      "price": "89.00",
+      "image": "products/A16.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 17,
     "fields": {
-        "category": 1,
-        "sku": "A17",
-        "name": "Rocky Shore at Sunset",
-        "description": "Dramatic sunset sky with glowing clouds above a rocky shore and glistening waves.",
-        "price": "89.00",
-        "image": "products/A17.webp"
+      "category": 1,
+      "sku": "A17",
+      "name": "Rocky Shore at Golden Hour",
+      "description": "Dramatic sunset sky with glowing clouds above a rocky shore and glistening waves.",
+      "price": "89.00",
+      "image": "products/A17.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 18,
     "fields": {
-        "category": 1,
-        "sku": "A18",
-        "name": "Fiery Sunset Over Rocky Coast",
-        "description": "Intense red and orange sunset sky above a rocky coastline with crashing waves.",
-        "price": "89.00",
-        "image": "products/A18.webp"
+      "category": 1,
+      "sku": "A18",
+      "name": "Fiery Sunset Over Rocky Coast",
+      "description": "Intense red and orange sunset sky above a rocky coastline with crashing waves.",
+      "price": "89.00",
+      "image": "products/A18.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 19,
     "fields": {
-        "category": 1,
-        "sku": "A19",
-        "name": "Misty Morning Field",
-        "description": "Golden sunrise with mist covering a harvested field bordered by trees.",
-        "price": "89.00",
-        "image": "products/A19.webp"
+      "category": 1,
+      "sku": "A19",
+      "name": "Misty Morning Field",
+      "description": "Golden sunrise with mist covering a harvested field bordered by trees.",
+      "price": "89.00",
+      "image": "products/A19.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 20,
     "fields": {
-        "category": 1,
-        "sku": "A20",
-        "name": "Stones Under Purple Sky",
-        "description": "Line of stones on open ground beneath dramatic purple and orange sunset clouds.",
-        "price": "89.00",
-        "image": "products/A20.webp"
+      "category": 1,
+      "sku": "A20",
+      "name": "Stones Under Purple Sky",
+      "description": "Line of stones on open ground beneath dramatic purple and orange sunset clouds.",
+      "price": "89.00",
+      "image": "products/A20.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 21,
     "fields": {
-        "category": 3,
-        "sku": "A21",
-        "name": "Snowy Roadside",
-        "description": "Open snowy roadside with traffic signs under a clear winter sky.",
-        "price": "89.00",
-        "image": "products/A21.webp"
+      "category": 3,
+      "sku": "A21",
+      "name": "Snowy Roadside",
+      "description": "Open snowy roadside with traffic signs under a clear winter sky.",
+      "price": "89.00",
+      "image": "products/A21.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 22,
     "fields": {
-        "category": 3,
-        "sku": "A22",
-        "name": "Winter Road Sunrise",
-        "description": "Sunrise casting warm light on an icy winter road with trees lining the side.",
-        "price": "89.00",
-        "image": "products/A22.webp"
+      "category": 3,
+      "sku": "A22",
+      "name": "Winter Road Sunrise",
+      "description": "Sunrise casting warm light on an icy winter road with trees lining the side.",
+      "price": "89.00",
+      "image": "products/A22.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 23,
     "fields": {
-        "category": 2,
-        "sku": "A23",
-        "name": "Monochrome Pier",
-        "description": "Black and white capture of a quiet pier stretching into calm waters with rocky shores.",
-        "price": "89.00",
-        "image": "products/A23.webp"
+      "category": 2,
+      "sku": "A23",
+      "name": "Monochrome Pier",
+      "description": "Black and white capture of a quiet pier stretching into calm waters with rocky shores.",
+      "price": "89.00",
+      "image": "products/A23.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 24,
     "fields": {
-        "category": 3,
-        "sku": "A24",
-        "name": "Snowy Road Panorama",
-        "description": "Expansive snowy landscape with a road leading toward distant hills under a clear blue sky.",
-        "price": "89.00",
-        "image": "products/A24.webp"
+      "category": 3,
+      "sku": "A24",
+      "name": "Snowy Road Panorama",
+      "description": "Expansive snowy landscape with a road leading toward distant hills under a clear blue sky.",
+      "price": "89.00",
+      "image": "products/A24.webp"
     }
-},
-{
+  },
+  {
     "model": "products.product",
     "pk": 25,
     "fields": {
-        "category": 3,
-        "sku": "A25",
-        "name": "Misty Winter Cabin",
-        "description": "A cozy cabin surrounded by mist at the edge of a snowy field with forested hills in the background.",
-        "price": "89.00",
-        "image": "products/A25.webp"
+      "category": 3,
+      "sku": "A25",
+      "name": "Misty Winter Cabin",
+      "description": "A cozy cabin surrounded by mist at the edge of a snowy field with forested hills in the background.",
+      "price": "89.00",
+      "image": "products/A25.webp"
     }
-}
-] 
+  }
+]
