@@ -5,6 +5,11 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <style>
+        .alerts-container {
+            display: none !important;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +20,7 @@
         <!-- Hero image on top -->
         <div class="contact-hero-image mb-4">
             <img src="{% static 'img/hero/hero-3.webp' %}"
-                    alt="Cinematic photograph in a modern interior space">
+                 alt="Cinematic photograph in a modern interior space">
         </div>
 
         <!-- Text block under hero -->
@@ -35,6 +40,7 @@
         <!-- Contact layout: info + form -->
         <div class="contact-layout">
             <div class="row">
+
                 <!-- Info card -->
                 <div class="col-lg-5 mb-4 mb-lg-0">
                     <div class="contact-card contact-info-card">
@@ -48,68 +54,119 @@
                         <ul class="contact-list">
                             <li>
                                 <span class="label">Email</span>
-                                <a href="mailto:info@fotolio.se">info@fotolio.se</a>
+                                <a href="mailto:info@fotolio.se"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Email Fotolio"
+                                   title="Email Fotolio">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
                             </li>
+
                             <li>
                                 <span class="label">Phone</span>
-                                <a href="tel:+46123456789">+46 728 43 19 14</a>
+                                <a href="tel:+46728431914"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Call Fotolio"
+                                   title="Call Fotolio">
+                                    <i class="fas fa-phone"></i>
+                                </a>
                             </li>
+
                             <li>
                                 <span class="label">Instagram</span>
-                                <a href="#" target="_blank" rel="noopener">@fotolio.gallery</a>
+                                <a href="https://www.instagram.com/fotolio.studio/"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Fotolio on Instagram"
+                                   title="Fotolio on Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
                             </li>
+
                             <li>
                                 <span class="label">Facebook</span>
-                                <a href="#" target="_blank" rel="noopener">Fotolio Studio</a>
+                                <a href="https://www.facebook.com/fotolio.studio"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Fotolio on Facebook"
+                                   title="Fotolio on Facebook">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
                             </li>
                         </ul>
 
+                        <p class="contact-card-note mb-2">
+                            If the email link doesn’t open on your device, please use the contact form.
+                        </p>
+
                         <p class="contact-card-note mb-0">
-                            Social links and phone are placeholders for the project,
-                            but presented as a real studio setup.
+                            For custom work or collaborations, include details about your idea and timeline.
                         </p>
                     </div>
                 </div>
 
                 <!-- Form card -->
                 <div class="col-lg-7">
-                    <div class="contact-card contact-form-card">
+                    <div class="contact-card contact-form-card" id="contact-form">
                         <h2 class="contact-card-title">Send a message</h2>
                         <p class="contact-card-text">
                             Share a few details about what you need – prints, sizes, wall ideas,
                             or collaboration – and you’ll get a reply as soon as possible.
                         </p>
 
-                        <form method="post" class="contact-form">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} mb-3" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="post" class="contact-form" novalidate>
                             {% csrf_token %}
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="id_name">Name</label>
-                                    <input type="text" id="id_name" name="name"
-                                            class="form-control"
-                                            placeholder="Your name">
+                                    <label for="{{ form.name.id_for_label }}">Name</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.name.errors|striptags }}
+                                        </div>
+                                    {% endif %}
                                 </div>
+
                                 <div class="form-group col-md-6">
-                                    <label for="id_email">Email</label>
-                                    <input type="email" id="id_email" name="email"
-                                            class="form-control"
-                                            placeholder="you@example.com">
+                                    <label for="{{ form.email.id_for_label }}">Email</label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.email.errors|striptags }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="id_subject">Subject</label>
-                                <input type="text" id="id_subject" name="subject"
-                                        class="form-control"
-                                        placeholder="Prints, sizing, wall planning...">
+                                <label for="{{ form.subject.id_for_label }}">Subject</label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.subject.errors|striptags }}
+                                    </div>
+                                {% endif %}
                             </div>
 
                             <div class="form-group">
-                                <label for="id_message">Message</label>
-                                <textarea id="id_message" name="message"
-                                            rows="4"
-                                            class="form-control"
-                                            placeholder="Tell a bit about what you’re looking for."></textarea>
+                                <label for="{{ form.message.id_for_label }}">Message</label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.message.errors|striptags }}
+                                    </div>
+                                {% endif %}
                             </div>
 
                             <button type="submit" class="btn btn-primary">
@@ -118,6 +175,7 @@
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -126,6 +184,17 @@
 
 {% if teaser_products %}
     {% include "includes/product_teaser_strip.html" with products=teaser_products section_title="From the gallery" %}
+{% endif %}
+
+{% if messages or form.errors %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var el = document.getElementById("contact-form");
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+    </script>
 {% endif %}
 
 {% endblock %}
