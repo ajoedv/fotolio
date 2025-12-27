@@ -9,9 +9,7 @@ The site is fully responsive and optimized for a smooth user shopping experience
 ---
 
 ## Live Demo
-🔗 [Click here to view the live app on Heroku](#)  
-(Deployed link will be added after final deployment)
-
+🔗 [FOTOLIO](http://fotolio-fc00bcc269bb.herokuapp.com/)
 ---
 
 ## Agile Methodology
