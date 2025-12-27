@@ -9,6 +9,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
 
+from django.contrib.sitemaps.views import sitemap
+from fotolio.sitemaps import StaticViewSitemap
+from products.sitemaps import ProductSitemap
+
 # Error handlers
 
 
@@ -31,12 +35,18 @@ def robots_txt(request):
     )
 
 
+sitemaps = {
+    "static": StaticViewSitemap,
+    "products": ProductSitemap,
+}
+
 # URL patterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("robots.txt", robots_txt),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
     path("", include("home.urls")),
     path("products/", include("products.urls")),
     path("profile/", include("profiles.urls", namespace="profiles")),
