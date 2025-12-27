@@ -3,6 +3,10 @@
 
 {% block extra_title %}| {{ product.name }}{% endblock %}
 
+{% block meta_description %}
+<meta name="description" content="{{ product.name }}{% if product.category %} — {{ product.category.friendly_name|default:product.category.name }}{% endif %}. Premium cinematic photography print from Fotolio, ready to hang.">
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/product.css' %}">
 {% endblock %}

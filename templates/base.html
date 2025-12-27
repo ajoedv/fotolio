@@ -10,6 +10,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% endblock %}
 
+    {# Academic: meta_description outputs the FULL meta tag (not raw text) #}
+    {% block meta_description %}
+        <meta name="description" content="Shop original cinematic photography prints for your space. Discover curated photo prints with rich contrast and premium finishing—ready to hang at home or in your studio.">
+    {% endblock %}
+
     {% block extra_meta %}
     {% endblock %}
 
@@ -118,7 +123,7 @@
                                 <a class="dropdown-item" href="{% url 'account_signup' %}">Sign up</a>
                             </div>
                         </div>
-                    {% endif %} 
+                    {% endif %}
 
                     <button class="navbar-toggler ml-2" type="button"
                             data-toggle="collapse" data-target="#mainNavbarContent"
@@ -231,7 +236,7 @@
                     <div class="footer-brand">
                         <span class="footer-logo-text">FOTOLIO</span>
                         <p class="footer-text">
-                            Original photographic prints and laser engraved artwork for modern spaces.
+                            Original photographic prints for modern spaces.
                         </p>
                     </div>
                 </div>

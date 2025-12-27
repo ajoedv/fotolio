@@ -3,6 +3,10 @@
 
 {% block extra_title %}| Home{% endblock %}
 
+{% block meta_description %}
+<meta name="description" content="Shop original cinematic photography prints for your space. Discover premium prints with rich contrast, ready to hang at home or in your studio.">
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
@@ -13,9 +17,9 @@
     <div class="hero-bg"
         id="heroBg"
         data-hero-images='[
-            "{% static "img/hero/hero-1.webp" %}",
-            "{% static "img/hero/hero-2.webp" %}",
-            "{% static "img/hero/hero-3.webp" %}"
+            "{% static 'img/hero/hero-1.webp' %}",
+            "{% static 'img/hero/hero-2.webp' %}",
+            "{% static 'img/hero/hero-3.webp' %}"
         ]'>
         <div class="container">
             <div class="hero-inner">
@@ -32,7 +36,7 @@
                         <a href="{% url 'products:list' %}" class="btn btn-primary mr-2">
                             Shop Prints
                         </a>
-                        <a href="#" class="btn btn-outline-light">
+                        <a href="{% url 'about' %}" class="btn btn-outline-light">
                             Learn about Fotolio
                         </a>
                     </div>
@@ -54,6 +58,7 @@
             <h2 class="section-title">Why Fotolio?</h2>
             <p class="section-subtitle mb-0">
                 A carefully curated collection of cinematic photo prints, focused on quality and visual impact.
+            </p>
         </div>
 
         <div class="row">
