@@ -52,6 +52,8 @@ urlpatterns = [
     path("profile/", include("profiles.urls", namespace="profiles")),
     path("cart/", include("cart.urls", namespace="cart")),
     path("orders/", include("orders.urls", namespace="orders")),
+    path("newsletter/", include("newsletter.urls")),
+
 ]
 
 if settings.DEBUG:

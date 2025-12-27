@@ -433,94 +433,6 @@ a:visited {
     border-color: var(--accent);
 }
 
-/* 7. Footer */
-.site-footer {
-    background-color: transparent;
-    border-top: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.footer-main {
-    padding-top: 3rem;
-    padding-bottom: 2.5rem;
-}
-
-.footer-logo-text {
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    display: inline-block;
-    margin-bottom: 0.75rem;
-}
-
-.footer-heading {
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-}
-
-.footer-text {
-    margin-bottom: 0.75rem;
-}
-
-.footer-nav li + li {
-    margin-top: 0.25rem;
-}
-
-.footer-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.footer-link:hover {
-    color: var(--accent-hover);
-    text-decoration: none;
-}
-
-.footer-social {
-    margin-top: 0.75rem;
-    display: flex;
-    gap: 0.75rem;
-}
-
-.footer-social-link {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border-subtle);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition:
-        border-color 0.2s ease,
-        color 0.2s ease,
-        background-color 0.2s ease;
-}
-
-.footer-social-link:hover {
-    border-color: var(--accent);
-    color: #ffffff;
-    background-color: var(--accent);
-}
-
-.footer-bottom {
-    border-top: 1px solid #18181c;
-    padding: 1rem 0;
-    font-size: 0.8rem;
-    background-color: transparent;
-}
-
-.footer-copy {
-    color: #7a7a85;
-}
-
 /* 8. Related products carousel */
 .product-related {
     border-top: 1px solid var(--border-subtle);
@@ -664,20 +576,6 @@ a:visited {
         padding: 3rem 0;
     }
 
-    .site-footer {
-        margin-top: 3rem;
-    }
-
-    .footer-main {
-        padding-top: 2.5rem;
-        padding-bottom: 2rem;
-        text-align: center;
-    }
-
-    .footer-social {
-        justify-content: center;
-    }
-
     .footer-bottom .container {
         text-align: center;
     }
@@ -755,5 +653,235 @@ a:visited {
     .alerts-container {
         margin-top: 4rem;
         padding: 0 1rem;
+    }
+}
+
+/* FOOTER */
+.site-footer {
+    background-color: transparent;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-main {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+}
+
+.footer-row {
+    align-items: flex-start;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-brand-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.footer-logo {
+    height: 50px;
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+}
+
+.footer-brand-link:hover .footer-logo {
+    transform: scale(1.06);
+}
+
+.footer-heading {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.footer-text {
+    margin-bottom: 2rem;
+}
+
+.footer-brand-text {
+    margin-top: 0.85rem;
+    max-width: 320px;
+}
+
+.footer-nav li + li {
+    margin-top: 0.25rem;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-hover);
+    text-decoration: none;
+}
+
+.footer-social {
+    margin-top: 0.9rem;
+    display: flex;
+    gap: 0.75rem;
+    
+}
+
+.footer-social-link {
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 25%;
+    border: 1px solid var(--border-subtle);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.footer-social-link:hover {
+    border-color: var(--accent);
+    color: #ffffff;
+    background-color: var(--accent);
+}
+
+.footer-newsletter {
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-newsletter-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.footer-newsletter-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.footer-newsletter-form {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    margin-top: 0;
+}
+
+.footer-newsletter-input {
+    height: 44px;
+    padding: 0.6rem 1rem;
+    border-radius: 9999px !important;
+    background: #3a3a3a !important;
+    border: 1px solid #1F1F23 !important;
+    color: #fff !important;
+    flex: 1 1 auto;
+    min-width: 180px;
+}
+
+.footer-newsletter-input::placeholder {
+    color: #B3B3B3;
+}
+
+.footer-newsletter-btn {
+    height: 44px;
+    padding: 0 1.1rem;
+    border-radius: 9999px !important;
+    background: #E50914 !important;
+    color: #fff !important;
+    font-weight: 600;
+    border: 0;
+    white-space: nowrap;
+    min-width: 190px;
+}
+
+.footer-newsletter-btn:hover {
+    background: #F6121D !important;
+    color: #fff !important;
+}
+
+.footer-bottom {
+    border-top: 1px solid #18181c;
+    padding: 1rem 0;
+    font-size: 0.8rem;
+    background-color: transparent;
+}
+
+.footer-copy {
+    color: #7a7a85;
+}
+
+@media (max-width: 991.98px) {
+    .footer-col {
+        margin-bottom: 1.75rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .site-footer {
+        margin-top: 3rem;
+    }
+
+    .footer-main {
+        padding-top: 2.5rem;
+        padding-bottom: 2rem;
+        text-align: center;
+    }
+
+    .footer-col {
+        align-items: center;
+    }
+
+    .footer-brand-text {
+        max-width: 520px;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .footer-nav {
+        text-align: center;
+    }
+
+    .footer-newsletter {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .footer-newsletter-form {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .footer-newsletter-input {
+        width: 100% !important;
+        max-width: 360px;
+    }
+
+    .footer-newsletter-btn {
+        width: auto !important;
+        min-width: 190px;
     }
 }

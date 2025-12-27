@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "cloudinary",
     "orders",
     "django_countries",
+    "newsletter",
 
 
     # Third-party apps

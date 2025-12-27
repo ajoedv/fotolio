@@ -231,39 +231,84 @@
 
     <footer class="site-footer">
         <div class="container footer-main">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <div class="footer-brand">
-                        <span class="footer-logo-text">FOTOLIO</span>
-                        <p class="footer-text">
-                            Original photographic prints for modern spaces.
-                        </p>
+            <div class="row footer-row">
+
+                <!-- LEFT: Brand (logo + text + social) -->
+                <div class="col-lg-4 footer-col footer-brand-col order-1">
+                    <a href="{% url 'home' %}" class="footer-brand-link" aria-label="Fotolio Home">
+                        <img src="{% static 'img/logo/fotolio-logo.svg' %}" alt="Fotolio logo" class="footer-logo">
+                    </a>
+
+                    <p class="footer-text footer-brand-text">
+                        Original photographic prints for modern spaces.
+                    </p>
+
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/fotolio.studio/"
+                            class="footer-social-link"
+                            aria-label="Instagram"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/fotolio.studio"
+                            class="footer-social-link"
+                            aria-label="Facebook"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4 mb-md-0">
+
+                <!-- MIDDLE: Explore -->
+                <div class="col-lg-4 footer-col footer-nav-col order-2">
                     <h3 class="footer-heading">Explore</h3>
-                    <ul class="footer-nav list-unstyled">
+                    <ul class="footer-nav list-unstyled mb-0">
                         <li><a href="{% url 'home' %}" class="footer-link">Home</a></li>
                         <li><a href="{% url 'products:list' %}" class="footer-link">Gallery</a></li>
                         <li><a href="{% url 'about' %}" class="footer-link">About</a></li>
                         <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+
+                <!-- RIGHT: Stay in touch + Newsletter -->
+                <div class="col-lg-4 footer-col footer-contact-col order-3">
                     <h3 class="footer-heading">Stay in touch</h3>
-                    <p class="footer-text">
+                    <p class="footer-text mb-2">
                         Based in Sweden, sharing selected work across Europe.
                     </p>
-                    <ul class="footer-contact list-unstyled">
+
+                    <ul class="footer-contact list-unstyled mb-3">
                         <li><a href="mailto:info@fotolio.se" class="footer-link">info@fotolio.se</a></li>
                     </ul>
-                    <div class="footer-social">
-                        <a href="https://www.instagram.com/fotolio.studio/" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/fotolio.studio" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+
+                    <div class="footer-newsletter">
+                        <div class="footer-newsletter-title">Newsletter</div>
+                        <div class="footer-newsletter-subtitle">Get new releases and offers. No spam.</div>
+
+                        <form action="{% url 'newsletter:subscribe' %}" method="post" class="footer-newsletter-form">
+                            {% csrf_token %}
+
+                            <label class="sr-only" for="footerNewsletterEmail">Email</label>
+                            <input
+                                id="footerNewsletterEmail"
+                                type="email"
+                                name="email"
+                                required
+                                autocomplete="email"
+                                class="form-control footer-newsletter-input"
+                                placeholder="Enter your email"
+                            />
+
+                            <button type="submit" class="btn footer-newsletter-btn">
+                                Subscribe
+                            </button>
+                        </form>
                     </div>
                 </div>
+
             </div>
         </div>
+
         <div class="footer-bottom">
             <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <small class="footer-copy">&copy; 2025 Fotolio. All rights reserved.</small>
@@ -271,6 +316,7 @@
             </div>
         </div>
     </footer>
+
 
     {% block postloadjs %}
     {% endblock %}
