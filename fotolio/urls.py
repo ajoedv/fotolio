@@ -22,11 +22,21 @@ def custom_server_error(request):
     return render(request, "500.html", status=500)
 
 
+def robots_txt(request):
+    """Robots.txt file."""
+    return render(
+        request,
+        "robots.txt",
+        content_type="text/plain",
+    )
+
+
 # URL patterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
+    path("robots.txt", robots_txt),
     path("", include("home.urls")),
     path("products/", include("products.urls")),
     path("profile/", include("profiles.urls", namespace="profiles")),

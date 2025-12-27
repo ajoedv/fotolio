@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /cart/
+Disallow: /orders/
+Disallow: /profile/
+
+Sitemap: https://fotolio-fc00bcc269bb.herokuapp.com/sitemap.xml
