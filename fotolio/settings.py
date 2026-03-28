@@ -34,11 +34,11 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "fotolio-fc00bcc269bb.herokuapp.com",
+    "fotolio-joe-p5-1bff429e735e.herokuapp.com/",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://fotolio-fc00bcc269bb.herokuapp.com",
+    "https://fotolio-joe-p5-1bff429e735e.herokuapp.com/",
 ]
 # ==========================
 # Applications
