@@ -1,15 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-
-from .models import Product, Category
-from .constants import BASE_SIZE_LABEL
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.db.models import Q
 
-from .models import ProductReview
+from .models import Product, Category, ProductReview
+from .constants import BASE_SIZE_LABEL
 from .forms import ProductReviewForm
 
 
@@ -95,7 +92,6 @@ def product_detail(request, pk):
     return render(request, "products/detail.html", context)
 
 
-# Reviews CRUD (DB + Frontend)
 @login_required
 def review_create(request, product_id):
     product = get_object_or_404(Product, pk=product_id)

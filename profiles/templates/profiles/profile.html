@@ -26,12 +26,12 @@
                         {% if profile.avatar %}
                             <img
                                 src="{{ profile.avatar.url }}"
-                                alt="{{ request.user.username }}"
+                                alt="{{ profile.display_name|default:request.user.username }}"
                                 class="profile-avatar-preview-img"
                             >
                         {% else %}
                             <div class="profile-avatar-preview-placeholder">
-                                <span>{{ request.user.username|first|upper }}</span>
+                                <span>{{ profile.display_name|default:request.user.username|first|upper }}</span>
                             </div>
                         {% endif %}
                     </div>
