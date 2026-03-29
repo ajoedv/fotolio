@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap
+from django.urls import reverse
 
 from .models import Product
 
@@ -11,4 +12,4 @@ class ProductSitemap(Sitemap):
         return Product.objects.all()
 
     def location(self, obj):
-        return f"/products/{obj.pk}/"
+        return reverse("products:detail", args=[obj.pk])
