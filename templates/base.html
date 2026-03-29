@@ -16,6 +16,7 @@
     {% endblock %}
 
     {% block extra_meta %}
+        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
     {% endblock %}
 
     {% block corecss %}
