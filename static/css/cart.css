@@ -4,7 +4,7 @@
     padding-bottom: 4rem;
 }
 
-/* Buttons on cart page (ensures checkout button is styled too) */
+/* Buttons on cart page */
 .cart-page .btn-hero-primary {
     background-color: var(--accent);
     border-color: var(--accent);
@@ -17,6 +17,40 @@
     background-color: var(--accent-hover);
     border-color: var(--accent-hover);
     color: #fff;
+}
+
+/* Empty cart checkout button */
+.cart-page .cart-checkout-btn {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cart-page .cart-checkout-btn:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.cart-page .cart-checkout-btn:focus,
+.cart-page .cart-checkout-btn:active,
+.cart-page .cart-checkout-btn:focus-visible {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #fff;
+    outline: none;
+    transform: none;
+    box-shadow: 0 0 0 0.2rem rgba(255, 59, 59, 0.2);
+}
+
+.cart-page .cart-checkout-btn.btn:focus,
+.cart-page .cart-checkout-btn.btn:active {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(255, 59, 59, 0.2);
 }
 
 /* Cart main card */

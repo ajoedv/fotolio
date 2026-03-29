@@ -11,6 +11,18 @@
 <section class="cart-page section-block">
     <div class="container">
 
+        <div id="empty-cart-alert"
+             class="alert alert-warning alert-dismissible fade d-none mt-3"
+             role="alert">
+            Your cart is empty. Add an item before checkout.
+            <button type="button"
+                    class="close"
+                    aria-label="Close"
+                    id="close-empty-cart-alert">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
         <!-- Cart header -->
         <div class="cart-header text-left mb-3">
             <p class="subpage-kicker mb-1">Your selection</p>
@@ -38,7 +50,7 @@
                                 {% if item.product.image %}
                                     <div class="cart-product-thumb mr-3">
                                         <img src="{{ item.product.image.url }}"
-                                                alt="{{ item.product.name }}">
+                                             alt="{{ item.product.name }}">
                                     </div>
                                 {% endif %}
                                 <div class="cart-product-info">
@@ -46,7 +58,8 @@
                                         {{ item.product.name }}
                                     </div>
                                     <div class="cart-product-meta text-muted small">
-                                        Base size: {{ base_size|default:"12 x 18 in (unframed)" }}
+                                        Base size:
+                                        {{ base_size|default:"12 x 18 in (unframed)" }}
                                     </div>
                                 </div>
                             </div>
@@ -56,16 +69,17 @@
                             <div class="cart-qty-total">
                                 <div class="cart-qty-form">
                                     <form action="{% url 'cart:update' item.id %}"
-                                            method="post"
-                                            class="form-inline justify-content-center justify-content-md-end">
+                                          method="post"
+                                          class="form-inline justify-content-center justify-content-md-end">
                                         {% csrf_token %}
                                         <input type="number"
-                                                name="quantity"
-                                                value="{{ item.quantity }}"
-                                                min="1"
-                                                class="form-control form-control-sm mr-2"
-                                                style="width:80px;">
-                                        <button class="btn btn-hero-primary btn-sm" type="submit">
+                                               name="quantity"
+                                               value="{{ item.quantity }}"
+                                               min="1"
+                                               class="form-control form-control-sm mr-2"
+                                               style="width: 80px;">
+                                        <button class="btn btn-hero-primary btn-sm"
+                                                type="submit">
                                             Update
                                         </button>
                                     </form>
@@ -78,10 +92,11 @@
 
                         <td class="text-right align-middle">
                             <form action="{% url 'cart:remove' item.id %}"
-                                    method="post"
-                                    class="d-inline">
+                                  method="post"
+                                  class="d-inline">
                                 {% csrf_token %}
-                                <button class="btn btn-outline-danger btn-sm" type="submit">
+                                <button class="btn btn-outline-danger btn-sm"
+                                        type="submit">
                                     Remove
                                 </button>
                             </form>
@@ -132,14 +147,14 @@
         <div class="d-flex justify-content-center mt-5">
             {% if items %}
                 <a href="{% url 'cart:checkout' %}"
-                class="btn btn-hero-primary btn-lg px-5 py-3 cart-checkout-btn">
+                   class="btn btn-hero-primary btn-lg px-5 py-3 cart-checkout-btn">
                     <i class="fas fa-credit-card mr-2"></i>
                     Proceed to checkout
                 </a>
             {% else %}
-                <button class="btn btn-hero-primary btn-lg px-5 py-3 disabled"
-                        tabindex="-1"
-                        aria-disabled="true">
+                <button type="button"
+                        id="empty-cart-checkout-btn"
+                        class="btn btn-hero-primary btn-lg px-5 py-3 cart-checkout-btn">
                     <i class="fas fa-credit-card mr-2"></i>
                     Proceed to checkout
                 </button>
@@ -147,4 +162,34 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emptyCartBtn = document.getElementById("empty-cart-checkout-btn");
+        const emptyCartAlert = document.getElementById("empty-cart-alert");
+        const closeAlertBtn = document.getElementById("close-empty-cart-alert");
+
+        if (emptyCartBtn && emptyCartAlert) {
+            emptyCartBtn.addEventListener("click", function () {
+                emptyCartAlert.classList.remove("d-none");
+                emptyCartAlert.classList.add("show");
+
+                window.scrollTo({
+                    top: emptyCartAlert.offsetTop - 100,
+                    behavior: "smooth"
+                });
+            });
+        }
+
+        if (closeAlertBtn && emptyCartAlert) {
+            closeAlertBtn.addEventListener("click", function () {
+                emptyCartAlert.classList.remove("show");
+                emptyCartAlert.classList.add("d-none");
+            });
+        }
+    });
+</script>
 {% endblock %}
