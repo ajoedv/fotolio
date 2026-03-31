@@ -9,7 +9,7 @@ class ProductSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return Product.objects.all()
+        return Product.objects.order_by("pk")
 
     def location(self, obj):
         return reverse("products:detail", args=[obj.pk])
