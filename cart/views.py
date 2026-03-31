@@ -9,13 +9,13 @@ from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django_countries import countries
 
+from orders.models import Order, OrderLineItem
 from products.constants import BASE_SIZE_LABEL
 from products.models import Product
 from profiles.models import Profile
 
 from .models import CartItem
 from .utils import calculate_cart_totals, get_cart_items_for_user
-from orders.models import Order, OrderLineItem
 
 
 @login_required
@@ -439,12 +439,12 @@ def success(request):
     request.session.modified = True
 
     messages.success(request, "Your order has been placed successfully.")
-    return redirect(
-        f"{reverse(
-            'orders:detail',
-            kwargs={'order_number': order.order_number},
-        )}?paid=1"
+
+    order_detail_url = reverse(
+        "orders:detail",
+        kwargs={"order_number": order.order_number},
     )
+    return redirect(f"{order_detail_url}?paid=1")
 
 
 @login_required
