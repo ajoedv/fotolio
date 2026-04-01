@@ -257,6 +257,7 @@ Automated testing also highlighted an issue in the sitemap implementation:
 The automated testing process provided strong confirmation that the main Django logic of the project behaves correctly. The final test run passed successfully with **178 passing tests**, giving confidence that the application is stable across its core backend functionality.
 
 ---
+
 ## Stripe Testing
 
 Stripe payment functionality was tested manually on the deployed Heroku version of the application using Stripe test mode.
@@ -273,7 +274,13 @@ The payment should complete successfully and the user should be redirected to th
 **Actual result:**  
 Passed. The payment was completed successfully and the user was redirected to the confirmation page.
 
+
+<details>
+<summary>Successful Stripe payment</summary>
+
 ![Successful Stripe payment](assets/testing/stripe/stripe-success-page.png)
+
+</details>
 
 ---
 
@@ -287,7 +294,12 @@ A clear success or payment confirmation page should be displayed after payment c
 **Actual result:**  
 Passed. The success page was displayed correctly after the payment was completed.
 
+<details>
+<summary>Stripe success page after payment</summary>
+
 ![Stripe success page after payment](assets/testing/stripe/stripe-success-page.png)
+
+</details>
 
 ---
 
@@ -301,7 +313,12 @@ A newly created successful order should appear in **My Orders**.
 **Actual result:**  
 Passed. The successful order was added to **My Orders** and was visible in the order list.
 
+<details>
+<summary>Successful order added to My Orders</summary>
+
 ![Successful order added to My Orders](assets/testing/stripe/stripe-my-orders.png)
+
+</details>
 
 ---
 
@@ -315,7 +332,11 @@ Selecting the created order should open the corresponding order detail page.
 **Actual result:**  
 Passed. Opening the order from **My Orders** displayed the correct order detail page.
 
+<details>
+<summary>Order opened from My Orders</summary>
+
 ![Order opened from My Orders](assets/testing/stripe/stripe-order-detail.png)
+</details>
 
 ---
 
@@ -329,7 +350,11 @@ The form should display validation errors and prevent the payment from being sub
 **Actual result:**  
 Passed. Stripe displayed validation errors for invalid payment details and the payment could not be completed.
 
+<details>
+<summary>Invalid Stripe payment form validation</summary>
+
 ![Invalid Stripe payment form validation](assets/testing/stripe/stripe-invalid-payment-form.png)
+</details>
 
 ---
 
@@ -356,7 +381,11 @@ The user should be returned to the checkout page without errors and should still
 **Actual result:**  
 Passed. The user was returned to the checkout page successfully and no errors occurred.
 
+<details>
+<summary>Return from payment page to checkout</summary>
+
 ![Return from payment page to checkout](assets/testing/stripe/stripe-back-to-checkout.png)
+</details>
 
 ---
 
@@ -370,7 +399,12 @@ The system should display a warning message indicating that checkout cannot proc
 **Actual result:**  
 Passed. A warning message was displayed stating: **"Your cart is empty. Add an item before checkout."**
 
+<details>
+<summary>Empty cart warning when checkout is attempted</summary>
+
 ![Empty cart warning when checkout is attempted](assets/testing/stripe/stripe-empty-cart-warning.png)
+
+</details>
 
 ---
 
@@ -384,7 +418,12 @@ The user should not be allowed to continue to checkout or payment with an empty 
 **Actual result:**  
 Passed. The user remained on the cart page and could not continue to checkout while the empty cart warning remained visible.
 
+<details>
+<summary>Proceed to checkout blocked when cart is empty</summary>
+
 ![Proceed to checkout blocked when cart is empty](assets/testing/stripe/stripe-empty-cart-warning.png)
+
+</details>
 
 ---
 
@@ -398,7 +437,12 @@ The order detail page should display the correct order number, payment confirmat
 **Actual result:**  
 Passed. The order detail page showed the correct order number, payment confirmation, customer information, purchased item, quantity, VAT, and total price.
 
+<details>
+<summary>Correct order details after successful payment</summary>
+
 ![Correct order details after successful payment](assets/testing/stripe/stripe-order-detail.png)
+
+</details>
 
 ---
 
@@ -412,7 +456,12 @@ The successful order should appear with the correct order number, date, total pr
 **Actual result:**  
 Passed. The successful order appeared correctly in **My Orders** with the expected summary information and a working **View** button.
 
+<details>
+<summary>Successful order summary in My Orders</summary>
+
 ![Successful order summary in My Orders](assets/testing/stripe/stripe-my-orders.png)
+
+</details>
 
 ---
 
@@ -426,10 +475,324 @@ A failed payment should not create a new successful order record.
 **Actual result:**  
 Passed. No new successful order was created after the failed payment attempt. The latest successful order remained unchanged in **My Orders**.
 
+<details>
+<summary>Failed payment does not create a new successful order</summary>
+
 ![Failed payment does not create a new successful order](assets/testing/stripe/stripe-no-new-order-after-failed-payment.png)
+
+</details>
 
 ---
 
 ### Stripe Testing Summary
 
 Stripe testing confirmed that the payment flow works correctly for successful payments, invalid payment input, declined payments, checkout navigation, empty cart protection, and order creation. The tests also confirmed that successful payments create visible orders in the user account, while failed payments do not create new successful order records.
+
+
+---
+
+
+## Validator Testing
+
+### Python Validation
+
+Python code quality was checked using `flake8`, with the virtual environment and migrations excluded from the scan.
+
+The following command was used:
+
+```bash
+flake8 . --exclude=.venv,migrations --count --statistics
+```
+
+**Result:**  
+Passed. The command returned `0`, confirming that no linting issues were found in the checked project files.
+
+Django's built-in system checks were also run using:
+
+```bash
+python manage.py check
+```
+
+**Result:**  
+Passed. Django returned: `System check identified no issues (0 silenced).`
+
+---
+
+### HTML Validation
+
+HTML validation was carried out using the W3C Nu HTML Checker on the deployed Heroku version of the application.
+
+The following pages were selected for validation because they represent the main user journeys and key template areas of the project:
+- Home page
+- Gallery / product listing page
+- Product detail page
+- Cart page
+- Checkout page
+- Profile page
+- Contact page
+- About page
+- Sign in page
+- Sign up page
+- Google social sign in page
+- Logout page
+- Orders list page
+- Order detail page
+
+#### 1. Home page
+
+The Home page was validated first and initially returned HTML validation issues. These included invalid ARIA attribute usage on `div` elements and a void element formatting notice in the newsletter input markup.
+
+The relevant template files were corrected and the page was validated again.
+
+**Final result:**  
+Passed. After the fixes were applied, the Home page passed validation with **no errors or warnings**.
+
+<details>
+<summary>View validation screenshots</summary>
+
+**Before fix**
+
+![Home page HTML validation before fixes](assets/testing/validation/html/home-html-validation-before.png)
+
+**After fix**
+
+![Home page HTML validation after fixes](assets/testing/validation/html/home-html-validation-after.png)
+
+</details>
+
+---
+
+#### 2. Gallery / product listing page
+
+The Gallery / product listing page was validated after the Home page.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Gallery page HTML validation](assets/testing/validation/html/gallery-html-validation.png)
+
+</details>
+
+---
+
+#### 3. Product detail page
+
+The Product detail page initially returned an HTML validation error related to heading hierarchy. The `Reviews` heading was using an `h3` directly after the page `h1`, which caused the validator to flag a skipped heading level.
+
+The heading structure was corrected and the page was validated again.
+
+**Final result:**  
+Passed. After the fix was applied, the Product detail page passed validation with **no errors or warnings**.
+
+<details>
+<summary>View validation screenshots</summary>
+
+**Before fix**
+
+![Product detail page HTML validation before fixes](assets/testing/validation/html/product-detail-html-validation-before.png)
+
+**After fix**
+
+![Product detail page HTML validation after fixes](assets/testing/validation/html/product-detail-html-validation-after.png)
+
+</details>
+
+---
+
+#### 4. Cart page
+
+The Cart page was validated to confirm that the cart layout and item summary markup were structurally correct.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Cart page HTML validation](assets/testing/validation/html/cart-html-validation.png)
+
+</details>
+
+---
+
+#### 5. Checkout page
+
+The Checkout page was validated with products added to the cart so that the full checkout content could be rendered and tested.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Checkout page HTML validation](assets/testing/validation/html/checkout-html-validation.png)
+
+</details>
+
+---
+
+#### 6. Profile page
+
+The authenticated user profile page was validated to confirm that account management markup rendered correctly.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Profile page HTML validation](assets/testing/validation/html/profile-html-validation.png)
+
+</details>
+
+---
+
+#### 7. Contact page
+
+The Contact page was validated to confirm the structure of the contact form and surrounding page content.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Contact page HTML validation](assets/testing/validation/html/contact-html-validation.png)
+
+</details>
+
+---
+
+#### 8. About page
+
+The About page was validated as part of the main public-facing informational pages of the site.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![About page HTML validation](assets/testing/validation/html/about-html-validation.png)
+
+</details>
+
+---
+
+#### 9. Sign in page
+
+The Sign in page was validated to confirm that the custom authentication template rendered valid HTML.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Sign in page HTML validation](assets/testing/validation/html/signin-html-validation.png)
+
+</details>
+
+---
+
+#### 10. Sign up page
+
+The Sign up page initially returned an HTML validation error because a `ul` element appeared inside a `small` element in the help text output.
+
+The template was updated so that the help text rendered inside a block-level container instead, and the page was validated again.
+
+**Final result:**  
+Passed. After the fix was applied, the Sign up page passed validation with **no errors or warnings**.
+
+<details>
+<summary>View validation screenshots</summary>
+
+**Before fix**
+
+![Sign up page HTML validation before fixes](assets/testing/validation/html/signup-html-validation-before.png)
+
+**After fix**
+
+![Sign up page HTML validation after fixes](assets/testing/validation/html/signup-html-validation-after.png)
+
+</details>
+
+---
+
+#### 11. Google social sign in page
+
+The Google social sign in page was validated to confirm that the allauth social login confirmation template rendered valid HTML.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Google social sign in page HTML validation](assets/testing/validation/html/google-signin-html-validation.png)
+
+</details>
+
+---
+
+#### 12. Logout page
+
+The Logout page was validated to confirm that the sign-out confirmation template rendered valid HTML.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Logout page HTML validation](assets/testing/validation/html/logout-html-validation.png)
+
+</details>
+
+---
+
+#### 13. Orders list page
+
+The Orders list page was validated as part of the authenticated order-management flow.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Orders list page HTML validation](assets/testing/validation/html/orders-list-html-validation.png)
+
+</details>
+
+---
+
+#### 14. Order detail page
+
+The Order detail page was validated to confirm that the full order summary and shipping/payment details rendered valid HTML.
+
+**Result:**  
+Passed. The page returned **no errors or warnings**.
+
+<details>
+<summary>View screenshot</summary>
+
+![Order detail page HTML validation](assets/testing/validation/html/order-detail-html-validation.png)
+
+</details>
+
+---
+
+### HTML Validation Summary
+
+HTML validation confirmed that the project's main public pages, authentication pages, checkout flow pages, and order-related pages render valid HTML. Three pages initially required fixes during validation:
+
+- Home page
+- Product detail page
+- Sign up page
+
+After those issues were corrected, all tested pages passed HTML validation successfully with **no errors or warnings**.
+
