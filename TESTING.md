@@ -799,3 +799,313 @@ After those issues were corrected, all tested pages passed HTML validation succe
 ---
 
 ### CSS Validation
+
+CSS validation was carried out using the W3C CSS Validation Service on the project's custom stylesheet files.
+
+Only the project's own CSS files were validated. External third-party stylesheets, such as Bootstrap and other CDN-hosted assets, were not included in this validation process.
+
+The following custom CSS files were tested:
+- `base.css`
+- `home.css`
+- `gallery.css`
+- `product.css`
+- `auth.css`
+- `about.css`
+- `contact.css`
+- `cart.css`
+- `profile.css`
+- `error.css`
+
+#### 1. base.css
+
+The main shared stylesheet, `base.css`, was validated first.
+
+During the initial validation, one CSS syntax error was identified in the `.product-related` rule due to an invalid decimal value written with a comma instead of a period in `margin-top: 1,5rem;`.
+
+This was corrected to `margin-top: 1.5rem;` and the file was validated again successfully.
+
+The validation service also reported warnings related to CSS custom properties, vendor-specific extensions, and browser-supported non-standard values. These warnings were reviewed and considered non-critical, as they were associated with modern CSS features and browser compatibility enhancements rather than invalid syntax.
+
+**Final result:**  
+Passed. After correcting the syntax error, `base.css` validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![base.css validation](assets/testing/validation/css/base-css-validation.png)
+
+</details>
+
+---
+
+#### 2. home.css
+
+The `home.css` file was validated to confirm that the homepage-specific styling used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![home.css validation](assets/testing/validation/css/home-css-validation.png)
+
+</details>
+
+---
+
+#### 3. gallery.css
+
+The `gallery.css` file was validated to confirm that the product listing and gallery page styles used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![gallery.css validation](assets/testing/validation/css/gallery-css-validation.png)
+
+</details>
+
+---
+
+#### 4. product.css
+
+The `product.css` file was validated to confirm that the product detail page styles used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![product.css validation](assets/testing/validation/css/product-css-validation.png)
+
+</details>
+
+---
+
+#### 5. auth.css
+
+The `auth.css` file was validated to confirm that the authentication-related templates used valid CSS styling.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![auth.css validation](assets/testing/validation/css/auth-css-validation.png)
+
+</details>
+
+---
+
+#### 6. about.css
+
+The `about.css` file was validated to confirm that the About page styling used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![about.css validation](assets/testing/validation/css/about-css-validation.png)
+
+</details>
+
+---
+
+#### 7. contact.css
+
+The `contact.css` file was validated to confirm that the Contact page styling used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![contact.css validation](assets/testing/validation/css/contact-css-validation.png)
+
+</details>
+
+---
+
+#### 8. cart.css
+
+The `cart.css` file was validated to confirm that cart and checkout-related styling used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![cart.css validation](assets/testing/validation/css/cart-css-validation.png)
+
+</details>
+
+---
+
+#### 9. profile.css
+
+The `profile.css` file was validated to confirm that the user profile styling used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![profile.css validation](assets/testing/validation/css/profile-css-validation.png)
+
+</details>
+
+---
+
+#### 10. error.css
+
+The `error.css` file was validated to confirm that the custom error page styling used valid CSS syntax.
+
+**Result:**  
+Passed. The file validated successfully with **no errors**.
+
+<details>
+<summary>View screenshot</summary>
+
+![error.css validation](assets/testing/validation/css/error-css-validation.png)
+
+</details>
+
+---
+
+### CSS Validation Summary
+
+CSS validation confirmed that all custom stylesheet files used in the project were valid after one syntax correction in `base.css`.
+
+The only true validation error identified during CSS testing was in `base.css`, where `margin-top: 1,5rem;` was corrected to `margin-top: 1.5rem;`.
+
+After this fix, all tested CSS files validated successfully. Some warnings remained in certain files, but these were related to CSS custom properties and vendor-specific extensions, and were not treated as validation failures.
+
+---
+
+### JavaScript Validation
+
+JavaScript validation was carried out using JSHint.
+
+The project's custom JavaScript was reviewed in two forms:
+- external custom JavaScript files
+- inline JavaScript written inside project templates
+
+Third-party external scripts, such as Bootstrap, jQuery, and Stripe-hosted scripts, were not included in this validation process because they are maintained outside the project.
+
+The following custom JavaScript was tested:
+- `static/js/base.js`
+- inline script in `templates/allauth/account/email.html`
+- inline script in `templates/cart/payment.html`
+- inline script in `templates/cart/checkout.html`
+- inline script in `templates/cart/detail.html`
+
+#### 1. base.js
+
+The main custom JavaScript file, `base.js`, was validated first.
+
+During the initial JSHint check, warnings were reported because some function declarations were placed inside blocks. These were refactored into function expressions so that the file would follow cleaner JavaScript structure and pass validation more successfully.
+
+The file was then rechecked.
+
+**Final result:**  
+Passed. After refactoring the flagged functions, `base.js` returned **no issues** in JSHint.
+
+<details>
+<summary>View validation screenshots</summary>
+
+**Before fix**
+
+![base.js validation before fixes](assets/testing/validation/javascript/base-js-validation-before.png)
+
+**After fix**
+
+![base.js validation after fixes](assets/testing/validation/javascript/base-js-validation-after.png)
+
+</details>
+
+---
+
+#### 2. Inline script in account email template
+
+The inline script in `templates/allauth/account/email.html` was validated to confirm that the email removal confirmation logic used valid JavaScript syntax.
+
+**Result:**  
+Passed. The script returned **no issues** in JSHint.
+
+<details>
+<summary>View screenshot</summary>
+
+![Account email template inline JavaScript validation](assets/testing/validation/javascript/account-email-inline-js-validation.png)
+
+</details>
+
+---
+
+#### 3. Inline script in payment template
+
+The inline script in `templates/cart/payment.html` was validated to confirm that the custom Stripe payment handling logic used valid JavaScript syntax.
+
+**Result:**  
+Passed. The script returned **no issues** in JSHint.
+
+<details>
+<summary>View screenshot</summary>
+
+![Payment template inline JavaScript validation](assets/testing/validation/javascript/payment-inline-js-validation.png)
+
+</details>
+
+---
+
+#### 4. Inline script in checkout template
+
+The inline script in `templates/cart/checkout.html` was validated to confirm that the shipping-profile-change detection logic used valid JavaScript syntax.
+
+**Result:**  
+Passed. The script returned **no issues** in JSHint.
+
+<details>
+<summary>View screenshot</summary>
+
+![Checkout template inline JavaScript validation](assets/testing/validation/javascript/checkout-inline-js-validation.png)
+
+</details>
+
+---
+
+#### 5. Inline script in cart detail template
+
+The inline script in `templates/cart/detail.html` was validated to confirm that the empty-cart checkout alert logic used valid JavaScript syntax.
+
+**Result:**  
+Passed. The script returned **no issues** in JSHint.
+
+<details>
+<summary>View screenshot</summary>
+
+![Cart detail template inline JavaScript validation](assets/testing/validation/javascript/cart-detail-inline-js-validation.png)
+
+</details>
+
+---
+
+### JavaScript Validation Summary
+
+JavaScript validation confirmed that the project's custom JavaScript file and tested inline scripts used valid syntax.
+
+One set of warnings was initially identified in `base.js`, where function declarations inside blocks were refactored to improve structure and satisfy JSHint. After this fix, `base.js` passed validation successfully.
+
+All tested inline JavaScript snippets also passed validation with **no issues**.
+
+---
+

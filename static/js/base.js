@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let timerId = null;
         const intervalMs = 7000;
 
-        function setSlide(index) {
+        const setSlide = (index) => {
             if (index < 0 || index >= slides.length) {
                 return;
             }
@@ -27,19 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === index);
             });
-        }
+        };
 
-        function nextSlide() {
+        const nextSlide = () => {
             const nextIndex = (currentIndex + 1) % slides.length;
             setSlide(nextIndex);
-        }
+        };
 
-        function resetTimer() {
+        const resetTimer = () => {
             if (timerId) {
                 clearInterval(timerId);
             }
             timerId = setInterval(nextSlide, intervalMs);
-        }
+        };
 
         dots.forEach((dot, index) => {
             dot.addEventListener("click", () => {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hasHero = document.querySelector(".hero-section");
 
     if (header) {
-        function handleScroll() {
+        const handleScroll = () => {
             if (!hasHero) {
                 header.classList.add("scrolled");
                 return;
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 header.classList.remove("scrolled");
             }
-        }
+        };
 
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("load", handleScroll);
@@ -87,9 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        function getStep() {
+        const getStep = () => {
             return track.clientWidth * 0.8;
-        }
+        };
 
         arrowPrev.addEventListener("click", () => {
             track.scrollBy({
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             autoTimer = setInterval(() => {
                 track.scrollBy({
                     left: getStep(),
-                behavior: "smooth",
+                    behavior: "smooth",
                 });
             }, 8000);
         });
