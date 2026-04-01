@@ -796,3 +796,6 @@ HTML validation confirmed that the project's main public pages, authentication p
 
 After those issues were corrected, all tested pages passed HTML validation successfully with **no errors or warnings**.
 
+---
+
+### CSS Validation
