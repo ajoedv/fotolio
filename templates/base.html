@@ -10,7 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% endblock %}
 
-    {# Academic: meta_description outputs the FULL meta tag (not raw text) #}
     {% block meta_description %}
         <meta name="description" content="Shop original cinematic photography prints for your space. Discover curated photo prints with rich contrast and premium finishing—ready to hang at home or in your studio.">
     {% endblock %}
@@ -105,7 +104,7 @@
                                     aria-haspopup="true" aria-expanded="false">
                                 Hi, {{ user.profile.display_name|default:user.username }}
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                            <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{% url 'profiles:profile' %}">Profile</a>
                                 <a class="dropdown-item" href="{% url 'orders:list' %}">Orders</a>
                                 <div class="dropdown-divider"></div>
@@ -119,7 +118,7 @@
                                     aria-haspopup="true" aria-expanded="false">
                                 Sign in
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                            <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a>
                                 <a class="dropdown-item" href="{% url 'account_signup' %}">Sign up</a>
                             </div>
@@ -234,7 +233,6 @@
         <div class="container footer-main">
             <div class="row footer-row">
 
-                <!-- LEFT: Brand (logo + text + social) -->
                 <div class="col-lg-4 footer-col footer-brand-col order-1">
                     <a href="{% url 'home' %}" class="footer-brand-link" aria-label="Fotolio Home">
                         <img src="{% static 'img/logo/fotolio-logo.svg' %}" alt="Fotolio logo" class="footer-logo">
@@ -260,7 +258,6 @@
                     </div>
                 </div>
 
-                <!-- MIDDLE: Explore -->
                 <div class="col-lg-4 footer-col footer-nav-col order-2">
                     <h3 class="footer-heading">Explore</h3>
                     <ul class="footer-nav list-unstyled mb-0">
@@ -271,7 +268,6 @@
                     </ul>
                 </div>
 
-                <!-- RIGHT: Stay in touch + Newsletter -->
                 <div class="col-lg-4 footer-col footer-contact-col order-3">
                     <h3 class="footer-heading">Stay in touch</h3>
                     <p class="footer-text mb-2">
@@ -298,7 +294,7 @@
                                 autocomplete="email"
                                 class="form-control footer-newsletter-input"
                                 placeholder="Enter your email"
-                            />
+                            >
 
                             <button type="submit" class="btn footer-newsletter-btn">
                                 Subscribe
@@ -317,7 +313,6 @@
             </div>
         </div>
     </footer>
-
 
     {% block postloadjs %}
     {% endblock %}
