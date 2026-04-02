@@ -1109,7 +1109,7 @@ All tested inline JavaScript snippets also passed validation with **no issues**.
 
 ---
 
-### Accessibility
+### Accessibility, Responsiveness and Cross-Browser Testing
 
 Accessibility testing was carried out manually on the deployed Heroku application.
 
