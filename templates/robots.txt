@@ -7,4 +7,4 @@ Disallow: /cart/
 Disallow: /orders/
 Disallow: /profile/
 
-Sitemap: https://fotolio-fc00bcc269bb.herokuapp.com/sitemap.xml
+Sitemap: https://fotolio-joe-p5-1bff429e735e.herokuapp.com/sitemap.xml
