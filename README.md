@@ -53,6 +53,7 @@ A full-stack e-commerce web application for selling printed photography, with se
 
 ## Live Demo
 🔗 [Fotolio Live Site](https://fotolio-joe-p5-1bff429e735e.herokuapp.com/)
+
 ---
 
 ## Test User
@@ -136,132 +137,154 @@ The commercial value of the project lies in combining strong visual presentation
 ---
 
 ## Agile Methodology
-This project follows Agile principles and uses GitHub Projects to plan and track progress.  
-Work is organized into **Epics** and **User Stories**, prioritized using the **MoSCoW method** (Must/Should/Could/Won’t).  
+
+This project was developed using Agile principles to support structured planning, incremental progress, and clear task management throughout the development process. GitHub Issues and GitHub Projects were used to organise and track the work, allowing features to be planned, implemented, reviewed, and updated in a transparent way.
+
+The project was divided into **Epics** and **User Stories** to break the application into manageable areas of development. Each User Story represented a specific feature, goal, or task, helping to maintain clarity during implementation and making progress easier to monitor throughout the project lifecycle.
+
+To support prioritisation, the project used the **MoSCoW method**, where tasks were classified as **Must Have**, **Should Have**, **Could Have**, or **Won’t Have**. This helped focus development on the core features required to deliver a functional e-commerce application first, while also identifying secondary enhancements and future improvements.
+
+The Agile workflow supported a practical and iterative development process. Features were planned in advance, implemented step by step, and then reviewed through testing, refinement, and documentation. This structure helped ensure that the final project remained aligned with its original goals while still allowing flexibility during development.
+
+The GitHub Project Board was used as the central planning tool, with issues mapped to User Stories and grouped under relevant Epics. This provided a clear overview of the project structure and made it easier to track completed work, active tasks, and the overall development progress of the application.
 
 ---
 
 ## User Experience (UX)
 
 ### Strategy / Site Goals
-- Provide a simple and enjoyable shopping experience for users.  
-- Allow customers to easily browse, filter, and purchase photographs.  
-- Ensure secure payments and order tracking.  
-- Provide store owners with efficient tools to manage products and orders.  
-- Maintain responsiveness and accessibility across all devices.  
+
+The main strategic goal of Fotolio was to create a visually engaging and commercially relevant e-commerce application for selling printed photography. The project was designed to combine strong visual presentation with the practical functionality expected from a modern online store.
+
+The core site goals were to:
+
+- Provide a simple, enjoyable, and intuitive shopping experience
+- Allow customers to browse, filter, and purchase photography prints with ease
+- Support secure online payments and clear order tracking
+- Provide store owners with practical tools for managing products and store content
+- Maintain responsive and accessible design across desktop, tablet, and mobile devices
 
 ---
 
 ### Scope / User Stories
-The project is broken down into Epics and User Stories for clarity and implementation:
+
+To support development, the project was organised into a series of Epics and related User Stories. This helped define the scope of the application clearly and ensured that each major area of functionality was planned with a user-focused purpose.
 
 #### Epic 1: Project Setup, Agile & Deployment
-**Goal:**  
-Set up the project environment, GitHub repo, Agile board, and prepare for deployment on Heroku. Ensure secret keys are protected in `.env`.  
 
-**User Stories:**  
-- As a developer, I want to set up the Django project with proper environment configuration so that I can start development securely.  
-- As a developer, I want to maintain a GitHub Project Board so that I can track progress of all User Stories.  
-- As a developer, I want to deploy the app to Heroku so that it can be accessed online.  
+**Goal:**  
+Set up the project structure, repository, Agile board, and deployment workflow, while ensuring that sensitive configuration is handled securely through environment variables.
+
+**User Stories:**
+- As a developer, I want to set up the Django project with proper environment configuration so that I can start development securely.
+- As a developer, I want to maintain a GitHub Project Board so that I can track the progress of all User Stories.
+- As a developer, I want to deploy the app to Heroku so that it can be accessed online.
 
 **MoSCoW Priority:** Must Have  
-**Related to:** Environment Setup, GitHub, Heroku, Agile  
+**Related Areas:** Environment Setup, GitHub, Heroku, Agile
 
 ---
 
 #### Epic 2: User Accounts & Authentication
-**Goal:**  
-Allow visitors to register and existing customers to log in securely. Users can manage profiles and view past orders.  
 
-**User Stories:**  
-- As a visitor, I want to sign up with my email so that I can create an account.  
-- As a customer, I want to log in/out securely so that I can access my profile and orders.  
-- As a customer, I want to view my order history so that I can keep track of my purchased photographs.  
+**Goal:**  
+Allow visitors to register and existing users to log in securely, while also giving authenticated users access to profile-related features such as order history.
+
+**User Stories:**
+- As a visitor, I want to sign up with my email so that I can create an account.
+- As a customer, I want to log in and out securely so that I can access my profile and orders.
+- As a customer, I want to view my order history so that I can keep track of my purchased photographs.
 
 **MoSCoW Priority:** Must Have  
-**Related to:** Django Auth, User Profiles, Security  
+**Related Areas:** Django Authentication, User Profiles, Security
 
 ---
 
 #### Epic 3: Browsing & Products
-**Goal:**  
-Enable users to browse a photography catalog. Customers can filter by category and view detailed product information.  
 
-**User Stories:**  
-- As a visitor, I want to view a gallery of printed photographs so that I can explore available artworks.  
-- As a customer, I want to filter photographs by category (landscape, portrait, abstract…) so that I can easily find the style I like.  
-- As a customer, I want to view details of each photograph (title, description, size, price, preview) so that I can make an informed decision before buying.  
+**Goal:**  
+Enable users to browse the photography catalogue, filter products by category, and view detailed product information before making a purchase decision.
+
+**User Stories:**
+- As a visitor, I want to view a gallery of printed photographs so that I can explore available artworks.
+- As a customer, I want to filter photographs by category so that I can easily find the style I prefer.
+- As a customer, I want to view details of each photograph, such as title, description, size, price, and preview, so that I can make an informed decision before buying.
 
 **MoSCoW Priority:** Must Have  
-**Related to:** Product Catalog, Gallery, Filtering  
+**Related Areas:** Product Catalogue, Gallery, Filtering
 
 ---
 
 #### Epic 4: Shopping Cart & Checkout
-**Goal:**  
-Provide a shopping cart and checkout flow so customers can manage their purchases before completing the order.  
 
-**User Stories:**  
-- As a customer, I want to add a photograph print to my shopping cart so that I can purchase it later.  
-- As a customer, I want to update quantities or remove items from my cart so that I can manage my order.  
-- As a customer, I want to proceed to a secure checkout page so that I can finalize my purchase.  
+**Goal:**  
+Provide customers with a clear and manageable cart and checkout process so they can review and complete their purchases smoothly.
+
+**User Stories:**
+- As a customer, I want to add a photograph print to my shopping cart so that I can purchase it later.
+- As a customer, I want to update quantities or remove items from my cart so that I can manage my order.
+- As a customer, I want to proceed to a secure checkout page so that I can finalise my purchase.
 
 **MoSCoW Priority:** Must Have  
-**Related to:** Cart, Checkout, Orders  
+**Related Areas:** Cart, Checkout, Orders
 
 ---
 
 #### Epic 5: Payments
-**Goal:**  
-Allow customers to pay securely using Stripe. Provide confirmation after payment to ensure trust and successful order placement.  
 
-**User Stories:**  
-- As a customer, I want to pay for my order using Stripe so that my payment is processed safely.  
-- As a customer, I want to receive a confirmation after successful payment so that I know my order was placed.  
+**Goal:**  
+Allow customers to complete payment securely through Stripe and receive confirmation that their order has been successfully placed.
+
+**User Stories:**
+- As a customer, I want to pay for my order using Stripe so that my payment is processed securely.
+- As a customer, I want to receive confirmation after a successful payment so that I know my order was placed correctly.
 
 **MoSCoW Priority:** Must Have  
-**Related to:** Stripe, Secure Payments, Checkout  
+**Related Areas:** Stripe, Secure Payments, Checkout
 
 ---
 
 #### Epic 6: Admin & Store Management
-**Goal:**  
-Provide store owners with tools to manage products. Owners can add, edit, and remove photographs to keep the catalog accurate and updated.  
 
-**User Stories:**  
-- As a store owner, I want to add new photograph products so that I can update my catalog.  
-- As a store owner, I want to edit existing product details so that the information stays accurate.  
-- As a store owner, I want to delete old or discontinued products so that my store stays relevant.  
+**Goal:**  
+Provide store management functionality that allows authorised users to add, edit, and remove products in order to maintain an accurate and current catalogue.
+
+**User Stories:**
+- As a store owner, I want to add new photograph products so that I can update my catalogue.
+- As a store owner, I want to edit existing product details so that the information remains accurate.
+- As a store owner, I want to delete old or discontinued products so that the store remains relevant and up to date.
 
 **MoSCoW Priority:** Should Have  
-**Related to:** Product Management, Admin Dashboard  
+**Related Areas:** Product Management, Admin Features
 
 ---
 
-#### Epic 7: Customer Support & Info
-**Goal:**  
-Provide customers with support and essential information (contact, policies). Clear policies build trust and improve customer experience.  
+#### Epic 7: Customer Support & Information
 
-**User Stories:**  
-- As a customer, I want to see a contact section so that I can reach out for questions.  
-- As a customer, I want to read a return/refund policy so that I feel safe buying prints online.  
-- As a customer, I want to see a privacy policy page so that I know how my data is handled.  
+**Goal:**  
+Provide customers with key support and policy information that improves trust, transparency, and overall confidence in the shopping experience.
+
+**User Stories:**
+- As a customer, I want to see a contact section so that I can reach out with questions.
+- As a customer, I want to read a return and refund policy so that I feel more confident purchasing prints online.
+- As a customer, I want to see a privacy policy page so that I understand how my data is handled.
 
 **MoSCoW Priority:** Should Have  
-**Related to:** Customer Trust, Support, Policies  
+**Related Areas:** Customer Trust, Support, Policies
 
 ---
 
 #### Epic 8: Testing & Documentation
-**Goal:**  
-Ensure the application is fully tested and documented for academic and professional standards.  
 
-**User Stories:**  
-- As a developer, I want to write and run manual and automated tests so that I can confirm the app works correctly.  
-- As a developer, I want to document my wireframes, ERD, and testing so that the project meets Code Institute’s requirements.  
+**Goal:**  
+Ensure that the application is fully tested and documented to meet both academic and professional project standards.
+
+**User Stories:**
+- As a developer, I want to write and run manual and automated tests so that I can confirm the application works correctly.
+- As a developer, I want to document wireframes, the ERD, and the testing process so that the project clearly demonstrates its planning, structure, and validation.
 
 **MoSCoW Priority:** Must Have  
-**Related to:** Testing, Documentation, Code Institute Standards  
+**Related Areas:** Testing, Documentation, Project Validation
 
 ---
 
@@ -539,13 +562,13 @@ These SEO foundations were implemented to align with the commercial purpose of t
 
 Fotolio was designed not only as a functional e-commerce platform, but also as a brand-led online storefront for reaching customers interested in printed photography. The marketing strategy focuses on combining visual branding, social media presence, on-site email capture, and SEO foundations to improve audience reach and support long-term growth.
 
-A key part of this strategy is social media visibility. Fotolio has branded social media presence on Facebook and Instagram, helping the project present a consistent visual identity and reach users through platforms that are well suited to photography-based content. These platforms support brand awareness, audience engagement, and promotion of new prints or featured collections.
+A key part of this strategy is social media visibility. As part of its marketing foundation, Fotolio has branded Facebook and Instagram pages that support the project’s visual identity and provide a basis for future audience engagement and promotion on platforms that are well suited to photography-based content.
 
 The site also includes a newsletter signup feature, allowing visitors to subscribe for updates, offers, and future product releases. This supports direct communication with interested users and creates an owned marketing channel beyond third-party social platforms.
 
 In addition, the project uses core SEO features such as meta descriptions, page titles, canonical links, `robots.txt`, and `sitemap.xml` to support discoverability through search engines. This helps users find the site organically when searching for photography prints and related visual products.
 
-Together, these elements create a simple but relevant marketing foundation for a photography e-commerce brand: social reach through visual platforms, direct audience retention through newsletter signup, and search visibility through SEO implementation.
+Together, these elements create a simple but relevant marketing foundation for a photography e-commerce brand: brand visibility through social media, direct audience retention through newsletter signup, and search visibility through SEO implementation.
 
 ---
 
@@ -723,7 +746,7 @@ The following resources, libraries, and tools were used during development:
 - **Google Fonts** for typography
 - **Bootstrap Icons** for interface icons
 
-Any additional written content, design decisions, implementation work, testing, debugging, documentation, and project customisation were completed as part of the development of this project.
+All additional design decisions, implementation work, testing, debugging, documentation, and project customisation were completed independently as part of the development of this project.
 
 ---
 
