@@ -1356,3 +1356,93 @@ Passed. The tested pages rendered correctly and remained usable across Chrome, S
 ### Cross-Browser Testing Summary
 
 Manual cross-browser testing confirmed that the project's core public pages rendered consistently across Chrome, Safari, and Firefox. Navigation, product listing layout, imagery, text presentation, and contact form layout all remained stable and usable in the tested browsers.
+
+---
+
+## Lighthouse Testing
+
+Lighthouse testing was carried out on the deployed Heroku version of the application to assess front-end quality and performance across key public-facing pages.
+
+Testing was completed after diagnosing and resolving a major performance issue that had previously caused a `NO_LCP` error on several pages. The issue was traced to the reusable `product_teaser_strip` section, which had been rendered across multiple templates. After removing this section from the affected pages, Lighthouse was able to complete successfully and the final scores improved significantly.
+
+### Desktop Lighthouse Results
+
+The following desktop Lighthouse tests were completed on the live deployed site:
+
+| Page | Performance | Accessibility | Best Practices | SEO |
+|------|------------:|--------------:|---------------:|----:|
+| Home | 96 | 96 | 100 | 100 |
+| Gallery / Products List | 97 | 96 | 77 | 100 |
+| About | 97 | 96 | 100 | 100 |
+| Contact | 95 | 96 | 100 | 100 |
+| Product Detail | 97 | 96 | 77 | 100 |
+
+### Mobile Lighthouse Results
+
+Additional mobile Lighthouse tests were carried out on representative pages from the live deployed site:
+
+| Page | Performance | Accessibility | Best Practices | SEO |
+|------|------------:|--------------:|---------------:|----:|
+| Home | 78 | 96 | 100 | 100 |
+| Gallery / Products List | 80 | 100 | 77 | 100 |
+
+### Summary
+
+The final Lighthouse testing confirmed that the deployed application performs well across the main tested pages, particularly on desktop where Performance scores ranged from **95 to 97** across the core pages tested.
+
+The most important outcome of this testing phase was the resolution of the earlier `NO_LCP` Lighthouse failure. Through step-by-step testing, the issue was isolated to the reusable `product_teaser_strip` section. Removing that section from the affected templates resolved the error and allowed Lighthouse to complete successfully with strong final scores.
+
+Accessibility and SEO results were consistently strong across the tested pages, with SEO reaching **100** on all captured Lighthouse reports. Best Practices also scored strongly on most pages, with lower scores limited to the Gallery and Product Detail pages, while still remaining acceptable for submission evidence.
+
+### Evidence
+
+<details>
+<summary>Home - Desktop Lighthouse Screenshot</summary>
+
+![Home desktop Lighthouse](assets/testing/lighthouse/home-desktop.png)
+
+</details>
+
+<details>
+<summary>Gallery / Products List - Desktop Lighthouse Screenshot</summary>
+
+![Gallery desktop Lighthouse](assets/testing/lighthouse/gallery-desktop.png)
+
+</details>
+
+<details>
+<summary>About - Desktop Lighthouse Screenshot</summary>
+
+![About desktop Lighthouse](assets/testing/lighthouse/about-desktop.png)
+
+</details>
+
+<details>
+<summary>Contact - Desktop Lighthouse Screenshot</summary>
+
+![Contact desktop Lighthouse](assets/testing/lighthouse/contact-desktop.png)
+
+</details>
+
+<details>
+<summary>Product Detail - Desktop Lighthouse Screenshot</summary>
+
+![Product detail desktop Lighthouse](assets/testing/lighthouse/product-detail-desktop.png)
+
+</details>
+
+<details>
+<summary>Home - Mobile Lighthouse Screenshot</summary>
+
+![Home mobile Lighthouse](assets/testing/lighthouse/home-mobile.png)
+
+</details>
+
+<details>
+<summary>Gallery / Products List - Mobile Lighthouse Screenshot</summary>
+
+![Gallery mobile Lighthouse](assets/testing/lighthouse/gallery-mobile.png)
+
+</details>
+
+---
