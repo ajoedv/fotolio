@@ -1109,3 +1109,250 @@ All tested inline JavaScript snippets also passed validation with **no issues**.
 
 ---
 
+### Accessibility
+
+Accessibility testing was carried out manually on the deployed Heroku application.
+
+The purpose of this testing was to confirm that the main interactive areas of the site could be accessed and used with a keyboard, that visible focus states were present, and that core user flows remained usable without relying on a mouse.
+
+The following accessibility checks were carried out across key pages including the Home page, Gallery page, Product detail page, and Cart page:
+
+- keyboard navigation using `Tab` and `Shift + Tab`
+- activation of interactive elements using `Enter`
+- focus visibility on links, buttons, input fields, and interactive controls
+- navigation through product controls and cart actions without a mouse
+- access to key user journeys such as browsing, product selection, and cart interaction
+
+### Keyboard Navigation and Focus Testing
+
+Keyboard-only navigation was tested on the main public and shopping-related pages of the application.
+
+The following behaviour was confirmed during testing:
+
+- navigation links in the header could be reached in a logical order
+- buttons and links could be activated using the keyboard
+- product controls such as quantity fields, detail buttons, and cart actions were reachable by keyboard
+- focus states were visible during navigation
+- the main shopping flow remained usable without requiring mouse interaction
+
+**Result:**  
+Passed. Keyboard navigation, focus visibility, and activation of interactive elements worked correctly on the tested pages.
+
+<details>
+<summary>View accessibility screenshots</summary>
+
+**Home page keyboard focus**
+
+![Home page keyboard accessibility evidence](assets/testing/accessibility/accessibility-home-keyboard.png)
+
+**Gallery page keyboard focus**
+
+![Gallery page keyboard accessibility evidence](assets/testing/accessibility/accessibility-gallery-keyboard.png)
+
+**Product detail page keyboard focus**
+
+![Product detail page keyboard accessibility evidence](assets/testing/accessibility/accessibility-product-keyboard.png)
+
+**Cart page keyboard focus**
+
+![Cart page keyboard accessibility evidence](assets/testing/accessibility/accessibility-cart-keyboard.png)
+
+</details>
+
+### Accessibility Summary
+
+Manual accessibility testing confirmed that the main user-facing areas of the application were usable with keyboard navigation. Interactive elements could be reached and activated correctly, focus states were visible, and core shopping actions remained accessible across the tested pages.
+
+---
+
+
+### Responsiveness
+
+Responsiveness testing was carried out manually using Chrome DevTools device emulation on the deployed Heroku version of the application.
+
+The purpose of this testing was to confirm that the main layouts, content blocks, navigation elements, forms, and shopping-related components remained usable and visually consistent across common viewport sizes.
+
+Testing focused on representative screen categories:
+- mobile
+- tablet
+- desktop
+
+The following pages were selected because they represent the most important layout types in the project:
+- Home page
+- Gallery page
+- Checkout page
+
+### Mobile Responsiveness
+
+Mobile responsiveness was tested using **iPhone 12 Pro** viewport dimensions.
+
+The following pages were reviewed on mobile:
+- Home page
+- Gallery page
+- Checkout page
+
+The following checks were carried out:
+- content remained within the viewport
+- buttons stayed visible and usable
+- text remained readable without layout breakage
+- key page sections stacked correctly
+- no unwanted horizontal scrolling was observed
+- form fields and checkout controls remained accessible on smaller screens
+
+**Result:**  
+Passed. The tested pages remained usable and visually stable on mobile screen sizes.
+
+<details>
+<summary>View mobile responsiveness screenshots</summary>
+
+**Home page on mobile**
+
+![Home page mobile responsiveness](assets/testing/responsiveness/responsive-home-mobile.png)
+
+**Gallery page on mobile**
+
+![Gallery page mobile responsiveness](assets/testing/responsiveness/responsive-gallery-mobile.png)
+
+**Checkout page on mobile**
+
+![Checkout page mobile responsiveness](assets/testing/responsiveness/responsive-checkout-mobile.png)
+
+</details>
+
+---
+
+### Tablet Responsiveness
+
+Tablet responsiveness was tested using an **iPad Pro** viewport in portrait orientation.
+
+The Gallery page was reviewed on tablet because it provides a clear view of multi-column layout behaviour, card spacing, button placement, and responsive grid behaviour.
+
+The following checks were carried out:
+- product cards aligned correctly
+- grid layout adapted cleanly to tablet width
+- spacing remained consistent
+- buttons remained usable
+- no overflow or layout breakage was observed
+
+**Result:**  
+Passed. The tested tablet layout remained stable and visually consistent.
+
+<details>
+<summary>View tablet responsiveness screenshot</summary>
+
+![Gallery page tablet responsiveness](assets/testing/responsiveness/responsive-gallery-tablet.png)
+
+</details>
+
+---
+
+### Desktop Responsiveness
+
+Desktop responsiveness was tested using a standard large desktop browser width.
+
+The Home page was reviewed on desktop to confirm that the hero layout, header navigation, section spacing, and main content blocks scaled correctly at larger viewport sizes.
+
+The following checks were carried out:
+- navigation remained properly aligned
+- hero content scaled correctly
+- call-to-action buttons remained clear and usable
+- content spacing remained balanced
+- no visible overflow or layout issues were observed
+
+**Result:**  
+Passed. The desktop layout remained stable and visually appropriate at large screen widths.
+
+<details>
+<summary>View desktop responsiveness screenshot</summary>
+
+![Home page desktop responsiveness](assets/testing/responsiveness/responsive-home-desktop.png)
+
+</details>
+
+---
+
+### Responsiveness Summary
+
+Manual responsiveness testing confirmed that the project's key layouts adapted successfully across mobile, tablet, and desktop viewport sizes.
+
+The tested pages remained readable, usable, and visually stable across the reviewed screen sizes. Navigation, content blocks, product cards, and checkout form elements all adjusted appropriately without visible layout breakage or unintended horizontal scrolling.
+
+---
+
+### Cross-Browser Testing
+
+Cross-browser testing was carried out manually on the deployed Heroku version of the application.
+
+The purpose of this testing was to confirm that the main public-facing layouts, navigation elements, content sections, and forms rendered consistently across modern desktop browsers.
+
+The following browsers were tested:
+- Google Chrome
+- Safari
+- Mozilla Firefox
+
+The following representative pages were reviewed in each browser:
+- Home page
+- Gallery page
+- Contact page
+
+These pages were selected because they represent the main layout patterns used throughout the project:
+- a hero-based landing page
+- a product grid/listing layout
+- a form-based content page
+
+The following checks were carried out across the tested browsers:
+- layout consistency
+- navigation display and usability
+- image rendering
+- typography and spacing
+- button and link visibility
+- form layout and usability
+- absence of visible layout breakage or overflow issues
+
+**Result:**  
+Passed. The tested pages rendered correctly and remained usable across Chrome, Safari, and Firefox, with no significant browser-specific layout or functionality issues observed.
+
+<details>
+<summary>View cross-browser testing screenshots</summary>
+
+**Chrome — Home page**
+
+![Chrome Home page cross-browser testing](assets/testing/cross-browser/chrome-home.png)
+
+**Chrome — Gallery page**
+
+![Chrome Gallery page cross-browser testing](assets/testing/cross-browser/chrome-gallery.png)
+
+**Chrome — Contact page**
+
+![Chrome Contact page cross-browser testing](assets/testing/cross-browser/chrome-contact.png)
+
+**Safari — Home page**
+
+![Safari Home page cross-browser testing](assets/testing/cross-browser/safari-home.png)
+
+**Safari — Gallery page**
+
+![Safari Gallery page cross-browser testing](assets/testing/cross-browser/safari-gallery.png)
+
+**Safari — Contact page**
+
+![Safari Contact page cross-browser testing](assets/testing/cross-browser/safari-contact.png)
+
+**Firefox — Home page**
+
+![Firefox Home page cross-browser testing](assets/testing/cross-browser/firefox-home.png)
+
+**Firefox — Gallery page**
+
+![Firefox Gallery page cross-browser testing](assets/testing/cross-browser/firefox-gallery.png)
+
+**Firefox — Contact page**
+
+![Firefox Contact page cross-browser testing](assets/testing/cross-browser/firefox-contact.png)
+
+</details>
+
+### Cross-Browser Testing Summary
+
+Manual cross-browser testing confirmed that the project's core public pages rendered consistently across Chrome, Safari, and Firefox. Navigation, product listing layout, imagery, text presentation, and contact form layout all remained stable and usable in the tested browsers.
