@@ -1446,3 +1446,207 @@ Accessibility and SEO results were consistently strong across the tested pages, 
 </details>
 
 ---
+
+## Bugs Found and Fixes
+
+A number of real issues were identified during testing and were corrected during the improvement phase of the project. These issues were found through manual testing, automated testing, validation, and Lighthouse analysis.
+
+### 1. Newsletter signup 500 error
+
+During earlier live testing on the deployed Heroku site, the newsletter signup flow produced a server error instead of handling submissions correctly.
+
+**Issue:**  
+Submitting the newsletter form caused a `500 Internal Server Error`.
+
+**Fix:**  
+The newsletter logic was corrected so that valid subscriptions were processed correctly and duplicate subscriptions were handled gracefully without crashing.
+
+**Outcome:**  
+The newsletter form now works correctly, valid signups are accepted, and duplicate email attempts return user-friendly feedback instead of a server error.
+
+---
+
+### 2. Duplicate newsletter signup handling
+
+During manual live testing, it was confirmed that duplicate newsletter subscriptions needed better handling.
+
+**Issue:**  
+Submitting an already subscribed email address needed to be handled safely and clearly.
+
+**Fix:**  
+Duplicate email handling was improved so that the form responds with clear feedback instead of failing or producing confusing behaviour.
+
+**Outcome:**  
+Duplicate subscriptions are now handled correctly and do not produce application errors.
+
+---
+
+### 3. Missing profile delete confirmation template
+
+During automated testing of the profiles app, a failure was identified in the delete profile flow.
+
+**Issue:**  
+The delete profile page initially raised a `TemplateDoesNotExist` error because `profiles/delete_confirm.html` was missing.
+
+**Fix:**  
+The missing template was created so that the delete profile confirmation view could render correctly.
+
+**Outcome:**  
+The profiles delete confirmation flow now works correctly, and the related automated tests passed successfully after the fix.
+
+---
+
+### 4. Unordered sitemap queryset warning
+
+During automated testing and project-level route testing, a sitemap-related warning was identified.
+
+**Issue:**  
+The sitemap used an unordered product queryset, which triggered an `UnorderedObjectListWarning`.
+
+**Fix:**  
+The sitemap queryset was updated to use explicit ordering with `order_by("pk")`.
+
+**Outcome:**  
+The warning was resolved and the sitemap behaviour became deterministic and cleaner.
+
+---
+
+### 5. Sitemap URL generation improvement
+
+As part of SEO and technical review, the sitemap implementation was improved.
+
+**Issue:**  
+Sitemap product URLs needed to be generated more robustly and consistently.
+
+**Fix:**  
+The product sitemap implementation was updated to use `reverse()` for product URLs.
+
+**Outcome:**  
+Sitemap link generation became cleaner and more reliable.
+
+---
+
+### 6. Canonical link implementation
+
+During SEO review, the project needed a clearer canonical URL strategy.
+
+**Issue:**  
+Canonical URLs were not consistently implemented across the site.
+
+**Fix:**  
+A canonical link tag was added globally in `base.html`.
+
+**Outcome:**  
+Pages now expose a canonical URL consistently, improving SEO structure.
+
+---
+
+### 7. Product detail heading hierarchy issue
+
+During HTML validation, the product detail page returned a heading structure issue.
+
+**Issue:**  
+The `Reviews` heading used an `h3` directly after the page `h1`, which caused a skipped heading-level validation issue.
+
+**Fix:**  
+The heading was updated from `h3` to `h2` to correct the document hierarchy.
+
+**Outcome:**  
+The page then passed HTML validation successfully.
+
+---
+
+### 8. Sign up help text HTML validation issue
+
+During HTML validation of the sign up page, invalid nesting was detected.
+
+**Issue:**  
+A `ul` element appeared inside a `small` element in the help text output, which caused HTML validation to fail.
+
+**Fix:**  
+The help text wrapper was changed to a block-level container instead.
+
+**Outcome:**  
+The sign up page then passed HTML validation successfully.
+
+---
+
+### 9. Home page HTML validation issues
+
+During HTML validation of the Home page, markup problems were identified.
+
+**Issue:**  
+The page initially included invalid ARIA usage and a void element formatting issue in the newsletter input markup.
+
+**Fix:**  
+The relevant template markup was corrected.
+
+**Outcome:**  
+The Home page passed HTML validation successfully after the fixes.
+
+---
+
+### 10. CSS syntax error in `base.css`
+
+During CSS validation, a syntax issue was found in the main shared stylesheet.
+
+**Issue:**  
+A decimal value was written incorrectly as `margin-top: 1,5rem;` instead of `margin-top: 1.5rem;`.
+
+**Fix:**  
+The value was corrected to use a period.
+
+**Outcome:**  
+`base.css` then passed CSS validation successfully.
+
+---
+
+### 11. JavaScript validation warnings in `base.js`
+
+During JSHint validation, structural warnings were reported in the main custom JavaScript file.
+
+**Issue:**  
+Some function declarations appeared inside blocks, which triggered JSHint warnings.
+
+**Fix:**  
+Those declarations were refactored into function expressions.
+
+**Outcome:**  
+`base.js` then passed JSHint validation successfully.
+
+---
+
+### 12. Lighthouse `NO_LCP` issue on multiple pages
+
+During Lighthouse testing, a major performance issue was identified across several public-facing pages.
+
+**Issue:**  
+Lighthouse failed with a `NO_LCP` result on pages such as Home, About, Contact, and Product Detail.
+
+**Investigation:**  
+The problem was diagnosed step by step through local and live testing. The issue was eventually traced to the reusable `product_teaser_strip` section, which had been included across multiple templates.
+
+**Fix:**  
+The `product_teaser_strip` section was removed from the affected pages.
+
+**Outcome:**  
+After removing that section, Lighthouse completed successfully and strong final scores were achieved across the tested pages.
+
+---
+
+## Final Testing Summary
+
+Testing for the Fotolio project was carried out using a combination of manual testing, automated testing, payment testing, validation tools, accessibility checks, responsiveness review, cross-browser review, and Lighthouse auditing.
+
+The completed testing process confirmed that:
+
+- the main public-facing pages load correctly and behave as expected
+- product browsing, product detail views, search, authentication, cart, checkout, profile, and order history flows work correctly
+- invalid and edge-case behaviour is handled appropriately
+- Stripe payments work correctly in test mode, including successful payments, declined payments, and empty-cart protection
+- the project passed a full automated Django test suite with **178 passing tests**
+- Python, HTML, CSS, and JavaScript validation checks were completed successfully after the relevant fixes were applied
+- keyboard accessibility, visible focus states, responsiveness, and cross-browser rendering were verified manually
+- Lighthouse testing on the deployed site produced strong final results after resolving the earlier `NO_LCP` issue
+
+Overall, the testing phase provided strong evidence that the application is stable, functional, and suitable for submission. Real issues were identified during testing and were addressed through targeted fixes, improving the robustness and quality of the final deployed project.
